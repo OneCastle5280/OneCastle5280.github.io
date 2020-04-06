@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="哈夫曼树," />
 
 
 
@@ -86,14 +86,19 @@
 
 
 
-<meta name="description" content="One Castle的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="One Castle">
-<meta property="og:url" content="http://onecastle5280.com/index.html">
+<meta name="description" content="哈夫曼树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="哈夫曼树">
+<meta property="og:url" content="http://onecastle5280.com/2020/04/06/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/index.html">
 <meta property="og:site_name" content="One Castle">
-<meta property="og:description" content="One Castle的个人博客">
+<meta property="og:description" content="哈夫曼树">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191109155527310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L09uZV9jYXN0bGU=,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-04-06T12:48:05.000Z">
+<meta property="article:modified_time" content="2020-04-06T13:05:40.072Z">
 <meta property="article:author" content="One Castle">
+<meta property="article:tag" content="哈夫曼树">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191109155527310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L09uZV9jYXN0bGU=,size_16,color_FFFFFF,t_70">
 
 
 
@@ -123,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://OneCastle5280.com/"/>
+  <link rel="canonical" href="http://OneCastle5280.com/2020/04/06/哈夫曼树/"/>
 
 
 
 
 
-  <title>One Castle</title>
+  <title>哈夫曼树 | One Castle</title>
   
 
 
@@ -147,8 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,9 +279,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -307,9 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/06/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/" itemprop="url">哈夫曼树</a></h1>
+          <h1 class="post-title" itemprop="name headline">哈夫曼树</h1>
         
 
         <div class="post-meta">
@@ -363,6 +365,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
 
           
             <div class="post-wordcount">
@@ -412,16 +419,35 @@
       
 
       
-        
-          <h4 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h4>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/06/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h4 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h4><a id="more"></a>
+
+<p><strong>带权路径长度:</strong> 设二叉树有n个带权值的叶子结点，从根节点到各个叶子结点的路径长度与相应叶子结点权值的<strong>乘积之和</strong>叫做二叉树的带权路径长度。</p>
+<p><strong>哈夫曼树的定义：带权路径长度最小的二叉树（也称最优二叉树）</strong></p>
+<p><strong>哈夫曼树的构建思路：</strong></p>
+<ul>
+<li>1、以权值分别为W1,W2．．．Ｗｎ的ｎ各结点，构成n棵二叉树T1,T2,．．．Tn并组成森林 S={T1,T2,．．．Tn},其中每棵二叉树 Ti仅有一个权值为 Wi的根结点；</li>
+<li>2、在S中选取两颗权值最小的树min_1,min_2，将他们的权值相加，生成一个新的树（权值为刚才的min_1,min_2的权值之和），<strong>然后将新的这棵树放回到S中去，将刚才那两颗树min_1和min_2删掉。</strong></li>
+<li>3、<strong>重复</strong>2、3操作，知道S只剩下一棵树为止。这棵树即<strong>哈夫曼树。</strong></li>
+</ul>
+<p><strong>代码实现：用顺序存储结构比较简单，</strong><br>先分析一下，原本有n个树，最后只剩下一颗，也就是进行了n-1次合并操作，新生成了n-1个节点，也就是我们的存储空间<strong>至少</strong>2*n-1个来存储</p>
+<p><strong>哈夫曼树的抽象类型定义：</strong><br><strong>为了判断树节点是否在哈夫曼树中</strong>，我们用parents来辨别，初始化全为-1，当该节点插入到哈夫曼树中的时候，parents的值为该节点的双亲节点在数组的下标。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class HaFuman &#123;</span><br><span class="line">public:</span><br><span class="line">	int weight;&#x2F;&#x2F;权重</span><br><span class="line">	int parents;&#x2F;&#x2F;树的双亲节点</span><br><span class="line">	int lchird;</span><br><span class="line">	int rchild;</span><br><span class="line">	HaFuman() &#123;&#x2F;&#x2F;初始化全部为0</span><br><span class="line">		this-&gt;parents &#x3D; -1;</span><br><span class="line">		this-&gt;lchird &#x3D; -1;</span><br><span class="line">		this-&gt;rchild &#x3D; -1;</span><br><span class="line">	&#125;</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="具体代码实现思路："><a href="#具体代码实现思路：" class="headerlink" title="具体代码实现思路："></a>具体代码实现思路：</h4><p><img src="https://img-blog.csdnimg.cn/20191109155527310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L09uZV9jYXN0bGU=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>1、首先创建一个空间长度为2n-1的数组hafuman，然后先将给定的n个带权值的叶子节点放到数组中。</li>
+<li>2、从hafuman树中挑选两个权值最小的两棵树，返回其在数组中的下标 min_1,min_2。然后将这两颗树组成一颗新的树节点放到n+1，然后将最小的两棵树的双亲设置为n+1，新的树节点的左右孩子设置为min_1,min_2。</li>
+<li>3、循环操作2、知道处理到最后一个树即新生成的树放到下标为2n-1时停止，此时剩下一颗树的双亲为-1,这棵树即哈夫曼树。</li>
+</ul>
+<p><strong>创建哈夫曼树函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">void creathaFuMan(HaFuman* hafuman,int n,int a[]) &#123;</span><br><span class="line">	for (int i &#x3D; 0; i &lt;&#x3D; 2*n-1; i++) &#123;</span><br><span class="line">		&#x2F;&#x2F;构造只有根节点的哈夫曼树</span><br><span class="line">		hafuman[i].weight &#x3D; a[i];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;进行n-1次的合并</span><br><span class="line">	for (int i &#x3D; n; i &lt; 2*n - 1; i++) &#123;&#x2F;&#x2F;n-1次的合并操作</span><br><span class="line">		int min_1 &#x3D; 0;</span><br><span class="line">		int min_2 &#x3D; 0;</span><br><span class="line">		selectMin_2(hafuman, i, min_1, min_2);&#x2F;&#x2F;此时min_1为最小权重的森林的节点，min_2为次小</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;找到最小的两个节点之后，我们需要将这两个位置的权重相加</span><br><span class="line">		hafuman[i].weight &#x3D; hafuman[min_1].weight + hafuman[min_2].weight;</span><br><span class="line"></span><br><span class="line">		hafuman[i].lchird &#x3D; min_1;</span><br><span class="line">		hafuman[i].rchild &#x3D; min_2;</span><br><span class="line"></span><br><span class="line">		hafuman[min_1].parents &#x3D; i;</span><br><span class="line">		hafuman[min_2].parents &#x3D; i;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>其中selectMin_2（）函数就是取两个最小权值的树的下标，实现如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">void selectMin_2(HaFuman* hafuman, int n, int &amp;min_1, int &amp;min_2) &#123;</span><br><span class="line"></span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		if (hafuman[i].parents &#x3D;&#x3D; -1) &#123; &#x2F;&#x2F;先找那些还没有归为一颗树的节点</span><br><span class="line">			min_1 &#x3D; i;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		if (hafuman[i].parents &#x3D;&#x3D; -1 &amp;&amp; hafuman[i].weight &lt; hafuman[min_1].weight) &#123;</span><br><span class="line">			min_1 &#x3D; i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		if (hafuman[i].parents &#x3D;&#x3D; -1 &amp;&amp; i !&#x3D; min_1) &#123;</span><br><span class="line">			min_2 &#x3D; i;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		if (hafuman[i].parents &#x3D;&#x3D; -1 &amp;&amp; hafuman[min_2].weight &gt;</span><br><span class="line">			hafuman[i].weight &amp;&amp; i !&#x3D; min_1) &#123;</span><br><span class="line">			min_2 &#x3D; i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>遍历函数：</strong><br><strong>遍历的时候需要借助一下头文件&lt;iomanip&gt;</strong><br>这个头文件声明了一些常用的流操作，例如 <strong>left</strong>向左对齐，例如<strong>right</strong>向右对齐，还有setw(）是设置宽度的.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void printHaFuMan(HaFuman* hafuman, int n) &#123;</span><br><span class="line">	cout &lt;&lt; &quot;index weight parents lchild rchild&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; left;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; 2 * n - 1; i++) &#123;</span><br><span class="line">		cout &lt;&lt; setw(6) &lt;&lt; i &lt;&lt; &quot; &quot;;</span><br><span class="line">		cout  &lt;&lt;setw(6) &lt;&lt; hafuman[i].weight &lt;&lt; &quot; &quot;;</span><br><span class="line">		cout &lt;&lt; setw(6) &lt;&lt; hafuman[i].parents &lt;&lt; &quot; &quot;;</span><br><span class="line">		cout &lt;&lt; setw(6) &lt;&lt; hafuman[i].lchird &lt;&lt; &quot; &quot;;</span><br><span class="line">		cout &lt;&lt; setw(6) &lt;&lt; hafuman[i].rchild &lt;&lt; &quot; &quot;&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>最后是main函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&quot;HaFuMan.h&quot;</span><br><span class="line">using namespace std;</span><br><span class="line">int main() &#123;</span><br><span class="line"></span><br><span class="line">	int n;</span><br><span class="line">	cout &lt;&lt; &quot;叶子个数&quot; &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line"></span><br><span class="line">	int a[8] &#x3D; &#123;1,1,2,3,4,5,4,3&#125;;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;申请一个长度为2n的哈夫曼结构数组</span><br><span class="line">	HaFuman* hafuman &#x3D; new HaFuman[2*n-1];</span><br><span class="line">	</span><br><span class="line">	creathaFuMan(hafuman, n, a);</span><br><span class="line">	printHaFuMan(hafuman, n);</span><br><span class="line"></span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="完整代码如下"><a href="#完整代码如下" class="headerlink" title="完整代码如下"></a>完整代码如下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;HaFuMan.h</span><br><span class="line">&#x2F;&#x2F;哈夫曼树的结构</span><br><span class="line">class HaFuman &#123;</span><br><span class="line">public:</span><br><span class="line">	int weight;&#x2F;&#x2F;权重</span><br><span class="line">	int parents;&#x2F;&#x2F;树的双亲节点</span><br><span class="line">	int lchird;</span><br><span class="line">	int rchild;</span><br><span class="line">	HaFuman() &#123;&#x2F;&#x2F;初始化全部为0</span><br><span class="line">		this-&gt;parents &#x3D; -1;</span><br><span class="line">		this-&gt;lchird &#x3D; -1;</span><br><span class="line">		this-&gt;rchild &#x3D; -1;</span><br><span class="line">	&#125;</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;找到最小权重的两个下标</span><br><span class="line">void selectMin_2(HaFuman* hafuman, int n, int &amp;min_1, int &amp;min_2) &#123;</span><br><span class="line"></span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line"></span><br><span class="line">		if (hafuman[i].parents &#x3D;&#x3D; -1) &#123; &#x2F;&#x2F;先找那些还没有归为一颗树的节点</span><br><span class="line">			min_1 &#x3D; i;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		if (hafuman[i].parents &#x3D;&#x3D; -1 &amp;&amp; hafuman[i].weight &lt; hafuman[min_1].weight) &#123;</span><br><span class="line">			min_1 &#x3D; i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		if (hafuman[i].parents &#x3D;&#x3D; -1 &amp;&amp; i !&#x3D; min_1) &#123;</span><br><span class="line">			min_2 &#x3D; i;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">		if (hafuman[i].parents &#x3D;&#x3D; -1 &amp;&amp; hafuman[min_2].weight &gt;</span><br><span class="line">			hafuman[i].weight &amp;&amp; i !&#x3D; min_1) &#123;</span><br><span class="line">			min_2 &#x3D; i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;哈夫曼树的构建</span><br><span class="line">void creathaFuMan(HaFuman* hafuman,int n,int a[]) &#123;</span><br><span class="line">	for (int i &#x3D; 0; i &lt;&#x3D; 2*n-1; i++) &#123;</span><br><span class="line">		&#x2F;&#x2F;构造只有根节点的哈夫曼树</span><br><span class="line">		hafuman[i].weight &#x3D; a[i];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;进行n-1次的合并</span><br><span class="line">	for (int i &#x3D; n; i &lt; 2*n - 1; i++) &#123;&#x2F;&#x2F;n-1次的合并操作</span><br><span class="line">		int min_1 &#x3D; 0;</span><br><span class="line">		int min_2 &#x3D; 0;</span><br><span class="line">		selectMin_2(hafuman, i, min_1, min_2);&#x2F;&#x2F;此时min_1为最小权重的森林的节点，min_2为次小</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;找到最小的两个节点之后，我们需要将这两个位置的权重相加</span><br><span class="line">		hafuman[i].weight &#x3D; hafuman[min_1].weight + hafuman[min_2].weight;</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;我们对左右孩子的大小进行限制一下：权值比较小的在左边，大的在右边，相等的话，由于找的时候是按顺序找的，所以真实叶子也为min_1</span><br><span class="line">		if (min_1 &lt;&#x3D; min_2) &#123;</span><br><span class="line">			hafuman[i].lchild &#x3D; min_1;</span><br><span class="line">			hafuman[i].rchild &#x3D; min_2;</span><br><span class="line">		&#125;</span><br><span class="line">		else&#123;</span><br><span class="line">			hafuman[i].lchild &#x3D; min_2;</span><br><span class="line">			hafuman[i].rchild &#x3D; min_1;</span><br><span class="line">		&#125;</span><br><span class="line">		hafuman[min_1].parents &#x3D; i;</span><br><span class="line">		hafuman[min_2].parents &#x3D; i;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;输出构建的哈夫曼树</span><br><span class="line">void printHaFuMan(HaFuman* hafuman, int n) &#123;</span><br><span class="line">	cout &lt;&lt; &quot;index weight parents lchild rchild&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; left;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; 2 * n - 1; i++) &#123;</span><br><span class="line">		cout &lt;&lt; setw(6) &lt;&lt; i &lt;&lt; &quot; &quot;;</span><br><span class="line">		cout  &lt;&lt;setw(6) &lt;&lt; hafuman[i].weight &lt;&lt; &quot; &quot;;</span><br><span class="line">		cout &lt;&lt; setw(6) &lt;&lt; hafuman[i].parents &lt;&lt; &quot; &quot;;</span><br><span class="line">		cout &lt;&lt; setw(6) &lt;&lt; hafuman[i].lchird &lt;&lt; &quot; &quot;;</span><br><span class="line">		cout &lt;&lt; setw(6) &lt;&lt; hafuman[i].rchild &lt;&lt; &quot; &quot;&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&quot;HaFuMan.h&quot;</span><br><span class="line">using namespace std;</span><br><span class="line">int main() &#123;</span><br><span class="line"></span><br><span class="line">	int n;</span><br><span class="line">	cout &lt;&lt; &quot;叶子个数&quot; &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line"></span><br><span class="line">	int a[8] &#x3D; &#123;1,1,2,3,4,5,4,3&#125;;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;申请一个长度为2n的哈夫曼结构数组</span><br><span class="line">	HaFuman* hafuman &#x3D; new HaFuman[2*n-1];</span><br><span class="line">	</span><br><span class="line">	creathaFuMan(hafuman, n, a);</span><br><span class="line">	printHaFuMan(hafuman, n);</span><br><span class="line"></span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -436,191 +462,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://OneCastle5280.com/2020/04/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="One Castle">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="One Castle">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/" itemprop="url">我的第一篇文章</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-06T16:30:25+08:00">
-                2020-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/" rel="tag"># 哈夫曼树</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  165
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h3 id="我的个人博客终于建立好啦！"><a href="#我的个人博客终于建立好啦！" class="headerlink" title="我的个人博客终于建立好啦！"></a>我的个人博客终于建立好啦！</h3><hr>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/" rel="next" title="我的第一篇文章">
+                <i class="fa fa-chevron-left"></i> 我的第一篇文章
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -630,10 +501,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -641,6 +513,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -661,8 +537,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -762,6 +647,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#哈夫曼树"><span class="nav-number">1.</span> <span class="nav-text">哈夫曼树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体代码实现思路："><span class="nav-number">2.</span> <span class="nav-text">具体代码实现思路：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整代码如下"><span class="nav-number">3.</span> <span class="nav-text">完整代码如下</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -930,6 +831,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
