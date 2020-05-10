@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-simple.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="sql,数据库原理," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="sql命令总结了sql语句的数据定义、查询、更新、删除和视图相关的详细知识点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql命令总结">
+<meta property="og:url" content="http://onecastle5280.com/2020/05/10/sql%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="One Castle">
+<meta property="og:description" content="sql命令总结了sql语句的数据定义、查询、更新、删除和视图相关的详细知识点。">
+<meta property="article:published_time" content="2020-05-10T02:36:02.000Z">
+<meta property="article:modified_time" content="2020-05-10T03:15:00.301Z">
+<meta property="article:author" content="One Castle">
+<meta property="article:tag" content="sql">
+<meta property="article:tag" content="数据库原理">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://OneCastle5280.com/2020/05/10/sql命令总结/"/>
+
+
+
+
+
+  <title>sql命令总结 | One Castle</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">One Castle</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://OneCastle5280.com/2020/05/10/sql%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="One Castle">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="One Castle">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sql命令总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-10T10:36:02+08:00">
+                2020-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量数 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="sql命令"><a href="#sql命令" class="headerlink" title="sql命令"></a>sql命令</h2><p>总结了sql语句的数据定义、查询、更新、删除和视图相关的详细知识点。</p>
+<a id="more"></a>
+
+<h2 id="1、数据定义"><a href="#1、数据定义" class="headerlink" title="1、数据定义"></a>1、数据定义</h2><h4 id="1-1-模式"><a href="#1-1-模式" class="headerlink" title="1.1 模式"></a>1.1 模式</h4><h5 id="1-11-创建模式"><a href="#1-11-创建模式" class="headerlink" title="1,11 创建模式"></a>1,11 <strong>创建模式</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE SCHEMA 模式名 AUTHORIZATION 用户名</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-12-删除模式"><a href="#1-12-删除模式" class="headerlink" title="1.12 删除模式"></a>1.12 <strong>删除模式</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP SCHEMA 模式名 &lt;CASCADE|RESTRICT&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CASCADE(级联)<ul>
+<li>删除模式的同时把模式中所有的数据库对象全部删除</li>
+</ul>
+</li>
+<li>RESTRICT(限制)<ul>
+<li>如果该模式中定义了下属的数据库对象（比如：表，视图等），那么就会拒绝该删除语句的执行</li>
+<li>仅当该模式中没有任何下属的对象时才能执行</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-基本表"><a href="#1-2-基本表" class="headerlink" title="1.2 基本表"></a>1.2 基本表</h4><h5 id="1-2-1-创建基本表"><a href="#1-2-1-创建基本表" class="headerlink" title="1.2.1 创建基本表"></a>1.2.1 <strong>创建基本表</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 表名 （列名 数据类型 列级完整性约束条件，列名 数据类型 列级完整性约束条件...）</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-2-常用的数据类型"><a href="#1-2-2-常用的数据类型" class="headerlink" title="1.2.2 常用的数据类型"></a>1.2.2 常用的数据类型</h5><ul>
+<li>1、char(n)、character(n) 长度为n的定长字符串</li>
+<li>2、varchar(n),charactervarying(n) 最大长度为n的变长字符串</li>
+<li>3、CLOB 字符串打对象</li>
+<li>4、BLOB 二进制大对象</li>
+<li>5、INT,INTEGER 长整型</li>
+<li>6、SMALLINT 短整型</li>
+<li>7、BIGINT 大整型</li>
+<li>8、<strong>NUMERIC(p,d) 定点数（由p位数字（不包括符号、小数点）组成，小数后面有d位数字）</strong></li>
+<li>9、DECIMAL(p,d),DEC(p,d) 同NUMERIC</li>
+<li>10、REAL 取决于机器精度的单精度浮点数</li>
+<li>11、DOUBLE PRECISION 取决于机器精度的双精度浮点数</li>
+<li>12、FLOAT(N) 可以选精度的浮点数，精度至少为N位数字</li>
+<li>13、BOOLEAN 逻辑布尔值</li>
+<li>14、DATE 日期，包括年月日 格式为 yyyy-mm-dd</li>
+<li>15、TIME 时间 包括一日的时分秒，格式为hh:mm:ss</li>
+<li>16、TIMESTAMP 时间戳类型</li>
+<li>17、INTERVAL 时间间隔类型</li>
+</ul>
+<h5 id="1-2-3-常见的用户自定义完整性约束-主键、取值唯一、外键"><a href="#1-2-3-常见的用户自定义完整性约束-主键、取值唯一、外键" class="headerlink" title="1.2.3 常见的用户自定义完整性约束(主键、取值唯一、外键)"></a>1.2.3 常见的用户自定义完整性约束(主键、取值唯一、外键)</h5><ul>
+<li>PRIMARY KEY列级完整性的约束条件，即确定主键<ul>
+<li>主键可以使外键 即 PRIMARY KEY(列名1，列名2..) <strong>需要对列名1，列名2进行定义声明，即如下：</strong></li>
+</ul>
+</li>
+<li>FOREIGN KEY (列名) REFERENCES 表名（列名）<ul>
+<li><strong>eg</strong> : FOREIGN KEY (Sno) REFERENCES Student(Sno)</li>
+</ul>
+</li>
+<li>UNIQUE 即该列取值唯一，不允许重复</li>
+</ul>
+<h5 id="1-2-4-基本表增加字段（增加列名）"><a href="#1-2-4-基本表增加字段（增加列名）" class="headerlink" title="1.2.4 基本表增加字段（增加列名）"></a>1.2.4 <strong>基本表增加字段</strong>（增加列名）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table 表名 **add** 字段名 类型 其他；</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>eg : 给student添加一个字段为test，类型为int(4)，默认值为空格</li>
+<li>alter table student add test int(4) default ‘ ‘</li>
+</ul>
+<h5 id="1-2-5-删除表中的列"><a href="#1-2-5-删除表中的列" class="headerlink" title="1.2.5 删除表中的列"></a>1.2.5 <strong>删除表中的列</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop column 字段名 [CASCADE&#x2F;RESTRICT]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CASCADE <strong>自动删除引用了该列的其他对象</strong></li>
+<li>RESTRICT <strong>如果该列被其他对象引用，那么DBMS就会拒绝删除该列</strong></li>
+</ul>
+<h5 id="1-2-6删除指定的完整性约束条件"><a href="#1-2-6删除指定的完整性约束条件" class="headerlink" title="1.2.6删除指定的完整性约束条件"></a>1.2.6<strong>删除指定的完整性约束条件</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP CONSTRAINT</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-7修改原有的列定义-修改列名和修改类型"><a href="#1-2-7修改原有的列定义-修改列名和修改类型" class="headerlink" title="1.2.7修改原有的列定义(修改列名和修改类型)"></a>1.2.7<strong>修改原有的列定义(修改列名和修改类型)</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table 表名 alter column</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>eg:将student表中的年龄的数据类型由字符型（假设原来的数据类型是字符型）改为整数</li>
+<li>alter table Student alter column Sage INT</li>
+</ul>
+<h4 id="1-3-模式与表"><a href="#1-3-模式与表" class="headerlink" title="1.3 模式与表"></a>1.3 模式与表</h4><h5 id="1-3-1-模式与表的关系"><a href="#1-3-1-模式与表的关系" class="headerlink" title="1.3.1 模式与表的关系"></a>1.3.1 模式与表的关系</h5><ul>
+<li>每一个基本表都属于某一个模式</li>
+<li>一个模式包含多个基本表</li>
+</ul>
+<h5 id="1-3-2-定义基本表所属模式"><a href="#1-3-2-定义基本表所属模式" class="headerlink" title="1.3.2 定义基本表所属模式"></a>1.3.2 定义基本表所属模式</h5><ul>
+<li><p>一、在表名中明显地给出模式名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Create table &quot;S-T&quot;.Studnet(....);&#x2F;&#x2F;模式名为S-T</span><br><span class="line">Create table &quot;S-T&quot;.Course</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二、在创建模式语句中同时创建表</p>
+</li>
+<li><p>三、设置所属的模式</p>
+</li>
+<li><p>关系数据库管理系统会<strong>使用模式列表中第一个存在的模式</strong>作为数据库对象的模式名</p>
+</li>
+</ul>
+<h4 id="1-4-索引"><a href="#1-4-索引" class="headerlink" title="1.4 索引"></a>1.4 索引</h4><h5 id="1-4-1-索引的作用"><a href="#1-4-1-索引的作用" class="headerlink" title="1.4.1 索引的作用"></a>1.4.1 索引的作用</h5><p> <strong>索引建立的目的：</strong> 加快查询速度</p>
+<h5 id="1-4-2-索引的建立"><a href="#1-4-2-索引的建立" class="headerlink" title="1.4.2 索引的建立"></a>1.4.2 索引的建立</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create [UNIQUE] [CLUSTER] INDEX 索引名 ON 表名</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>eg：为学生-课程数据库中的student建立索引</li>
+</ul>
+<ul>
+<li>create UNIQUE INDEX Stusno ON Student(Sno)</li>
+</ul>
+<h5 id="1-4-3-索引的修改"><a href="#1-4-3-索引的修改" class="headerlink" title="1.4.3 索引的修改"></a>1.4.3 索引的修改</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter INDEX 旧索引名 RENAME TO 新索引名</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>eg :将sc表的SCno索引名改为SCSno</li>
+<li>alter index Sno rename to ScSno</li>
+</ul>
+<h5 id="1-4-4-索引的删除"><a href="#1-4-4-索引的删除" class="headerlink" title="1.4.4 索引的删除"></a>1.4.4 索引的删除</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX 索引名</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>删除索引时，系统会从数据字典中删去有关该索引的描述</strong></p>
+</li>
+<li><p>eg: 删除student表的stusname索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop INDEX Stusname</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="1-4-5-关系型数据库管理系统中常见索引"><a href="#1-4-5-关系型数据库管理系统中常见索引" class="headerlink" title="1.4.5 关系型数据库管理系统中常见索引"></a>1.4.5 关系型数据库管理系统中常见索引</h5><ul>
+<li><p>顺序文件上的索引</p>
+</li>
+<li><p>B+树索引</p>
+</li>
+<li><p>散列（hash）索引</p>
+</li>
+<li><p>位图索引</p>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>B+树索引具有动态平衡的优点</li>
+<li>HASH索引具有查找速度快的特点</li>
+</ul>
+</li>
+<li><p>谁建立索引？</p>
+<ul>
+<li>数据库管理员或表的属主<strong>可以建立索引</strong></li>
+</ul>
+</li>
+<li><p>谁维护索引？</p>
+<ul>
+<li>索引由关系型数据库系统自动完成维护工作</li>
+</ul>
+</li>
+<li><p>怎么使用索引？</p>
+<ul>
+<li>关系型数据库管理系统<strong>自动选择</strong>合适的索引作为存取路径，<strong>用户不必也不能显示地选择索引</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="1-5-数据字典"><a href="#1-5-数据字典" class="headerlink" title="1.5 数据字典"></a>1.5 数据字典</h4><h5 id="1-5-1-什么是数据字典"><a href="#1-5-1-什么是数据字典" class="headerlink" title="1.5.1 什么是数据字典"></a>1.5.1 什么是数据字典</h5><ul>
+<li><strong>数据字典是关系型数据库管理系统内部的一组系统表，</strong> 他记录了数据库中的所有<strong>定义信息</strong> <ul>
+<li>关系模式定义</li>
+<li>视图定义</li>
+<li>索引定义</li>
+<li>完整性约束定义</li>
+<li>各类用户对数据库的操作权限</li>
+<li>统计信息等</li>
+</ul>
+</li>
+<li>关系型数据库管理系统在执行sql的数据定义语句时，<strong>实际上</strong>就是在更新数据字典表中的响应信息</li>
+</ul>
+<h2 id="2、数据查询"><a href="#2、数据查询" class="headerlink" title="2、数据查询"></a>2、数据查询</h2><h3 id="2-1-查询语句"><a href="#2-1-查询语句" class="headerlink" title="2.1 查询语句"></a>2.1 查询语句</h3><ul>
+<li><p>select [all|distinct] 目标列表达式 </p>
+<p>from 表名或视图|select语句 </p>
+<p>[where 条件表达式]</p>
+<p>[group by 列名 having 条件表达式]</p>
+<p>[order by] 列名</p>
+</li>
+</ul>
+<h4 id="2-1-1-单表查询"><a href="#2-1-1-单表查询" class="headerlink" title="2.1.1 单表查询"></a><strong>2.1.1 单表查询</strong></h4><h5 id="2-1-11-选择表中若干列"><a href="#2-1-11-选择表中若干列" class="headerlink" title="2.1.11 选择表中若干列"></a>2.1.11 选择表中若干列</h5><ul>
+<li>查询指定列<ul>
+<li>select Sno,Sname from Student</li>
+</ul>
+</li>
+<li>查询所有列<ul>
+<li>select * from Student</li>
+</ul>
+</li>
+<li>查询经过计算的值<ul>
+<li>查询全体学生姓名以及出生年份</li>
+<li>select Sname, 2014-Sage from Student</li>
+</ul>
+</li>
+<li>使用列 <strong>别名</strong>改变查询结果的列标题<ul>
+<li><strong>通过使用as，可以省略不写</strong></li>
+<li>select * from 表名 as 别名</li>
+<li>eg： select Sname as Name from Student</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-1-12-选择表中的若干不重复元素"><a href="#2-1-12-选择表中的若干不重复元素" class="headerlink" title="2.1.12 选择表中的若干不重复元素"></a>2.1.12 选择表中的若干不重复元素</h5><ul>
+<li>查询没有重复元组的结果<ul>
+<li>消除取值重复的行 — 通过DISTINCT关键词，如果没有指定，则默认为ALL</li>
+<li>DISINCT关键词的作用是去掉重复的行<ul>
+<li>select DISTINCT Sno From SC；</li>
+<li>上述查询语句的作用是查询SC的学号，并且将学号重复的去掉进行显示结果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-1-13-查询满足条件的元组"><a href="#2-1-13-查询满足条件的元组" class="headerlink" title="2.1.13 查询满足条件的元组"></a>2.1.13 查询满足条件的元组</h5><ul>
+<li><p>比较关系 比较运算符 &gt; &lt; = &lt;&gt; NOT</p>
+<ul>
+<li><p>select Sname </p>
+<p>From Student </p>
+<p>where sage &lt; 20</p>
+</li>
+</ul>
+</li>
+<li><p>确定范围 BETWEEN AND，NOT BETWEEN AND</p>
+<ul>
+<li><p>查询年龄在20~30岁的姓名</p>
+</li>
+<li><p>select Sname </p>
+<p>from Student</p>
+<p>where Sage BETWEEN 20 AND 23</p>
+</li>
+</ul>
+</li>
+<li><p>确定集合 IN , NOT IN</p>
+<ul>
+<li><p>查询专业是CS MA和IS的学生的姓名</p>
+</li>
+<li><p>selcet Sname </p>
+<p>from Student</p>
+<p>where Sdept IN (‘CS’,’MA’,’IS’)</p>
+</li>
+</ul>
+</li>
+<li><p>字符匹配 LIKE , NOT LIKE </p>
+<ul>
+<li>用法：[NOT] LIKE 匹配串 [escape ‘&lt;换码字符&gt;’]</li>
+<li>匹配串可以完整的字符串，也可以含有通配符 % 和 _<ul>
+<li><strong>%代表任意长度（长度为0）的字符串</strong></li>
+<li>_(下划线) <strong>代表任意单个字符</strong></li>
+<li>比如：a_b表示以a开头，以b结尾的长度为3的任意字符串</li>
+<li>又比如：刘%表示以刘开头的任意长度的字符串</li>
+</ul>
+</li>
+<li>其中如果想要匹配的字符串中包含 _ 和 %，那应该怎么俩表示呢<ul>
+<li><strong>可以通过转义字符\来对_ 或者 % 进行转义，但是这个转义字符\需要通过escape来进行声明</strong></li>
+<li>比如想要查询以”DB_“开头的课程<em>：select Cname from Course where Cname LIKE ‘DB\</em>%i_’  escape ‘\’</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>空值 IS NULL, IS NOT NULL</p>
+<ul>
+<li><strong>IS不能用 = 代替</strong></li>
+<li>值为NULL 不能用比较符号（比如 = 、&lt;&gt;）来进行代替IS NULL表示</li>
+</ul>
+</li>
+<li><p>多重条件(逻辑运算) AND, OR </p>
+<ul>
+<li>AND 的优先级比 OR 高（<strong>可以通过括号来进行改变优先级</strong>） </li>
+</ul>
+</li>
+</ul>
+<h5 id="2-1-14-ORDER-BY子句"><a href="#2-1-14-ORDER-BY子句" class="headerlink" title="2.1.14 ORDER BY子句"></a>2.1.14 ORDER BY子句</h5><ul>
+<li><p>可以按照 <strong>一个或多个属性进行排序</strong></p>
+</li>
+<li><p><strong>DESC:降序</strong>  <strong>ASC：升序（为默认值）</strong></p>
+<ul>
+<li><p>例子：查询3号课程的学生的学号和成绩，查询结果按照分数降序排列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> Sno,Grade</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> SC</span><br><span class="line"></span><br><span class="line"><span class="keyword">where</span> Cno = <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> Grade <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询全体学生情况，查询结果按所在系的系号升序排列，同一系中的学生按年龄降序排序 （<strong>数据按照多个属性进行排序的情况</strong>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select *</span><br><span class="line">from Student</span><br><span class="line">order by Sdept ASC,Sage DESC;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-1-15-聚集函数"><a href="#2-1-15-聚集函数" class="headerlink" title="2.1.15 聚集函数"></a>2.1.15 聚集函数</h5><ul>
+<li><p>常见的聚集函数</p>
+<ol>
+<li>COUNT(*)  统计元组个数 </li>
+<li>COUNT(DISTINCT | ALL 列名)  统计一列中值的个数</li>
+<li>SUM(DISTINCT | ALL 列名)  计算一列值的总和（此列必须为数值型）</li>
+<li>AVG(DISTINCT | ALL 列名)  计算一列值的平均值（此列必须为数值型）</li>
+<li>MAX(DISTINCT | ALL 列名)  求此列中的最大值</li>
+<li>MIN(DISTINCT | ALL 列名)  求此列中的最小值</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">例如：查询学生总人数</span><br><span class="line">select COUNT(*)</span><br><span class="line">from Student</span><br><span class="line"></span><br><span class="line">查询选修了课程的学生人</span><br><span class="line">select COUNT(DISTINCT Sno)</span><br><span class="line">from SC</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-1-16-GROUP-BY子句"><a href="#2-1-16-GROUP-BY子句" class="headerlink" title="2.1.16 GROUP BY子句"></a>2.1.16 GROUP BY子句</h5><ul>
+<li><p><strong>group by子句和聚集函数的关系</strong></p>
+<ul>
+<li>如果没有对查询结果进行group by分组，那么聚集函数将作用域整个查询结果</li>
+<li>如果对查询结果分组之后，那么聚集函数将分别对每个组起作用</li>
+</ul>
+</li>
+<li><p><strong>此外，在使用了group by子句进行分组之后，不能使用where来进行条件限制，而要使用having进行代替</strong></p>
+<ul>
+<li>where 主要使用在基表或者视图</li>
+<li>having 主要使用来组</li>
+</ul>
+</li>
+<li><p>例如</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">求各个课程号以及相应的选课人数</span><br><span class="line"><span class="keyword">select</span> Cno，<span class="keyword">COUNT</span>(*)</span><br><span class="line"><span class="keyword">from</span> SC</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> Cno</span><br><span class="line"></span><br><span class="line">查询选修了<span class="number">3</span>门以上课程的学生</span><br><span class="line"><span class="keyword">select</span> Sno</span><br><span class="line"><span class="keyword">from</span> SC</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> Sno</span><br><span class="line"><span class="keyword">having</span> <span class="keyword">COUNT</span>(*)&gt;<span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：having中聚集函数是作用在每个组</strong> </p>
+</li>
+</ul>
+<h4 id="2-1-2-连接查询"><a href="#2-1-2-连接查询" class="headerlink" title="2.1.2 连接查询"></a>2.1.2 <strong>连接查询</strong></h4><h5 id="2-1-20-什么是连接查询？"><a href="#2-1-20-什么是连接查询？" class="headerlink" title="2.1.20 什么是连接查询？"></a>2.1.20 什么是连接查询？</h5><ul>
+<li><strong>连接查询：</strong> 同时涉及两个以上的表的查询。</li>
+<li><strong>连接条件或者连接谓词：</strong> 用来连接两个表的条件<ul>
+<li>一般格式为：<ol>
+<li>表名1.列名1  &lt;比较运算符&gt;  表名2.列名</li>
+<li>表名1.列名1 between 表名2.列名2 and 表名2.列名3</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>连接字段：</strong> 连接谓词中的列名称<ul>
+<li>链接条件中的各个连接字段类型必须是可比的，但名字不必相同</li>
+</ul>
+</li>
+<li>连接操作的执行过程<ol>
+<li>嵌套循环法</li>
+<li>排序合并法</li>
+<li>索引连接</li>
+</ol>
+</li>
+</ul>
+<h5 id="2-1-21-等值与非等值连接查询"><a href="#2-1-21-等值与非等值连接查询" class="headerlink" title="2.1.21 等值与非等值连接查询"></a>2.1.21 等值与非等值连接查询</h5><ul>
+<li><p>等值连接：连接运算符为 = </p>
+<ul>
+<li><p>比如：查询每个学生及其选课的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select Student.*,SC.*</span><br><span class="line">from Student,SC</span><br><span class="line">where Student.Sno &#x3D; SC.Sno</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>自然连接<ul>
+<li>自然连接和等值连接之间的关系：<strong>等值连接就相当于等值连接之后去掉相同的属性列</strong></li>
+</ul>
+</li>
+<li>非等值连接：就是连接运算除了 = 之外的其他运算符号当做连接查询</li>
+</ul>
+<h5 id="2-1-22-自身连接"><a href="#2-1-22-自身连接" class="headerlink" title="2.1.22 自身连接"></a>2.1.22 自身连接</h5><ul>
+<li><p><strong>自身连接</strong>：一个表和自己进行连接。</p>
+</li>
+<li><p>因为需要进行区分，所以在连接的时候，要进行两个操作：</p>
+<ol>
+<li><strong>需要给表起别名以示区别</strong></li>
+<li><strong>因为属性名都是想同的，所以需要加上别名前缀以示区别</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查询每一门课的间接先修课（也就是先修课的先修课）</span><br><span class="line">select first.Cno,second.Cno</span><br><span class="line">from course first,course second</span><br><span class="line">where first.Cpno &#x3D; second.Cno</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h5 id="2-1-23-外连接"><a href="#2-1-23-外连接" class="headerlink" title="2.1.23 外连接"></a>2.1.23 外连接</h5><ul>
+<li><p><strong>外连接和普通连接之间的区别：普通连接只输出满足连接条件的元组</strong>，而外连接将主题表不满足连接条件的元组一起输出来（<strong>不管是否满足连接条件</strong>）</p>
+</li>
+<li><p>外连接包括</p>
+<ul>
+<li><p>左外连接</p>
+<ul>
+<li><p>即列出左边关系中所有元组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select Student.Sno,Sname,Ssex,Sage,Sdept,Cno,Grade</span><br><span class="line">from Student left out join sc on (Student.Sno &#x3D; SC.Sno)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>右外连接</p>
+<ul>
+<li>即列出右边关系中所有元组</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-1-24-多表连接"><a href="#2-1-24-多表连接" class="headerlink" title="2.1.24 多表连接"></a>2.1.24 多表连接</h5><ul>
+<li><p>​    多表连接：两个以上的表进行</p>
+</li>
+<li><p>以下是三表连接的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查询每个学生的学号、姓名、选修的课程名及成绩</span><br><span class="line">select Student.Sno,Sname,Cname,Grade</span><br><span class="line">from Student,SC,Course</span><br><span class="line">where Student.Sno &#x3D; SC.Sno</span><br><span class="line">	  and SC.Cno &#x3D; Course.Cno;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="2-1-3-嵌套查询"><a href="#2-1-3-嵌套查询" class="headerlink" title="2.1.3 嵌套查询"></a>2.1.3 <strong>嵌套查询</strong></h4><h5 id="2-1-31-什么是嵌套查询"><a href="#2-1-31-什么是嵌套查询" class="headerlink" title="2.1.31 什么是嵌套查询"></a>2.1.31 什么是嵌套查询</h5><ul>
+<li><p>嵌套查询</p>
+<ul>
+<li><p><strong>查询块</strong> ：一个select-from-where语句就称为一个查询块</p>
+</li>
+<li><p><strong>嵌套查询：</strong> 将一个 <strong>查询块</strong> 嵌套在另外一个查询块的where子句或者having短语的条件中的查询称为 <strong>嵌套查询</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select Sname  &#x2F;&#x2F;这部分称为外层查询或者父查询</span><br><span class="line">from Student</span><br><span class="line">where Sno in </span><br><span class="line">(			 &#x2F;&#x2F;这层则称为内层查询或者子查询</span><br><span class="line">select Sno</span><br><span class="line">from SC</span><br><span class="line">where Cno&#x3D;&#39;2&#39;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>嵌套查询允许多层嵌套查询 —- 也就是子查询中还可以嵌套其他子查询</li>
+<li><strong>需要额外注意的东西是：</strong> 子查询中不能使用order by 子句</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-1-32-嵌套查询的实现方法"><a href="#2-1-32-嵌套查询的实现方法" class="headerlink" title="2.1.32 嵌套查询的实现方法"></a>2.1.32 嵌套查询的实现方法</h5><ul>
+<li><strong>不相关子查询</strong> 子查询的查询条件不依赖于父查询</li>
+<li><strong>相关子查询</strong>：子查询的查询条件依赖于父查询</li>
+</ul>
+<h5 id="2-1-33-带有IN谓词的子查询"><a href="#2-1-33-带有IN谓词的子查询" class="headerlink" title="2.1.33 带有IN谓词的子查询"></a>2.1.33 带有IN谓词的子查询</h5><ul>
+<li><p>即父查询通过<strong>IN谓词</strong>来嵌套查询子查询</p>
+</li>
+<li><p>查询与刘晨在同一个系的学生</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select Sno,Sname,Sdept</span><br><span class="line">from Student</span><br><span class="line">where Sdept IN(</span><br><span class="line">select Sdept</span><br><span class="line">from Student</span><br><span class="line">where Sname &#x3D; &#39;刘晨&#39;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-1-34-带有比较运算符的子查询"><a href="#2-1-34-带有比较运算符的子查询" class="headerlink" title="2.1.34 带有比较运算符的子查询"></a>2.1.34 带有比较运算符的子查询</h5><ul>
+<li><p>比较运算符有 &gt; ,&lt; , = &gt;=, &lt;=,!= 或者 &lt;&gt;</p>
+</li>
+<li><p>找出每个学生超过他选修课程平均成绩的课程号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">selecet Sno,Cno</span><br><span class="line">from SC x</span><br><span class="line">where Grade &gt;&#x3D; (</span><br><span class="line">select AVG(Grade)</span><br><span class="line">from SC y</span><br><span class="line">where y.Sno &#x3D; x.Sno</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-1-35-带有ANT-SOME-或ALL谓词的子查询"><a href="#2-1-35-带有ANT-SOME-或ALL谓词的子查询" class="headerlink" title="2.1.35 带有ANT(SOME)或ALL谓词的子查询"></a>2.1.35 带有ANT(SOME)或ALL谓词的子查询</h5><ul>
+<li><p>在使用any(some) 或者 all 谓词的时候需要使用比较运算符</p>
+</li>
+<li><p>在某种情况下，ANY(SOME)或者ALL谓词和聚集函数、IN谓词之间是可以相互等价转换的</p>
+</li>
+<li><p>查询非计算机科学系中比计算机科学系任意一个学生年龄小的学生姓名和年龄</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">selecet Sname,Sage</span><br><span class="line">from Student</span><br><span class="line">where </span><br><span class="line">Sage &lt; ANY(</span><br><span class="line">select Sage</span><br><span class="line">from student</span><br><span class="line">where Sdept &#x3D; &#39;CS&#39; </span><br><span class="line">) and Sdept &lt;&gt; &#39;CS&#39;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-1-36-重点与难点！带有EXISTS谓词的子查询"><a href="#2-1-36-重点与难点！带有EXISTS谓词的子查询" class="headerlink" title="2.1.36  重点与难点！带有EXISTS谓词的子查询"></a>2.1.36  重点与难点！带有EXISTS谓词的子查询</h5><ul>
+<li><p>带EXISTS谓词的子查询是不返回任何数据的，只会产生 <strong>布尔值</strong> 因此，由EXISTS引出的子查询，其目标列表达式通常都用* </p>
+</li>
+<li><p>EXISTS 子查询非空即为真，空极为假</p>
+</li>
+<li><p>NOT EXISTS 则与 EXIST相反</p>
+<ul>
+<li><p>例题：查询所有选修了1号课程的学生的姓名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select Sname</span><br><span class="line">from Student</span><br><span class="line">where ESISTS(</span><br><span class="line">select *</span><br><span class="line">from SC</span><br><span class="line">where Sno &#x3D; Student.Sno and Cno &#x3D; &#39;1&#39;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>可以通过EXISTS/NOT EXISTS来实现全称量词</strong> </p>
+<ul>
+<li><p>例如：查询与“刘晨”在同一个系学习的学生</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select Sno,Sname</span><br><span class="line">from Student s1</span><br><span class="line">where EXISTS</span><br><span class="line">(</span><br><span class="line">selecet *</span><br><span class="line">from Student s2</span><br><span class="line">where s2.Sname &#x3D; &#39;刘晨&#39; and s1.Sdept &#x3D; s2.Sdept </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>可以通过EXISTS谓词的子查询来实现逻辑蕴含</strong></p>
+<ul>
+<li><p>查询<strong>至少</strong>选修了学生201215122选修的全部课程的学生号码</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 转化过来就是不存在这样的课程y,学生201215122选修了但是学生x没有选</span></span><br><span class="line">selecet DISTINCT Sno</span><br><span class="line">from SC SCA</span><br><span class="line">where NOT EXISTS(</span><br><span class="line">selecet *</span><br><span class="line">from SC SCB</span><br><span class="line">where Sno = '201215122' and NOT EXISTS (</span><br><span class="line">selecet *</span><br><span class="line">from SC SCC</span><br><span class="line">WHERE SCC.Sno = SCA.Sno and SCC.Cno = SCB.Cno</span><br><span class="line">	)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-4-集合查询"><a href="#2-1-4-集合查询" class="headerlink" title="2.1.4 集合查询"></a>2.1.4 <strong>集合查询</strong></h4><h5 id="2-1-40-什么是集合查询："><a href="#2-1-40-什么是集合查询：" class="headerlink" title="2.1.40 什么是集合查询："></a>2.1.40 什么是集合查询：</h5><ul>
+<li><p>通过<strong>交并差</strong>的<strong>集合操作</strong>来对各个查询结果进行再次处理。</p>
+</li>
+<li><p>参加集合操作的各查询结果的列数必须相同，对应项的数据类型也必须相同</p>
+</li>
+</ul>
+<h5 id="2-1-41-并操作"><a href="#2-1-41-并操作" class="headerlink" title="2.1.41 并操作"></a>2.1.41 并操作</h5><ul>
+<li><p>UNION 将多个查询结果合并起来时，系统自动去掉重复元组</p>
+</li>
+<li><p>UNION ALL 在将多个查询结果合并起来的时候，<strong>会保留重复的元组</strong></p>
+<ul>
+<li><p>查询计算机科学系的学生以及年龄不大于19岁的学生</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select *</span><br><span class="line">from Student</span><br><span class="line">where Sdept &#x3D; &#39;CS&#39;</span><br><span class="line">UNION</span><br><span class="line">select *</span><br><span class="line">from Student</span><br><span class="line">where Sage &lt;&#x3D; 19</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-1-42-交操作"><a href="#2-1-42-交操作" class="headerlink" title="2.1.42 交操作"></a>2.1.42 交操作</h5><ul>
+<li><p>INTERSECT</p>
+<ul>
+<li><p>查询计算机科学系与年龄不大于19岁的学生的交集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">selcet * </span><br><span class="line">from Student</span><br><span class="line">where Sdept &#x3D; &#39;CS&#39;</span><br><span class="line">INTERSECT</span><br><span class="line">select *</span><br><span class="line">from student</span><br><span class="line">where Sage&lt;&#x3D;19</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-1-43-差操作"><a href="#2-1-43-差操作" class="headerlink" title="2.1.43 差操作"></a>2.1.43 差操作</h5><ul>
+<li><p>EXCEPT</p>
+<ul>
+<li><p>查询计算机科学系的学生与年龄不大于19岁的学生的差集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select *</span><br><span class="line">from Student</span><br><span class="line">where Sdept&#x3D;&#39;CS&#39;</span><br><span class="line">selcet *</span><br><span class="line">from Student</span><br><span class="line">where Sage &lt;&#x3D; 19</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-5-基于派生表的查询"><a href="#2-1-5-基于派生表的查询" class="headerlink" title="2.1.5 基于派生表的查询"></a>2.1.5 <strong>基于派生表的查询</strong></h4><ul>
+<li><p>子查询出现在from子句中，此时子查询生成的临时派生表就称为了主查询的查询对象</p>
+<ul>
+<li><p>例如：查询每个学生超过他自己选修课程平均成绩的课程号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select Cno</span><br><span class="line">from SC,(</span><br><span class="line">select Sno,AVG(Grade)</span><br><span class="line">from SC</span><br><span class="line">group by Sno</span><br><span class="line">) as AVG_sc(avg_sno,avg_grade)</span><br><span class="line">where SC.Sno &#x3D; AVG_sc.avg_sno</span><br><span class="line">and SC.Grade&gt;&#x3D; AVG_sc.avg_grade</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-数据更新"><a href="#3-数据更新" class="headerlink" title="3. 数据更新"></a>3. 数据更新</h2><h4 id="2-2-1-插入数据"><a href="#2-2-1-插入数据" class="headerlink" title="2.2.1 插入数据"></a>2.2.1 插入数据</h4><h5 id="2-2-10-插入数据语句格式"><a href="#2-2-10-插入数据语句格式" class="headerlink" title="2.2.10 插入数据语句格式"></a>2.2.10 插入数据语句格式</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> </span><br><span class="line"><span class="keyword">into</span> 表名（字段名）</span><br><span class="line"><span class="keyword">values</span>（对应字段名的值）/子查询</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-11-插入元素"><a href="#2-2-11-插入元素" class="headerlink" title="2.2.11 插入元素"></a>2.2.11 插入元素</h5><ul>
+<li><p>例如插入一条选课记录（‘200215128’，‘1’）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 在Into表名后面将要插入数据的字段名列出来，其余没有列出来的数据如grade就会被自动赋值为空值（null）</span><br><span class="line">insert</span><br><span class="line">into SC(Sno,Cno)</span><br><span class="line">values(&#39;201215128&#39;,&#39;1&#39;)</span><br><span class="line"></span><br><span class="line">--在into表名也可以不指定字段名，但是在values中需要按顺序将所有值填上，例如</span><br><span class="line">insert</span><br><span class="line">into SC</span><br><span class="line">values(&#39;201215128&#39;,1&#39;,NULL)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-2-12-插入子查询结果"><a href="#2-2-12-插入子查询结果" class="headerlink" title="2.2.12 插入子查询结果"></a>2.2.12 插入子查询结果</h5><ul>
+<li><p>格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">insert</span><br><span class="line">into 表名</span><br><span class="line">子查询</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>比如向一张Dept_age（Sdept,Avg_age）中插入每个系学生的平均年龄</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 子查询的结果是根据Sdept进行分组并且对Sage进行求平均值</span><br><span class="line">insert</span><br><span class="line">into Dept_age(Sdept,Avg_age)</span><br><span class="line">select Sdept,AVG(Sage)</span><br><span class="line">from Student</span><br><span class="line">Group by Sdept</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-2-13-在插入语句的时候会检查插入元素是否破坏了表已经定义了的完整性原则"><a href="#2-2-13-在插入语句的时候会检查插入元素是否破坏了表已经定义了的完整性原则" class="headerlink" title="2.2.13 在插入语句的时候会检查插入元素是否破坏了表已经定义了的完整性原则"></a>2.2.13 在插入语句的时候会检查插入元素是否破坏了表已经定义了的完整性原则</h5><ul>
+<li>实体性完整性</li>
+<li>参照完整性</li>
+<li>用户定义的完整性<ul>
+<li>NOT NULL</li>
+<li>UNIQUE</li>
+<li>值域约束</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-2-修改数据"><a href="#2-2-2-修改数据" class="headerlink" title="2.2.2 修改数据"></a>2.2.2 修改数据</h4><h5 id="2-2-20-语句格式"><a href="#2-2-20-语句格式" class="headerlink" title="2.2.20 语句格式"></a>2.2.20 语句格式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update 表名</span><br><span class="line">set 列名 &#x3D; 表达式</span><br><span class="line">[where 条件] 如果没有where子句，说明要修改表中的所有元组</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-21-修改某一个元组的值"><a href="#2-2-21-修改某一个元组的值" class="headerlink" title="2.2.21 修改某一个元组的值"></a>2.2.21 修改某一个元组的值</h5><ul>
+<li><p>例如：将学生201215121的年龄修改为22岁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update Student</span><br><span class="line">set Sage &#x3D; 22</span><br><span class="line">where Sno &#x3D; &#39;201215121&#39;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h5 id="2-2-22-修改多个元组的值"><a href="#2-2-22-修改多个元组的值" class="headerlink" title="2.2.22 修改多个元组的值"></a>2.2.22 修改多个元组的值</h5><ul>
+<li><p>例如：将所有学生的年龄增加一岁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update Student</span><br><span class="line">set Sage &#x3D; Sage + 1</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h5 id="2-2-23-带子查询的修改"><a href="#2-2-23-带子查询的修改" class="headerlink" title="2.2.23 带子查询的修改"></a>2.2.23 带子查询的修改</h5><ul>
+<li><p>例如：将计算机科学系全体学生的成绩置零</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">update SC</span><br><span class="line">set Grade</span><br><span class="line">where Sno in (</span><br><span class="line">select Sno </span><br><span class="line">from Studnet</span><br><span class="line">where Sdept &#x3D; &#39;CS&#39;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-2-24-同样在修改数据的时候，会检查修改操作是否破坏了表上定义的完整性规则"><a href="#2-2-24-同样在修改数据的时候，会检查修改操作是否破坏了表上定义的完整性规则" class="headerlink" title="2.2.24 同样在修改数据的时候，会检查修改操作是否破坏了表上定义的完整性规则"></a>2.2.24 同样在修改数据的时候，会检查修改操作是否破坏了表上定义的完整性规则</h5><h4 id="2-2-3-删除数据"><a href="#2-2-3-删除数据" class="headerlink" title="2.2.3 删除数据"></a>2.2.3 删除数据</h4><h5 id="2-2-30-语句格式"><a href="#2-2-30-语句格式" class="headerlink" title="2.2.30 语句格式"></a>2.2.30 语句格式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">delete</span><br><span class="line">from 表名</span><br><span class="line">[where 条件]</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-31-删除某一个元组的值"><a href="#2-2-31-删除某一个元组的值" class="headerlink" title="2.2.31 删除某一个元组的值"></a>2.2.31 删除某一个元组的值</h5><ul>
+<li><p>例如：删除学号为 201215128的学生记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">delete</span><br><span class="line">from Student</span><br><span class="line">where Sno &#x3D; &#39;201215128&#39;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-2-32-删除多个元组的值"><a href="#2-2-32-删除多个元组的值" class="headerlink" title="2.2.32 删除多个元组的值"></a>2.2.32 删除多个元组的值</h5><ul>
+<li><p>例如：删除所有的学生选课记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delete</span><br><span class="line">from SC</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-2-33-带子查询的删除语句"><a href="#2-2-33-带子查询的删除语句" class="headerlink" title="2.2.33 带子查询的删除语句"></a>2.2.33 带子查询的删除语句</h5><ul>
+<li><p>删除计算机科学系所有学生的选课记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">delete</span><br><span class="line">from SC</span><br><span class="line">where Sno in(</span><br><span class="line">select Sno</span><br><span class="line">from student</span><br><span class="line">where Sdept &#x3D; &#39;CS&#39;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-3-空值的处理"><a href="#2-3-空值的处理" class="headerlink" title="2.3 空值的处理"></a>2.3 空值的处理</h3><h4 id="2-3-1-什么是空值"><a href="#2-3-1-什么是空值" class="headerlink" title="2.3.1 什么是空值"></a>2.3.1 什么是空值</h4><ul>
+<li>空值就是 <strong>不知道</strong> 或者 <strong>不存在</strong>  或者 <strong>无意义的值</strong></li>
+<li>空值一般表示为 NULL</li>
+</ul>
+<h4 id="2-3-2-空值的判断"><a href="#2-3-2-空值的判断" class="headerlink" title="2.3.2 空值的判断"></a>2.3.2 空值的判断</h4><ul>
+<li><p>判断是不是空值，一般通过IS NULL 或者 IS NOT NULL来进行判断</p>
+</li>
+<li><p>例如：从Student表中找出漏填了数据的学生信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select *</span><br><span class="line">from Student</span><br><span class="line">where Sname IS NULL OR Ssex IS NULL</span><br><span class="line">OR Sage IS NULL OR Sdept IS NULL</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="2-3-3-控制的约束"><a href="#2-3-3-控制的约束" class="headerlink" title="2.3.3 控制的约束"></a>2.3.3 控制的约束</h4><ul>
+<li>在定义属性或者定义域中，需要遵守以下规则<ul>
+<li>有了NOT NULL 约束条件的不能取空值</li>
+<li>加了UNIQUE限制的属性不能取空值</li>
+<li>码属性（例如主码）不能取空值</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-4-空值的运算"><a href="#2-3-4-空值的运算" class="headerlink" title="2.3.4 空值的运算"></a>2.3.4 空值的运算</h4><h5 id="2-3-41-算术逻辑"><a href="#2-3-41-算术逻辑" class="headerlink" title="2.3.41 算术逻辑"></a>2.3.41 算术逻辑</h5><ul>
+<li>空值与另外一个值（包括另外一个空值）的算术运算的结果为空值</li>
+</ul>
+<h5 id="2-3-42-比较运算"><a href="#2-3-42-比较运算" class="headerlink" title="2.3.42 比较运算"></a>2.3.42 比较运算</h5><ul>
+<li>空值与另外一个值（包括另外一个空值）的比较运算的结果为unknown（表示空值无法比较）</li>
+</ul>
+<h5 id="2-3-43-逻辑运算"><a href="#2-3-43-逻辑运算" class="headerlink" title="2.3.43 逻辑运算"></a>2.3.43 逻辑运算</h5><ul>
+<li>有unknown后，传统的二值（true、false）就变成了三值逻辑<ul>
+<li>and 运算  <ul>
+<li>T AND U =&gt; U </li>
+<li>U AND U =&gt; U</li>
+<li>F AND U =&gt; F </li>
+</ul>
+</li>
+<li>or运算<ul>
+<li>T OR U =&gt; T</li>
+<li>U OR U =&gt; U</li>
+<li>F OR U =&gt; U</li>
+</ul>
+</li>
+<li>NOT运算<ul>
+<li>NOT T =&gt; F</li>
+<li>NOT U =&gt; U</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总结 <ul>
+<li>AND 运算只有当两者都为真的时候才能为真</li>
+<li>OR 运算只有当其中一个为真的时候才能为真</li>
+<li>NOT U 不知道是T 是 F的情况下只能为 U</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-有关空值的例题"><a href="#2-4-有关空值的例题" class="headerlink" title="2.4 有关空值的例题"></a>2.4 有关空值的例题</h4><ul>
+<li><p>选出选修1号课程的不及格的学生以及缺考的学生</p>
+</li>
+<li><p>缺考即为NULL(空值)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select Sno</span><br><span class="line">from SC</span><br><span class="line">where Cno &#x3D; &#39;1&#39; and (Grade &lt; 60 OR Grade IS NULL)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="2-4-视图"><a href="#2-4-视图" class="headerlink" title="2.4  视图"></a>2.4  视图</h2><h4 id="2-4-0-视图特点"><a href="#2-4-0-视图特点" class="headerlink" title="2.4.0 视图特点"></a>2.4.0 视图特点</h4><ul>
+<li>视图是一张虚表，是从一个或者多个基本表（或者视图）导出来的表</li>
+<li>视图只存放驶入的定义，不存放视图对应的数据</li>
+<li><strong>基本表中的数据发生变化，从视图中查询出的数据也随之改变</strong></li>
+<li>在执行create view语句的时候，并不会执行其中的select语句，<strong>只是将视图定义转存入数据字典中</strong></li>
+<li>在视图查询的时候，按照视图的定义从基本表中将数据查询出来</li>
+</ul>
+<h4 id="2-4-1-定义视图"><a href="#2-4-1-定义视图" class="headerlink" title="2.4.1 定义视图"></a>2.4.1 定义视图</h4><h5 id="2-4-10-行列子集视图"><a href="#2-4-10-行列子集视图" class="headerlink" title="2.4.10  行列子集视图"></a>2.4.10  行列子集视图</h5><ul>
+<li>如果一个视图是从单个基本表导出的，并且只是去掉了<strong>基本表的某些行和列</strong>，但是保留了<strong>主码</strong>，就叫做是 <strong>行列子集视图</strong></li>
+</ul>
+<h5 id="2-4-11-建立视图"><a href="#2-4-11-建立视图" class="headerlink" title="2.4.11 建立视图"></a>2.4.11 建立视图</h5><ul>
+<li><p>语句格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create view 视图名</span><br><span class="line">as 子查询</span><br><span class="line">[with check option]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>with check option</strong></p>
+<ul>
+<li>对视图进行update、insert和delete操作时，<strong>需要保证更新、插入或删除的行满足视图定义中的谓词条件（即子查询中的条件表达式）</strong></li>
+<li>也就是说带有with check option子句定义的视图，在进行数据更新之后需要保证</li>
+</ul>
+</li>
+<li><p>在创建视图的时候属性列名：</p>
+<ul>
+<li>要么就全部省略（此时的列名则是子查询目的）</li>
+<li>要么就指定视图的所有列名</li>
+<li><strong>并且视图列可以是表达式，可以是分组，可以普通字段</strong></li>
+</ul>
+</li>
+<li><p><strong>例题1 [基于单个基本表]：</strong> 建立信息系学生的视图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create view IS_Student</span><br><span class="line">as </span><br><span class="line">select Sno,Sname,Sage</span><br><span class="line">from Student</span><br><span class="line">where Sdept &#x3D; &#39;IS&#39;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><strong>例题2 [基于多个基本表建立视图]：</strong> 建立信息系选修了1号课程的学生的视图（包括学号、姓名、成绩）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create view IS_S1(Sno,Sname,Grade)</span><br><span class="line">as </span><br><span class="line">select Student.Sno,Sname,Grade</span><br><span class="line">from Student,SC</span><br><span class="line">where Sdept&#x3D;&#39;IS&#39; and </span><br><span class="line">	  Student.Sno &#x3D; SC.Sno</span><br><span class="line">	  and SC.Cno &#x3D; &#39;1&#39;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>例题3 [基于视图建立视图]：</strong> 建立信息系选修了1号课程并且成绩在90分以上的学生的视图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create view IS_S2</span><br><span class="line">as</span><br><span class="line">selecet Sno,Sname,Grade</span><br><span class="line">from IS_S1</span><br><span class="line">where Grade&gt;&#x3D;90</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h5 id="2-4-12-删除视图"><a href="#2-4-12-删除视图" class="headerlink" title="2.4.12 删除视图"></a>2.4.12 删除视图</h5><ul>
+<li><p>语句格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop view 视图名 [CASCADE]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从数据字典中删除指定的视图定义</p>
+</li>
+<li><p>在使用了CASCADE 关键字之后，<strong>由该基表导出的所有视图定义都会被删除</strong></p>
+</li>
+<li><p><strong>例如：</strong> 删除视图BT_S</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop view BT_S</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="2-4-2-查询视图"><a href="#2-4-2-查询视图" class="headerlink" title="2.4.2 查询视图"></a>2.4.2 查询视图</h4><h5 id="2-4-21-查询视图"><a href="#2-4-21-查询视图" class="headerlink" title="2.4.21 查询视图"></a>2.4.21 查询视图</h5><ul>
+<li>与查询基本表的方法相同</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select 列名</span><br><span class="line">from 视图名</span><br><span class="line">where&#x2F;having 子句</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-4-22-关系数据库管理系统实现视图查询的方法"><a href="#2-4-22-关系数据库管理系统实现视图查询的方法" class="headerlink" title="2.4.22 关系数据库管理系统实现视图查询的方法"></a>2.4.22 关系数据库管理系统实现视图查询的方法</h5><ul>
+<li>视图消解法<ul>
+<li>进行有效性检查</li>
+<li>转换成等价的对基本表的查询</li>
+<li>执行修正后的查询</li>
+</ul>
+</li>
+<li>视图消解法有时候会出错：<ul>
+<li>比如在你查询的视图中你使用了where子句，<strong>但是你的视图定义中的子查询是有group by子句的。此时你的查询应该用having子句来代替你的where子句</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-5-更新视图"><a href="#2-4-5-更新视图" class="headerlink" title="2.4.5 更新视图"></a>2.4.5 更新视图</h4><ul>
+<li><p>更新视图的语句和更新基本表的语句格式一样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update 视图名</span><br><span class="line">set 列名</span><br><span class="line">where 子句</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有些视图不能进行更新，比如说在定义视图的时候有些列名是聚集函数（例如平均值AVG）,在更新视图的时候如果直接让 这些列名等于某些值是会报错的</p>
+</li>
+<li><p>例如： 这里的 Gavg在定义的时候是通过分组得到的平均值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update S_G</span><br><span class="line">set Gavg &#x3D; 90</span><br><span class="line">where Sno&#x3D;&#39;201215121&#39;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="常见的更新视图的限制："><a href="#常见的更新视图的限制：" class="headerlink" title="常见的更新视图的限制："></a>常见的更新视图的限制：</h5><ol>
+<li><strong>若视图是由两个以上基本表导出的</strong>，那么这个视图不允许更新</li>
+<li><strong>若视图的字段来自字段表达式或者常数</strong>，则不允许对此视图执行insert 和 update操作，但是允许delete</li>
+<li><strong>若视图的字段来自聚集函数</strong>，那么这个视图不允许更新update</li>
+<li><strong>如果视图定义中含有 group by 子句</strong>，那么这视图不允许更新</li>
+<li><strong>若视图定义中含有DISTINCT</strong>,那么视图不允许更新</li>
+<li><strong>若视图定义有嵌套查询，并且内层查询的from子句中涉及的表也是导出该视图的基本表</strong>，那么此视图不允许更新</li>
+<li><strong>一个不允许更新的视图上定义的视图</strong>也不允许更新</li>
+</ol>
+<h4 id="2-4-6-视图的作用"><a href="#2-4-6-视图的作用" class="headerlink" title="2.4.6 视图的作用"></a>2.4.6 视图的作用</h4><ol>
+<li>视图能够简化用户的操作</li>
+<li>视图能够使用户已多种角度去看待同一数据</li>
+<li>视图对重构数据库提供了一定程度的逻辑独立性</li>
+<li>视图能够对机密数据提供安全保护</li>
+<li>适当的利用视图可以更清晰的表达查询</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sql/" rel="tag"># sql</a>
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/" rel="tag"># 数据库原理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/12/%E4%B8%AD%E5%BA%8F%E7%BA%BF%E7%B4%A2%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="next" title="中序线索二叉树">
+                <i class="fa fa-chevron-left"></i> 中序线索二叉树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="One Castle" />
+            
+              <p class="site-author-name" itemprop="name">One Castle</p>
+              <p class="site-description motion-element" itemprop="description">One Castle的个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/OneCastle5280" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:2107633156@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+
+          
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://baidu.com/" title="百度" target="_blank">百度</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://google.com/" title="谷歌" target="_blank">谷歌</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=110 src="//music.163.com/outchain/player?type=0&id=4954685500&auto=1&height=66"></iframe>
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql命令"><span class="nav-number">1.</span> <span class="nav-text">sql命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、数据定义"><span class="nav-number">2.</span> <span class="nav-text">1、数据定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-模式"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.1 模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-11-创建模式"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">1,11 创建模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-12-删除模式"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">1.12 删除模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-基本表"><span class="nav-number">2.0.2.</span> <span class="nav-text">1.2 基本表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-创建基本表"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">1.2.1 创建基本表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-常用的数据类型"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">1.2.2 常用的数据类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-3-常见的用户自定义完整性约束-主键、取值唯一、外键"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">1.2.3 常见的用户自定义完整性约束(主键、取值唯一、外键)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-4-基本表增加字段（增加列名）"><span class="nav-number">2.0.2.4.</span> <span class="nav-text">1.2.4 基本表增加字段（增加列名）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-5-删除表中的列"><span class="nav-number">2.0.2.5.</span> <span class="nav-text">1.2.5 删除表中的列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-6删除指定的完整性约束条件"><span class="nav-number">2.0.2.6.</span> <span class="nav-text">1.2.6删除指定的完整性约束条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-7修改原有的列定义-修改列名和修改类型"><span class="nav-number">2.0.2.7.</span> <span class="nav-text">1.2.7修改原有的列定义(修改列名和修改类型)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-模式与表"><span class="nav-number">2.0.3.</span> <span class="nav-text">1.3 模式与表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-模式与表的关系"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">1.3.1 模式与表的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-定义基本表所属模式"><span class="nav-number">2.0.3.2.</span> <span class="nav-text">1.3.2 定义基本表所属模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-索引"><span class="nav-number">2.0.4.</span> <span class="nav-text">1.4 索引</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-索引的作用"><span class="nav-number">2.0.4.1.</span> <span class="nav-text">1.4.1 索引的作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-2-索引的建立"><span class="nav-number">2.0.4.2.</span> <span class="nav-text">1.4.2 索引的建立</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-索引的修改"><span class="nav-number">2.0.4.3.</span> <span class="nav-text">1.4.3 索引的修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-4-索引的删除"><span class="nav-number">2.0.4.4.</span> <span class="nav-text">1.4.4 索引的删除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-5-关系型数据库管理系统中常见索引"><span class="nav-number">2.0.4.5.</span> <span class="nav-text">1.4.5 关系型数据库管理系统中常见索引</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-数据字典"><span class="nav-number">2.0.5.</span> <span class="nav-text">1.5 数据字典</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-1-什么是数据字典"><span class="nav-number">2.0.5.1.</span> <span class="nav-text">1.5.1 什么是数据字典</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、数据查询"><span class="nav-number">3.</span> <span class="nav-text">2、数据查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-查询语句"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 查询语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-单表查询"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 单表查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-11-选择表中若干列"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">2.1.11 选择表中若干列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-12-选择表中的若干不重复元素"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">2.1.12 选择表中的若干不重复元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-13-查询满足条件的元组"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">2.1.13 查询满足条件的元组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-14-ORDER-BY子句"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">2.1.14 ORDER BY子句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-15-聚集函数"><span class="nav-number">3.1.1.5.</span> <span class="nav-text">2.1.15 聚集函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-16-GROUP-BY子句"><span class="nav-number">3.1.1.6.</span> <span class="nav-text">2.1.16 GROUP BY子句</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-连接查询"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.1.2 连接查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-20-什么是连接查询？"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">2.1.20 什么是连接查询？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-21-等值与非等值连接查询"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">2.1.21 等值与非等值连接查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-22-自身连接"><span class="nav-number">3.1.2.3.</span> <span class="nav-text">2.1.22 自身连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-23-外连接"><span class="nav-number">3.1.2.4.</span> <span class="nav-text">2.1.23 外连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-24-多表连接"><span class="nav-number">3.1.2.5.</span> <span class="nav-text">2.1.24 多表连接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-嵌套查询"><span class="nav-number">3.1.3.</span> <span class="nav-text">2.1.3 嵌套查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-31-什么是嵌套查询"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">2.1.31 什么是嵌套查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-32-嵌套查询的实现方法"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">2.1.32 嵌套查询的实现方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-33-带有IN谓词的子查询"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">2.1.33 带有IN谓词的子查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-34-带有比较运算符的子查询"><span class="nav-number">3.1.3.4.</span> <span class="nav-text">2.1.34 带有比较运算符的子查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-35-带有ANT-SOME-或ALL谓词的子查询"><span class="nav-number">3.1.3.5.</span> <span class="nav-text">2.1.35 带有ANT(SOME)或ALL谓词的子查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-36-重点与难点！带有EXISTS谓词的子查询"><span class="nav-number">3.1.3.6.</span> <span class="nav-text">2.1.36  重点与难点！带有EXISTS谓词的子查询</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-集合查询"><span class="nav-number">3.1.4.</span> <span class="nav-text">2.1.4 集合查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-40-什么是集合查询："><span class="nav-number">3.1.4.1.</span> <span class="nav-text">2.1.40 什么是集合查询：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-41-并操作"><span class="nav-number">3.1.4.2.</span> <span class="nav-text">2.1.41 并操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-42-交操作"><span class="nav-number">3.1.4.3.</span> <span class="nav-text">2.1.42 交操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-43-差操作"><span class="nav-number">3.1.4.4.</span> <span class="nav-text">2.1.43 差操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-5-基于派生表的查询"><span class="nav-number">3.1.5.</span> <span class="nav-text">2.1.5 基于派生表的查询</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据更新"><span class="nav-number">4.</span> <span class="nav-text">3. 数据更新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-插入数据"><span class="nav-number">4.0.1.</span> <span class="nav-text">2.2.1 插入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-10-插入数据语句格式"><span class="nav-number">4.0.1.1.</span> <span class="nav-text">2.2.10 插入数据语句格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-11-插入元素"><span class="nav-number">4.0.1.2.</span> <span class="nav-text">2.2.11 插入元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-12-插入子查询结果"><span class="nav-number">4.0.1.3.</span> <span class="nav-text">2.2.12 插入子查询结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-13-在插入语句的时候会检查插入元素是否破坏了表已经定义了的完整性原则"><span class="nav-number">4.0.1.4.</span> <span class="nav-text">2.2.13 在插入语句的时候会检查插入元素是否破坏了表已经定义了的完整性原则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-修改数据"><span class="nav-number">4.0.2.</span> <span class="nav-text">2.2.2 修改数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-20-语句格式"><span class="nav-number">4.0.2.1.</span> <span class="nav-text">2.2.20 语句格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-21-修改某一个元组的值"><span class="nav-number">4.0.2.2.</span> <span class="nav-text">2.2.21 修改某一个元组的值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-22-修改多个元组的值"><span class="nav-number">4.0.2.3.</span> <span class="nav-text">2.2.22 修改多个元组的值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-23-带子查询的修改"><span class="nav-number">4.0.2.4.</span> <span class="nav-text">2.2.23 带子查询的修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-24-同样在修改数据的时候，会检查修改操作是否破坏了表上定义的完整性规则"><span class="nav-number">4.0.2.5.</span> <span class="nav-text">2.2.24 同样在修改数据的时候，会检查修改操作是否破坏了表上定义的完整性规则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-删除数据"><span class="nav-number">4.0.3.</span> <span class="nav-text">2.2.3 删除数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-30-语句格式"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">2.2.30 语句格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-31-删除某一个元组的值"><span class="nav-number">4.0.3.2.</span> <span class="nav-text">2.2.31 删除某一个元组的值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-32-删除多个元组的值"><span class="nav-number">4.0.3.3.</span> <span class="nav-text">2.2.32 删除多个元组的值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-33-带子查询的删除语句"><span class="nav-number">4.0.3.4.</span> <span class="nav-text">2.2.33 带子查询的删除语句</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-空值的处理"><span class="nav-number">4.1.</span> <span class="nav-text">2.3 空值的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-什么是空值"><span class="nav-number">4.1.1.</span> <span class="nav-text">2.3.1 什么是空值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-空值的判断"><span class="nav-number">4.1.2.</span> <span class="nav-text">2.3.2 空值的判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-控制的约束"><span class="nav-number">4.1.3.</span> <span class="nav-text">2.3.3 控制的约束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-4-空值的运算"><span class="nav-number">4.1.4.</span> <span class="nav-text">2.3.4 空值的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-41-算术逻辑"><span class="nav-number">4.1.4.1.</span> <span class="nav-text">2.3.41 算术逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-42-比较运算"><span class="nav-number">4.1.4.2.</span> <span class="nav-text">2.3.42 比较运算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-43-逻辑运算"><span class="nav-number">4.1.4.3.</span> <span class="nav-text">2.3.43 逻辑运算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-有关空值的例题"><span class="nav-number">4.1.5.</span> <span class="nav-text">2.4 有关空值的例题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-视图"><span class="nav-number">5.</span> <span class="nav-text">2.4  视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-0-视图特点"><span class="nav-number">5.0.1.</span> <span class="nav-text">2.4.0 视图特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1-定义视图"><span class="nav-number">5.0.2.</span> <span class="nav-text">2.4.1 定义视图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-10-行列子集视图"><span class="nav-number">5.0.2.1.</span> <span class="nav-text">2.4.10  行列子集视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-11-建立视图"><span class="nav-number">5.0.2.2.</span> <span class="nav-text">2.4.11 建立视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-12-删除视图"><span class="nav-number">5.0.2.3.</span> <span class="nav-text">2.4.12 删除视图</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2-查询视图"><span class="nav-number">5.0.3.</span> <span class="nav-text">2.4.2 查询视图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-21-查询视图"><span class="nav-number">5.0.3.1.</span> <span class="nav-text">2.4.21 查询视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-22-关系数据库管理系统实现视图查询的方法"><span class="nav-number">5.0.3.2.</span> <span class="nav-text">2.4.22 关系数据库管理系统实现视图查询的方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-5-更新视图"><span class="nav-number">5.0.4.</span> <span class="nav-text">2.4.5 更新视图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常见的更新视图的限制："><span class="nav-number">5.0.4.1.</span> <span class="nav-text">常见的更新视图的限制：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-6-视图的作用"><span class="nav-number">5.0.5.</span> <span class="nav-text">2.4.6 视图的作用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">One Castle</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访问数 <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量 <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/clicklove.js"></script>
+    <script type="text/javascript" src="/js/src/clicksocialvalue.js"></script>
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":220,"height":350},"mobile":{"show":false},"rect":"opacity:0.7","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
