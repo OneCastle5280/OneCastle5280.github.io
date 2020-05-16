@@ -7,6 +7,25 @@
 <a id="more"></a>]]></content>
   </entry>
   <entry>
+    <title>mysql命令总结</title>
+    <url>/2020/05/16/mysql%E8%AF%AD%E5%8F%A5%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h3 id="mysql命令总结"><a href="#mysql命令总结" class="headerlink" title="mysql命令总结"></a>mysql命令总结</h3><h4 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h4><a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -u 用户名 -p</span><br></pre></td></tr></table></figure>
+
+<p>回车输入密码或者直接在-p后面添加密码</p>
+<p>例如：用户cc，密码123456进行连接数据库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -u cc -p123456</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql命令</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据库原理之数据库安全性</title>
     <url>/2020/05/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7/</url>
     <content><![CDATA[<p>@<a href="数据库的安全性">TOC</a></p>
