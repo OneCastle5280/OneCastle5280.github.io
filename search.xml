@@ -82,6 +82,62 @@
 
 <h5 id="查看约束"><a href="#查看约束" class="headerlink" title="查看约束"></a>查看约束</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select *</span><br><span class="line">from information_schema.&#96;table_constrain&#96;</span><br><span class="line">[where table_name &#x3D; 表名] -- 来指定需要查看约束的表</span><br></pre></td></tr></table></figure>
 
+<h4 id="创建、查看、删除索引"><a href="#创建、查看、删除索引" class="headerlink" title="创建、查看、删除索引"></a>创建、查看、删除索引</h4><h5 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h5><blockquote>
+<p>创建唯一索引</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create unique index 索引名</span><br><span class="line">on 表名（字段名）;</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看索引"><a href="#查看索引" class="headerlink" title="查看索引"></a>查看索引</h5><blockquote>
+<p>使用show index from 表名</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show index from 表名;</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h5><blockquote>
+<p>直接通过drop</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">drop index 索引名</span><br><span class="line">on 表名</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建、使用、修改、查看视图"><a href="#创建、使用、修改、查看视图" class="headerlink" title="创建、使用、修改、查看视图"></a>创建、使用、修改、查看视图</h4><h5 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h5><blockquote>
+<p>视图可以根据基于视图创建，也可以根据基本表进行创建</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create view 视图名(列1，列2)</span><br><span class="line">as</span><br><span class="line">select (列1，列2)</span><br><span class="line">from ...</span><br><span class="line">where 条件查询表达式</span><br><span class="line">[with check option]</span><br></pre></td></tr></table></figure>
+
+<p><strong>with check option</strong>的作用就是对视图进行delete、insert和update的时候、需要保证delete、update、insert的行（数据）满足<strong>视图定义中的谓词条件（即select中的条件查询表达式）</strong></p>
+<h5 id="使用视图"><a href="#使用视图" class="headerlink" title="使用视图"></a>使用视图</h5><blockquote>
+<p>与使用基本表一样就行</p>
+</blockquote>
+<h5 id="查看视图（与查看基本表一样）"><a href="#查看视图（与查看基本表一样）" class="headerlink" title="查看视图（与查看基本表一样）"></a>查看视图（与查看基本表一样）</h5><blockquote>
+<p>查看视图结构</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">desc 视图名</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看视图信息</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select *</span><br><span class="line">from 视图名</span><br></pre></td></tr></table></figure>
+
+<h5 id="更新视图"><a href="#更新视图" class="headerlink" title="更新视图"></a>更新视图</h5><blockquote>
+<p>格式均与更新基本表一样</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">update 视图名</span><br><span class="line">set 列名</span><br><span class="line">[where子句]</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图"></a>删除视图</h5><blockquote>
+<p>与删除基本表的语句一样</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">drop view 视图名 [cascade]</span><br></pre></td></tr></table></figure>
+
+<p>cascade：由该视图导出的所有视图定义都会删除</p>
+<h5 id="常见的视图更新限制："><a href="#常见的视图更新限制：" class="headerlink" title="常见的视图更新限制："></a>常见的视图更新限制：</h5><blockquote>
+<ol>
+<li><strong>若视图是由两个以上基本表导出的</strong>，那么这个视图不允许更新</li>
+<li><strong>若视图的字段来自字段表达式或者常数</strong>，则不允许对此视图执行insert 和 update操作，但是允许delete</li>
+<li><strong>若视图的字段来自聚集函数</strong>，那么这个视图不允许更新update</li>
+<li><strong>如果视图定义中含有 group by 子句</strong>，那么这视图不允许更新</li>
+<li><strong>若视图定义中含有DISTINCT</strong>,那么视图不允许更新</li>
+<li><strong>若视图定义有嵌套查询，并且内层查询的from子句中涉及的表也是导出该视图的基本表</strong>，那么此视图不允许更新</li>
+<li><strong>一个不允许更新的视图上定义的视图</strong>也不允许更新</li>
+</ol>
+</blockquote>
 ]]></content>
       <categories>
         <category>mysql</category>
