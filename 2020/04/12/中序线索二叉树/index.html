@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="One Castle">
 <meta property="og:description" content="中序线索二叉树">
 <meta property="article:published_time" content="2020-04-12T06:52:40.000Z">
-<meta property="article:modified_time" content="2020-04-12T07:11:12.927Z">
+<meta property="article:modified_time" content="2020-05-27T01:03:56.120Z">
 <meta property="article:author" content="One Castle">
 <meta property="article:tag" content="二叉树">
 <meta property="article:tag" content="线索二叉树">
@@ -425,7 +425,7 @@
 <p>在二叉树的结点上加上线索的二叉树称为<strong>线索二叉树</strong>，对二叉树以某种遍历方式（如先序、中序、后序或层次等）进行遍历，使其<strong>变为线索二叉树</strong>的过程称为对<strong>二叉树进行线索化</strong></p>
 <p><strong>线索化二叉树的本质</strong>，实际上是对原始二叉树中的指向为空（NULL）的指针域进行利用，我们让其指向为NULL的指针域指向前驱（左孩子）或者是后继（右孩子），但是我们<strong>怎么来辨别是树节点还是指向其前驱还是后继呢</strong>？</p>
 <p><strong>核心思想：</strong></p>
-<p>我们<strong>为每一个树节点增加两个标志域lThread和rThread</strong>，如果左子树是指向的<strong>是线索（前驱），那么lThread为true</strong>,如果<strong>指向的是树节点，那么lThread为false **。同理</strong>，如果右子树指向的<strong>是线索（后继），那么rThread为true</strong>,如果<strong>指向的树节点，那么rThread为false。</strong></p>
+<p>我们<strong>为每一个树节点增加两个标志域lThread和rThread</strong>，如果左子树是指向的<strong>是线索（前驱），那么lThread为true</strong>,如果<strong>指向的是树节点，那么lThread为false **。同理</strong>，如果右子树指向的<strong>是线索（后继），那么rThread为true</strong>,如果**指向的树节点，那么rThread为false。</p>
 <p><strong>在了解了线索化二叉树的核心思想之后，我们怎么来构建一颗线索化二叉树呢？</strong></p>
 <ul>
 <li>1、我们先构建一颗树，然后再按某种遍历来线索化它，我们这里实现的是<strong>中序遍历</strong> 来线索化这棵二叉树。</li>
