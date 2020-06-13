@@ -89,7 +89,7 @@
 <meta name="description" content="One Castle的个人博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="One Castle">
-<meta property="og:url" content="http://onecastle5280.com/categories/Java/index.html">
+<meta property="og:url" content="http://onecastle5280.com/categories/java/index.html">
 <meta property="og:site_name" content="One Castle">
 <meta property="og:description" content="One Castle的个人博客">
 <meta property="article:author" content="One Castle">
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://OneCastle5280.com/categories/Java/"/>
+  <link rel="canonical" href="http://OneCastle5280.com/categories/java/"/>
 
 
 
 
 
-  <title>分类: Java | One Castle</title>
+  <title>分类: java | One Castle</title>
   
 
 
@@ -282,7 +282,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Java<small>分类</small>
+        <h1>java<small>分类</small>
         </h1>
       </div>
 
@@ -294,9 +294,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2020/06/05/java-collection%E9%9B%86%E5%90%88/" itemprop="url">
+            <a class="post-title-link" href="/2020/06/07/Set%E6%8E%A5%E5%8F%A3/" itemprop="url">
               
-                <span itemprop="name">java collection集合</span>
+                <span itemprop="name">Set接口</span>
               
             </a>
         
@@ -304,9 +304,65 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-05T17:28:53+08:00"
-              content="2020-06-05" >
-          06-05
+              datetime="2020-06-07T22:58:48+08:00"
+              content="2020-06-07" >
+          06-07
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2020/06/06/%E6%B3%9B%E5%9E%8B/" itemprop="url">
+              
+                <span itemprop="name">泛型</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2020-06-06T20:47:27+08:00"
+              content="2020-06-06" >
+          06-06
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2020/06/06/%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF/" itemprop="url">
+              
+                <span itemprop="name">增强for循环</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2020-06-06T20:35:34+08:00"
+              content="2020-06-06" >
+          06-06
         </time>
       </div>
 
@@ -372,7 +428,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -394,7 +450,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -961,50 +1017,6 @@
     }
 
     // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
-
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
       if (isfetched === false) {

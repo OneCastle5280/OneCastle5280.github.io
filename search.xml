@@ -137,11 +137,47 @@
 <a id="more"></a>]]></content>
   </entry>
   <entry>
+    <title>mysql 索引与触发器</title>
+    <url>/2020/06/07/mysql-%E7%B4%A2%E5%BC%95%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Set接口</title>
+    <url>/2020/06/07/Set%E6%8E%A5%E5%8F%A3/</url>
+    <content><![CDATA[<h3 id="Set-lt-E-gt-接口"><a href="#Set-lt-E-gt-接口" class="headerlink" title="Set&lt; E &gt;接口"></a>Set&lt; E &gt;接口</h3><a id="more"></a>
+
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ol>
+<li>不能存储重复元素</li>
+<li>没有索引（与collection方法是一样的）</li>
+<li>不能用for循环进行遍历,使用迭代器Iterator进行遍历，也可以使用增强for</li>
+</ol>
+<h4 id="实现类-HashSet-lt-E-gt"><a href="#实现类-HashSet-lt-E-gt" class="headerlink" title="实现类 HashSet&lt; E &gt;"></a>实现类 HashSet&lt; E &gt;</h4><h5 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h5><ol>
+<li>不保证set的迭代顺序，<strong>特别是它不保证该顺序永恒不变</strong></li>
+<li>他是一个哈希表结构（实际上是一个HashMap实例），所以查询速度非常快</li>
+<li>不是同步的（是单线程的）</li>
+<li>是一个无序集合。存储元素和取出元素的顺序有可能不一样</li>
+</ol>
+<h5 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Set&lt;Integer&gt; set &#x3D; new HashSet&lt;&gt;();&#x2F;&#x2F;多态</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取该集合的迭代器</span><br><span class="line">Iterator&lt;Integer&gt; it &#x3D; set.iterator();</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>Set接口</tag>
+        <tag>集合框架</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>泛型</title>
     <url>/2020/06/06/%E6%B3%9B%E5%9E%8B/</url>
     <content><![CDATA[<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><blockquote>
 <p>泛型是一种不确定的数据类型</p>
 </blockquote>
+<a id="more"></a>
+
 <h5 id="定义含有泛型的类"><a href="#定义含有泛型的类" class="headerlink" title="定义含有泛型的类"></a>定义含有泛型的类</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class myClass&lt;E&gt;&#123;</span><br><span class="line">	private E name;</span><br><span class="line">	public E getName()&#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>这样就定义了一个泛型的类</strong></p>
@@ -227,7 +263,7 @@
     <url>/2020/06/06/%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF/</url>
     <content><![CDATA[<h4 id="增强for"><a href="#增强for" class="headerlink" title="增强for"></a>增强for</h4><a id="more"></a>
 
-<h5 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h5><p>底层使用的也是迭代器。使用for循环进行简化</p>
+<h5 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h5><p><strong>底层使用的也是迭代器。使用for循环进行简化</strong></p>
 <h5 id="使用范围"><a href="#使用范围" class="headerlink" title="使用范围"></a>使用范围</h5><p><strong>所有的单列集合都可以使用增强for（只能是集合和数组）</strong></p>
 <blockquote>
 <p>单列集合： ArrayList、Linkedlist、Vector</p>
@@ -257,11 +293,13 @@
 <li>数组的长度是固定的，集合的长度是可变的</li>
 <li>数组存储的是同一类型的元素，而集合存储的都是对象，并且对象的类型可以不一致</li>
 </ol>
-<h3 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h3><h3 id="collection接口"><a href="#collection接口" class="headerlink" title="collection接口"></a>collection接口</h3><blockquote>
+<h3 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h3><a id="more"></a>
+
+<h3 id="collection接口"><a href="#collection接口" class="headerlink" title="collection接口"></a>collection接口</h3><blockquote>
 <p>定义的是所有单列集合中共性的方法</p>
 <p>所有 <strong>单列集合都可以使用的共性的方法</strong></p>
 </blockquote>
-<h4 id="collection的常用的方法"><a href="#collection的常用的方法" class="headerlink" title="collection的常用的方法"></a>collection的常用的方法</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">boolean add(E e); 向集合中添加元素</span><br><span class="line">boolean remove(E e); 删除集合中的某个元素</span><br><span class="line">void clear(); 清空集合所有的元素</span><br><span class="line">boolean contains(E e); 判断集合中是否包含某个元素</span><br><span class="line">boolean isEmpty(); 判断集合是否为空</span><br><span class="line">int size(); 获取集合的长度</span><br><span class="line">Object[] toArray() 将集合转成一个数组</span><br></pre></td></tr></table></figure>
+<h4 id="collection的常用的方法】"><a href="#collection的常用的方法】" class="headerlink" title="collection的常用的方法】"></a>collection的常用的方法】</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">boolean add(E e); 向集合中添加元素</span><br><span class="line">boolean remove(E e); 删除集合中的某个元素</span><br><span class="line">void clear(); 清空集合所有的元素</span><br><span class="line">boolean contains(E e); 判断集合中是否包含某个元素</span><br><span class="line">boolean isEmpty(); 判断集合是否为空</span><br><span class="line">int size(); 获取集合的长度</span><br><span class="line">Object[] toArray() 将集合转成一个数组</span><br></pre></td></tr></table></figure>
 
 <h4 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h4><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ol>
 <li>有序的集合（存储和取出元素顺序相同）</li>
