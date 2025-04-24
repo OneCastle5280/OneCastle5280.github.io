@@ -1,0 +1,1235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>2025 的小目标</title>
+    <url>/2025/02/10/2025%20%E7%9A%84%E5%B0%8F%E7%9B%AE%E6%A0%87/</url>
+    <content><![CDATA[<p>2025 已经开始，2025 有了一些新的想法，记录一下~</p>
+<span id="more"></span>
+
+<h3 id="1-最大的目标"><a href="#1-最大的目标" class="headerlink" title="1. 最大的目标"></a>1. 最大的目标</h3><p>今年最大的目标主要是 <strong>2</strong> 个！</p>
+<ul>
+<li>持续的学习，提升自我核心竞争力</li>
+<li>持续的锻炼，提升身体素质</li>
+</ul>
+<h3 id="2-具体实施步骤"><a href="#2-具体实施步骤" class="headerlink" title="2. 具体实施步骤"></a>2. 具体实施步骤</h3><p>我们都知道，定目标非常简单，没有具体的计划，结果往往是容易泡汤的，我的一些亲身经历已经验证了这一点~</p>
+<p>所以这次我打算为每一个目标都指定粗略的计划，后续以 <strong>每周回顾</strong> 的形式来跟进结果和根据情况指定后续的计划~</p>
+<p>每一个目标都要有具体的<strong>可实施步骤</strong>和<strong>可量化</strong>的成果~</p>
+<h4 id="A-持续的学习，提升自我核心竞争力"><a href="#A-持续的学习，提升自我核心竞争力" class="headerlink" title="A. 持续的学习，提升自我核心竞争力"></a>A. 持续的学习，提升自我核心竞争力</h4><p>从大学毕业到现在，我越来越感觉到自身核心竞争力的重要性，临时抱佛脚往往不可靠，知识要经过平时积累和多总结、回顾才能真正成为自身能力；为了实现这一点，需要长期坚持、有意识、有规划的学习；</p>
+<h5 id="实施步骤"><a href="#实施步骤" class="headerlink" title="实施步骤"></a>实施步骤</h5><ol>
+<li>以月为单位，指定整个月内的学习模块，每个月初指定本月内的学习方向，每个月底对自己的学习内容进行回顾总结。</li>
+<li>以周为单位，对学习的内容进行回顾、总结</li>
+<li>上述的内容，需要进行<strong>记录输出</strong></li>
+<li>总结学习内容，适当的输出技术 blog</li>
+<li>阅读书籍</li>
+</ol>
+<h5 id="可量化的成果"><a href="#可量化的成果" class="headerlink" title="可量化的成果"></a>可量化的成果</h5><ol>
+<li>每周六对自己的学习进度记录进行总结，输出</li>
+<li>技术 blog &#x2F; github 项目的内容、数量</li>
+<li>总结每个月看的书籍</li>
+</ol>
+<h4 id="B-持续的锻炼，提升身体素质"><a href="#B-持续的锻炼，提升身体素质" class="headerlink" title="B. 持续的锻炼，提升身体素质"></a>B. 持续的锻炼，提升身体素质</h4><p>锻炼我 24 年中断了很久，期间尝试恢复训练，但是找借口一周去三天，最后也没有坚持下来；现在我发现健身锻炼不能“找借口”，除非身体出现了问题，不然都要去坚持练，否则非常容易“再也不去”~</p>
+<h5 id="实施步骤-1"><a href="#实施步骤-1" class="headerlink" title="实施步骤"></a>实施步骤</h5><ol>
+<li>以月为单位，对量化指标进行总结；月初指定月底目标，月底回顾总结</li>
+<li>以周为单位，对每周的训练次数、质量做回顾总结</li>
+<li>除周 2 固定去打球、周日固定休息，其余时间每天最低都要保证 45 min 的锻炼时间</li>
+</ol>
+<h5 id="可量化的成果-1"><a href="#可量化的成果-1" class="headerlink" title="可量化的成果"></a>可量化的成果</h5><ol>
+<li>体重</li>
+<li>体脂率</li>
+</ol>
+<h3 id="3-祝我能技术有所精进、减肥塑型成功"><a href="#3-祝我能技术有所精进、减肥塑型成功" class="headerlink" title="3. 祝我能技术有所精进、减肥塑型成功~"></a>3. 祝我能技术有所精进、减肥塑型成功~</h3>]]></content>
+      <categories>
+        <category>规划</category>
+      </categories>
+      <tags>
+        <tag>规划</tag>
+        <tag>2025</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【源码系列】Sentinel 的核心设计与代码实现</title>
+    <url>/2025/04/20/%E3%80%90%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97%E3%80%91Sentinel%20%E7%9A%84%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E4%B8%8E%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<p>Sentinel 是一个面向分布式系统的流量控制组件，主要以流量为切入点，从流量控制、熔断降级、系统负载保护等多个维度来保护分布式架构下的微服务；下面将讲述一下我对 Sentinel 的核心设计思想的简单理解</p>
+<span id="more"></span>
+
+<h2 id="1-Sentinel-核心设计"><a href="#1-Sentinel-核心设计" class="headerlink" title="1. Sentinel 核心设计"></a>1. Sentinel 核心设计</h2><h3 id="1-1-基本概念"><a href="#1-1-基本概念" class="headerlink" title="1.1 基本概念"></a>1.1 基本概念</h3><p>Sentinel 以流量作为切入点进行控制保护，所谓<strong>流量</strong>可以浅显的认为外部服务调用过来的请求或是对外部服务的请求；而被 Sentinel 保护的部分被定义成<strong>资源</strong>，资源可以是一个方法、一段代码；对于需要被保护的资源都有一套保护<strong>规则</strong>，保护规则定义了资源相关指标达到标准之后则开启相应的保护策略（限流、降级、熔断）；其中，资源相关指标（单位时间内的QPS、平均RT、异常数等）需要被统计记录起来，以此为指标进行判断触发条件。</p>
+<h3 id="1-2-资源"><a href="#1-2-资源" class="headerlink" title="1.2 资源"></a>1.2 资源</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ResourceWrapper</span> &#123;</span><br><span class="line">    <span class="comment">// 资源名</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="comment">// 外部服务调用过来的请求（IN）还是对外部服务的请求（OUT）</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> EntryType entryType;</span><br><span class="line">    <span class="comment">// 资源类型，例如 dubbo rpc 或者 web http</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> <span class="type">int</span> resourceType;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EntryType</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Inbound traffic</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    IN,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Outbound traffic</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    OUT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ResourceWrapper 对象示例是一个唯一标识 ID</p>
+<h3 id="1-2-流量定义"><a href="#1-2-流量定义" class="headerlink" title="1.2 流量定义"></a>1.2 流量定义</h3><p>Sentinel 以 <code>context</code> 来代表链路上下文，维护整条链路中的所有 <code>Entry</code>， <code>Entry</code> 则包含着资源相关的信息，例如资源信息（<code>ResourceWrapper</code>）、统计数据（<code>Node</code>） 、限流&#x2F;降级&#x2F;熔断判断链路（<code>ProcessorSlot</code>）。</p>
+<h4 id="A-Context"><a href="#A-Context" class="headerlink" title="A. Context"></a>A. Context</h4><p>Sentinel 的 Context 是存放 <code>ThreadLocal</code> 中，借助 <code>ThreadLocal</code> 的特性，保证每个线程的资源统计数据互不干扰</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ContextUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Store the context in ThreadLocal for easy access.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;Context&gt; contextHolder = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Context <span class="title function_">getContext</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> contextHolder.get();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 退出的时候，手动设置 value 为 null 避免内存泄漏</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">exit</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Context</span> <span class="variable">context</span> <span class="operator">=</span> contextHolder.get();</span><br><span class="line">    <span class="keyword">if</span> (context != <span class="literal">null</span> &amp;&amp; context.getCurEntry() == <span class="literal">null</span>) &#123;</span><br><span class="line">        contextHolder.set(<span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="B-Entry"><a href="#B-Entry" class="headerlink" title="B. Entry"></a>B. Entry</h4><p><code>context</code> 代表是调用链路的上下文，<code>Entry</code> 则代表调用链路中某一个被保护的资源调用，一个 <code>context</code> 可能包含多个 <code>Entry</code>; 原因是一个调用链路可能会调用多个资源，例如：<br>服务对外提供接口 A, A 内部实现依赖服务 1 和服务 2 提供的接口，如果我们分别对服务 1 和服务 2 进行限流，那么 A 的调用链路中会包含两个 <code>Entry</code>，分别代表对服务 1 和服务 2 的调用；如下所示</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">context</span><br><span class="line">|——  Entry1</span><br><span class="line">|——  Entry2</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Entry 部分源码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Entry</span> <span class="keyword">implements</span> <span class="title class_">AutoCloseable</span> &#123;</span><br><span class="line">    <span class="comment">// 资源相关的统计数据</span></span><br><span class="line">    <span class="keyword">private</span> Node curNode;</span><br><span class="line">    <span class="comment">// 调用来源相关的统计数据</span></span><br><span class="line">    <span class="keyword">private</span> Node originNode;</span><br><span class="line">    <span class="comment">// 资源</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> ResourceWrapper resourceWrapper;</span><br><span class="line">    <span class="comment">// 处理链</span></span><br><span class="line">    <span class="keyword">protected</span> ProcessorSlot&lt;Object&gt; chain;</span><br><span class="line">    <span class="comment">// 链路上下文</span></span><br><span class="line">    <span class="keyword">protected</span> Context context;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-Node"><a href="#C-Node" class="headerlink" title="C. Node"></a>C. Node</h4><p>记录资源相关的统计数据</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 部分源码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Node</span> <span class="keyword">extends</span> <span class="title class_">OccupySupport</span>, DebugSupport &#123;</span><br><span class="line">    <span class="type">long</span> <span class="title function_">totalRequest</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">long</span> <span class="title function_">totalPass</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">long</span> <span class="title function_">totalSuccess</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Node 是一个接口，定义了基本的统计数据口径，包含 <code>DefaultNode</code>、<code>ClusterNode</code>、<code>StatisticNode</code>、<code>EntranceNode</code> 四个实现类；</p>
+<h5 id="StatisticNode"><a href="#StatisticNode" class="headerlink" title="StatisticNode"></a>StatisticNode</h5><p>Node 的具体实现类，底层是通过<strong>滑动窗口</strong>对相关调用信息进行记录</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StatisticNode</span> <span class="keyword">implements</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    <span class="comment">// 秒级滑动窗口</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="type">Metric</span> <span class="variable">rollingCounterInSecond</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayMetric</span>(SampleCountProperty.SAMPLE_COUNT, IntervalProperty.INTERVAL);</span><br><span class="line">    <span class="comment">// 分钟级滑动窗口</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="type">Metric</span> <span class="variable">rollingCounterInMinute</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayMetric</span>(<span class="number">60</span>, <span class="number">60</span> * <span class="number">1000</span>, <span class="literal">false</span>);</span><br><span class="line">    <span class="comment">// CAS + cell 数组提升并发性能</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">LongAdder</span> <span class="variable">curThreadNum</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LongAdder</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>滑动窗口是 Sentinel 统计的核心设计，Sentinel 通过滑动窗口对资源调用信息进行统计，以秒级、分钟级为单位进行统计，为后续的限流、降级、熔断提供数据支撑；我们稍微展开一下 Sentinel 是如何实现的滑动窗口。</p>
+<h6 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h6><p>滑动窗口的核心概念就是：将固定单位时间划分若干个小单位时间，每一个小单位时间就是一个窗口；在 Sentinel 中，资源的调用相关的统计信息（调用成功、调用失败、调用总数等数据信息）就是存放在窗口中；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Sentinel 滑动窗口核心定义</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">LeapArray</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">// 窗口长度</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> windowLengthInMs;</span><br><span class="line">    <span class="comment">// 窗口数量</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> sampleCount;</span><br><span class="line">    <span class="comment">// 滑动窗口总长度（单位: ms） = 窗口长度 * 窗口数量</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> intervalInMs;</span><br><span class="line">    <span class="comment">// 滑动窗口总长度（单位: s）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> intervalInSecond;</span><br><span class="line">    <span class="comment">// 窗口数组</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> AtomicReferenceArray&lt;WindowWrap&lt;T&gt;&gt; array;</span><br><span class="line">    <span class="comment">// 可重入锁</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">updateLock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>LeapArray 定义了滑动窗口的基本信息，窗口个数、长度；可以看到 Sentinel 采用数组的形式来实现滑动窗口，每一个元素为 <code>WindowWrap</code> 类型</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WindowWrap</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">// 窗口长度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> windowLengthInMs;</span><br><span class="line">    <span class="comment">// 窗口开始时间</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> windowStart;</span><br><span class="line">    <span class="comment">// 窗口内存放的数据</span></span><br><span class="line">    <span class="keyword">private</span> T value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>WindowWrap</code> 的 value 在 Sentinel 中资源的调用统计信息，<code>MetricBucket</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MetricBucket</span> &#123;</span><br><span class="line">    <span class="comment">// 统计信息数组</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> LongAdder[] counters;</span><br><span class="line">    <span class="comment">// 最小 rt</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="type">long</span> minRt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MetricBucket</span><span class="params">()</span> &#123;</span><br><span class="line">        MetricEvent[] events = MetricEvent.values();</span><br><span class="line">        <span class="built_in">this</span>.counters = <span class="keyword">new</span> <span class="title class_">LongAdder</span>[events.length];</span><br><span class="line">        <span class="keyword">for</span> (MetricEvent event : events) &#123;</span><br><span class="line">            counters[event.ordinal()] = <span class="keyword">new</span> <span class="title class_">LongAdder</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        initMinRt();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">MetricEvent</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Normal pass.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    PASS,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Normal block.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    BLOCK,</span><br><span class="line">    EXCEPTION,</span><br><span class="line">    SUCCESS,</span><br><span class="line">    RT,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Passed in future quota (pre-occupied, since 1.5.0).</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    OCCUPIED_PASS</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到 Sentinel 采用了非常巧妙的方式来存储不同类型的统计信息，通过 <code>MetricEvent</code> 枚举作为下标，从 <code>counters</code> 获取到对应的 <code>LongAdder</code>。Sentinel 以流量作为切入点，其统计信息操作肯定是非常频繁的，在并发场景下，如何保证性能？ Sentinel 通过引入 <code>LongAdder</code> 进行记录；<code>LongAdder</code> 是 JUC 下的一个包，其核心思想是通过 CAS + cell 数组提升并发性能，1. 通过 CAS 保证操作的原子性 2. 在存在并发的情况下，分散请求到不同的 cell CAS 更新以减少并发冲突。</p>
+<hr>
+<p>当请求到来时，Sentinel 首先会先计算当前请求落在哪个小窗口中，获取到对应的 <code>WindowWrap</code>，然后通过 <code>MetricBucket</code> 的 <code>add()</code> 方法来记录对应的统计信息，计算落在哪个小窗口中的源码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> WindowWrap&lt;T&gt; <span class="title function_">currentWindow</span><span class="params">(<span class="type">long</span> timeMillis)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (timeMillis &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> calculateTimeIdx(timeMillis);</span><br><span class="line">    <span class="comment">// Calculate current bucket start time.</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">windowStart</span> <span class="operator">=</span> calculateWindowStart(timeMillis);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * Get bucket item at given time from the array.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * (1) Bucket is absent, then just create a new bucket and CAS update to circular array.</span></span><br><span class="line"><span class="comment">     * (2) Bucket is up-to-date, then just return the bucket.</span></span><br><span class="line"><span class="comment">     * (3) Bucket is deprecated, then reset current bucket.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        WindowWrap&lt;T&gt; old = array.get(idx);</span><br><span class="line">        <span class="keyword">if</span> (old == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">             *     B0       B1      B2    NULL      B4</span></span><br><span class="line"><span class="comment">             * ||_______|_______|_______|_______|_______||___</span></span><br><span class="line"><span class="comment">             * 200     400     600     800     1000    1200  timestamp</span></span><br><span class="line"><span class="comment">             *                             ^</span></span><br><span class="line"><span class="comment">             *                          time=888</span></span><br><span class="line"><span class="comment">             *            bucket is empty, so create new and update</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * If the old bucket is absent, then we create a new bucket at &#123;@code windowStart&#125;,</span></span><br><span class="line"><span class="comment">             * then try to update circular array via a CAS operation. Only one thread can</span></span><br><span class="line"><span class="comment">             * succeed to update, while other threads yield its time slice.</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            WindowWrap&lt;T&gt; window = <span class="keyword">new</span> <span class="title class_">WindowWrap</span>&lt;T&gt;(windowLengthInMs, windowStart, newEmptyBucket(timeMillis));</span><br><span class="line">            <span class="keyword">if</span> (array.compareAndSet(idx, <span class="literal">null</span>, window)) &#123;</span><br><span class="line">                <span class="comment">// Successfully updated, return the created bucket.</span></span><br><span class="line">                <span class="keyword">return</span> window;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// Contention failed, the thread will yield its time slice to wait for bucket available.</span></span><br><span class="line">                Thread.<span class="keyword">yield</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (windowStart == old.windowStart()) &#123;</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">             *     B0       B1      B2     B3      B4</span></span><br><span class="line"><span class="comment">             * ||_______|_______|_______|_______|_______||___</span></span><br><span class="line"><span class="comment">             * 200     400     600     800     1000    1200  timestamp</span></span><br><span class="line"><span class="comment">             *                             ^</span></span><br><span class="line"><span class="comment">             *                          time=888</span></span><br><span class="line"><span class="comment">             *            startTime of Bucket 3: 800, so it&#x27;s up-to-date</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * If current &#123;@code windowStart&#125; is equal to the start timestamp of old bucket,</span></span><br><span class="line"><span class="comment">             * that means the time is within the bucket, so directly return the bucket.</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">return</span> old;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (windowStart &gt; old.windowStart()) &#123;</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">             *   (old)</span></span><br><span class="line"><span class="comment">             *             B0       B1      B2    NULL      B4</span></span><br><span class="line"><span class="comment">             * |_______||_______|_______|_______|_______|_______||___</span></span><br><span class="line"><span class="comment">             * ...    1200     1400    1600    1800    2000    2200  timestamp</span></span><br><span class="line"><span class="comment">             *                              ^</span></span><br><span class="line"><span class="comment">             *                           time=1676</span></span><br><span class="line"><span class="comment">             *          startTime of Bucket 2: 400, deprecated, should be reset</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * If the start timestamp of old bucket is behind provided time, that means</span></span><br><span class="line"><span class="comment">             * the bucket is deprecated. We have to reset the bucket to current &#123;@code windowStart&#125;.</span></span><br><span class="line"><span class="comment">             * Note that the reset and clean-up operations are hard to be atomic,</span></span><br><span class="line"><span class="comment">             * so we need a update lock to guarantee the correctness of bucket update.</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * The update lock is conditional (tiny scope) and will take effect only when</span></span><br><span class="line"><span class="comment">             * bucket is deprecated, so in most cases it won&#x27;t lead to performance loss.</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">if</span> (updateLock.tryLock()) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// Successfully get the update lock, now we reset the bucket.</span></span><br><span class="line">                    <span class="keyword">return</span> resetWindowTo(old, windowStart);</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    updateLock.unlock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// Contention failed, the thread will yield its time slice to wait for bucket available.</span></span><br><span class="line">                Thread.<span class="keyword">yield</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (windowStart &lt; old.windowStart()) &#123;</span><br><span class="line">            <span class="comment">// Should not go through here, as the provided time is already behind.</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">WindowWrap</span>&lt;T&gt;(windowLengthInMs, windowStart, newEmptyBucket(timeMillis));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>非常通俗易懂；Sentinel 采用的是循环数组，通过 hash 计算下标循环利用空间；</p>
+<h5 id="DefaultNode"><a href="#DefaultNode" class="headerlink" title="DefaultNode"></a>DefaultNode</h5><p>DefaultNode 是 StatisticNode 的子类，DefaultNode 拥有资源信息（resourceHolder）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultNode</span> <span class="keyword">extends</span> <span class="title class_">StatisticNode</span> &#123;</span><br><span class="line">    <span class="comment">// 资源</span></span><br><span class="line">    <span class="keyword">private</span> ResourceWrapper id;</span><br><span class="line">    <span class="comment">// 下级节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Set&lt;Node&gt; childList = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">// 全局统计信息</span></span><br><span class="line">    <span class="keyword">private</span> ClusterNode clusterNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>childList</code> 存储下级节点，形成资源调用链表，例如</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">EntranceNode（入口: /api）  </span><br><span class="line">└── DefaultNode（资源A）  </span><br><span class="line">     ├── DefaultNode（资源B，上下文：资源A调用）  </span><br><span class="line">     └── DefaultNode（资源C，上下文：资源A调用）  </span><br><span class="line">          └── DefaultNode（资源D，上下文：资源C调用）  </span><br></pre></td></tr></table></figure>
+<p>每一个节点都能够单独其所在上下文<code>context</code>的调用情况</p>
+<h5 id="ClusterNode"><a href="#ClusterNode" class="headerlink" title="ClusterNode"></a>ClusterNode</h5><p>ClusterNode 是 StatisticNode 的子类，同一个资源可能同时有多个调用链路，例如 context1、content2 同时使用了资源，两个上下文中分别会有 <code>DefaultNode</code> 记录其相关信息，此时为了方便统计整体资源的调用数据；就需要遍历资源所有的 <code>DefaultNode</code>，无疑这是非常损耗性能的，所以 Sentinel 定义了 ClusterNode，ClusterNode 存储了所有 DefaultNode 的统计信息，通过 <code>ClusterNode</code> 统计资源调用情况，而不需要遍历所有 <code>DefaultNode</code>；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClusterNode</span> <span class="keyword">extends</span> <span class="title class_">StatisticNode</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> resourceType;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultNode</span> <span class="keyword">extends</span> <span class="title class_">StatisticNode</span> &#123;</span><br><span class="line">    <span class="comment">// 省略部分源码</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">increaseBlockQps</span><span class="params">(<span class="type">int</span> count)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.increaseBlockQps(count);</span><br><span class="line">        <span class="built_in">this</span>.clusterNode.increaseBlockQps(count);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">increaseExceptionQps</span><span class="params">(<span class="type">int</span> count)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.increaseExceptionQps(count);</span><br><span class="line">        <span class="built_in">this</span>.clusterNode.increaseExceptionQps(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到 <code>DefaultNode</code> 在 <code>increase</code> 的时候，会对 <code>clusterNode</code> 也进行 <code>increase</code> </p>
+<h5 id="EntranceNode"><a href="#EntranceNode" class="headerlink" title="EntranceNode"></a>EntranceNode</h5><p><code>EntranceNode</code> 是一个特殊的 <code>DefaultNode</code>，其作为调用链路的入口节点，子节点为 <code>DefaultNode</code>; 主要是用来记录流量入口，使 Sentinel 能够做到入口级别操作（统计&#x2F;流控&#x2F;其他）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EntranceNode</span> <span class="keyword">extends</span> <span class="title class_">DefaultNode</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">EntranceNode</span><span class="params">(ResourceWrapper id, ClusterNode clusterNode)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(id, clusterNode);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>特别的, Sentinel 定义了 Root <code>EntranceNode</code> 类型，作为 Sentinel 的入口节点，所有资源调用链路都从该节点开始；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Global ROOT statistic node that represents the universal parent node.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">DefaultNode</span> <span class="variable">ROOT</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EntranceNode</span>(<span class="keyword">new</span> <span class="title class_">StringResourceWrapper</span>(ROOT_ID, EntryType.IN),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ClusterNode</span>(ROOT_ID, ResourceTypeConstants.COMMON));</span><br></pre></td></tr></table></figure>
+<h4 id="D-小结"><a href="#D-小结" class="headerlink" title="D. 小结"></a>D. 小结</h4><p>上述 <code>context</code>、<code>Entry</code>、<code>Node</code> 都是 Sentinel 中非常重要的概念，Sentinel 使用 <code>context</code>、<code>Entry</code>、<code>Node</code> 来实现对流量的定义、信息统计，为后续的操作提供数据支撑。</p>
+<ul>
+<li><code>context</code>: 线程维度的调用上下文，存储当前调用链的入口节点、调用来源等信息，绑定在 <code>ThreadLocal</code> </li>
+<li><code>Entry</code>: 资源的调用上下文，包含资源名称、创建时间等元数据，每次资源调用都会创建新 <code>Entry</code></li>
+<li><code>Node</code>: 记录资源调用数据的统计节点（如QPS、RT），底层实现是滑动窗口</li>
+</ul>
+<h3 id="1-3-限流-降级-熔断的实现"><a href="#1-3-限流-降级-熔断的实现" class="headerlink" title="1.3 限流&#x2F;降级&#x2F;熔断的实现"></a>1.3 限流&#x2F;降级&#x2F;熔断的实现</h3><p>上面解析了 Sentinel 是如何对流量进行定义，统计相关信息，下面我们看看 Sentinel 是如何对请求进行封装、统计，然后实现对流量的限流&#x2F;降级&#x2F;熔断等功能。</p>
+<h4 id="ProcessorSlot"><a href="#ProcessorSlot" class="headerlink" title="ProcessorSlot"></a>ProcessorSlot</h4><p>Sentinel 定义了 <code>ProcessorSlot</code> 接口，是 Sentinel 实现限流、降级、熔断等功能的核心；从功能分类来看，有两类 <code>ProcessorSlot</code>：</p>
+<ol>
+<li>构建资源统计信息 slot</li>
+<li>实现具体功能的 slot、例如：限流&#x2F;降级&#x2F;熔断</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ProcessorSlot</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">// 进入 slot</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">entry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, T param, <span class="type">int</span> count, <span class="type">boolean</span> prioritized,</span></span><br><span class="line"><span class="params">               Object... args)</span> <span class="keyword">throws</span> Throwable;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 进入下一个 slot</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">fireEntry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, Object obj, <span class="type">int</span> count, <span class="type">boolean</span> prioritized,</span></span><br><span class="line"><span class="params">                   Object... args)</span> <span class="keyword">throws</span> Throwable;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 退出 slot</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">exit</span><span class="params">(Context context, ResourceWrapper resourceWrapper, <span class="type">int</span> count, Object... args)</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 退出下一个 slot</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">fireExit</span><span class="params">(Context context, ResourceWrapper resourceWrapper, <span class="type">int</span> count, Object... args)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractLinkedProcessorSlot</span>&lt;T&gt; <span class="keyword">implements</span> <span class="title class_">ProcessorSlot</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> AbstractLinkedProcessorSlot&lt;?&gt; next = <span class="literal">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">fireEntry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, Object obj, <span class="type">int</span> count, <span class="type">boolean</span> prioritized, Object... args)</span></span><br><span class="line">            <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">if</span> (next != <span class="literal">null</span>) &#123;</span><br><span class="line">            next.transformEntry(context, resourceWrapper, obj, count, prioritized, args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">transformEntry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, Object o, <span class="type">int</span> count, <span class="type">boolean</span> prioritized, Object... args)</span></span><br><span class="line">            <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">T</span> <span class="variable">t</span> <span class="operator">=</span> (T)o;</span><br><span class="line">        entry(context, resourceWrapper, t, count, prioritized, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">fireExit</span><span class="params">(Context context, ResourceWrapper resourceWrapper, <span class="type">int</span> count, Object... args)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (next != <span class="literal">null</span>) &#123;</span><br><span class="line">            next.exit(context, resourceWrapper, count, args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> AbstractLinkedProcessorSlot&lt;?&gt; getNext() &#123;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNext</span><span class="params">(AbstractLinkedProcessorSlot&lt;?&gt; next)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>AbstractLinkedProcessorSlot</code> 抽象类封装了<code>ProcessorSlot</code> 公共的行为。</p>
+<h5 id="ProcessorSlotChain"><a href="#ProcessorSlotChain" class="headerlink" title="ProcessorSlotChain"></a>ProcessorSlotChain</h5><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ProcessorSlotChain</span> <span class="keyword">extends</span> <span class="title class_">AbstractLinkedProcessorSlot</span>&lt;Object&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">addFirst</span><span class="params">(AbstractLinkedProcessorSlot&lt;?&gt; protocolProcessor)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">addLast</span><span class="params">(AbstractLinkedProcessorSlot&lt;?&gt; protocolProcessor)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ProcessorSlotChain</code> 继承了 <code>AbstractLinkedProcessorSlot</code>，实现了 <code>addFirst</code>、<code>addLast</code> 方法，分别用于添加 <code>ProcessorSlot</code> 到链表头、链表尾;</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultProcessorSlotChain</span> <span class="keyword">extends</span> <span class="title class_">ProcessorSlotChain</span> &#123;</span><br><span class="line">    <span class="comment">// first 空实现，作为 ProcessSlotChain 链的头节点</span></span><br><span class="line">    AbstractLinkedProcessorSlot&lt;?&gt; first = <span class="keyword">new</span> <span class="title class_">AbstractLinkedProcessorSlot</span>&lt;Object&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">entry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, Object t, <span class="type">int</span> count, <span class="type">boolean</span> prioritized, Object... args)</span></span><br><span class="line">                <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">            <span class="built_in">super</span>.fireEntry(context, resourceWrapper, t, count, prioritized, args);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exit</span><span class="params">(Context context, ResourceWrapper resourceWrapper, <span class="type">int</span> count, Object... args)</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.fireExit(context, resourceWrapper, count, args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// ProcessSlotChain 链的尾节点</span></span><br><span class="line">    AbstractLinkedProcessorSlot&lt;?&gt; end = first;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">// 将 processSlot 放到责任链的首位</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addFirst</span><span class="params">(AbstractLinkedProcessorSlot&lt;?&gt; protocolProcessor)</span> &#123;</span><br><span class="line">        protocolProcessor.setNext(first.getNext());</span><br><span class="line">        first.setNext(protocolProcessor);</span><br><span class="line">        <span class="keyword">if</span> (end == first) &#123;</span><br><span class="line">            end = protocolProcessor;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">// 新增 ProcessSlot 到责任链的尾部</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addLast</span><span class="params">(AbstractLinkedProcessorSlot&lt;?&gt; protocolProcessor)</span> &#123;</span><br><span class="line">        end.setNext(protocolProcessor);</span><br><span class="line">        end = protocolProcessor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNext</span><span class="params">(AbstractLinkedProcessorSlot&lt;?&gt; next)</span> &#123;</span><br><span class="line">        addLast(next);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> AbstractLinkedProcessorSlot&lt;?&gt; getNext() &#123;</span><br><span class="line">        <span class="keyword">return</span> first.getNext();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 从责任链第一个 ProcessSlot 开始执行 entry 逻辑</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">entry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, Object t, <span class="type">int</span> count, <span class="type">boolean</span> prioritized, Object... args)</span></span><br><span class="line">            <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        first.transformEntry(context, resourceWrapper, t, count, prioritized, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从责任链第一个 ProcessSlot 开始执行 exit 逻辑</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exit</span><span class="params">(Context context, ResourceWrapper resourceWrapper, <span class="type">int</span> count, Object... args)</span> &#123;</span><br><span class="line">        first.exit(context, resourceWrapper, count, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>DefaultProcessorSlotChain</code> 为 Sentinel 责任链的默认实现，实现方式为<strong>单向链表</strong></p>
+<h4 id="ProcessorSlotChain-的构建时机"><a href="#ProcessorSlotChain-的构建时机" class="headerlink" title="ProcessorSlotChain 的构建时机"></a>ProcessorSlotChain 的构建时机</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Spi(isDefault = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultSlotChainBuilder</span> <span class="keyword">implements</span> <span class="title class_">SlotChainBuilder</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ProcessorSlotChain <span class="title function_">build</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">ProcessorSlotChain</span> <span class="variable">chain</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultProcessorSlotChain</span>();</span><br><span class="line">        <span class="comment">// spi 的方式加载 ProcessorSlot</span></span><br><span class="line">        List&lt;ProcessorSlot&gt; sortedSlotList = SpiLoader.of(ProcessorSlot.class).loadInstanceListSorted();</span><br><span class="line">        <span class="keyword">for</span> (ProcessorSlot slot : sortedSlotList) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!(slot <span class="keyword">instanceof</span> AbstractLinkedProcessorSlot)) &#123;</span><br><span class="line">                RecordLog.warn(<span class="string">&quot;The ProcessorSlot(&quot;</span> + slot.getClass().getCanonicalName() + <span class="string">&quot;) is not an instance of AbstractLinkedProcessorSlot, can&#x27;t be added into ProcessorSlotChain&quot;</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            chain.addLast((AbstractLinkedProcessorSlot&lt;?&gt;) slot);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> chain;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到是 spi 的形式加载 <code>ProcessorSlot</code>，提升了灵活性</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line"># Sentinel default ProcessorSlots</span><br><span class="line">com.alibaba.csp.sentinel.slots.nodeselector.NodeSelectorSlot</span><br><span class="line">com.alibaba.csp.sentinel.slots.clusterbuilder.ClusterBuilderSlot</span><br><span class="line">com.alibaba.csp.sentinel.slots.logger.LogSlot</span><br><span class="line">com.alibaba.csp.sentinel.slots.statistic.StatisticSlot</span><br><span class="line">com.alibaba.csp.sentinel.slots.block.authority.AuthoritySlot</span><br><span class="line">com.alibaba.csp.sentinel.slots.system.SystemSlot</span><br><span class="line">com.alibaba.csp.sentinel.slots.block.flow.FlowSlot</span><br><span class="line">com.alibaba.csp.sentinel.slots.block.degrade.DegradeSlot</span><br><span class="line">com.alibaba.csp.sentinel.slots.block.degrade.DefaultCircuitBreakerSlot</span><br></pre></td></tr></table></figure>
+
+<p>上述是默认的 <code>ProcessorSlotChain</code> 的创建顺序</p>
+<h4 id="NodeSelectorSlot"><a href="#NodeSelectorSlot" class="headerlink" title="NodeSelectorSlot"></a>NodeSelectorSlot</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NodeSelectorSlot</span> <span class="keyword">extends</span> <span class="title class_">AbstractLinkedProcessorSlot</span>&lt;Object&gt; &#123;</span><br><span class="line">    <span class="comment">// key -&gt; value : context -&gt; defaultNode</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Map&lt;String, DefaultNode&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, DefaultNode&gt;(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// entry 逻辑</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">entry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, Object obj, <span class="type">int</span> count, <span class="type">boolean</span> prioritized, Object... args)</span></span><br><span class="line">            <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">DefaultNode</span> <span class="variable">node</span> <span class="operator">=</span> map.get(context.getName());</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                node = map.get(context.getName());</span><br><span class="line">                <span class="keyword">if</span> (node == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// 构建 DefaultNode</span></span><br><span class="line">                    node = <span class="keyword">new</span> <span class="title class_">DefaultNode</span>(resourceWrapper, <span class="literal">null</span>);</span><br><span class="line">                    HashMap&lt;String, DefaultNode&gt; cacheMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, DefaultNode&gt;(map.size());</span><br><span class="line">                    cacheMap.putAll(map);</span><br><span class="line">                    cacheMap.put(context.getName(), node);</span><br><span class="line">                    map = cacheMap;</span><br><span class="line">                    <span class="comment">// 构建调用树</span></span><br><span class="line">                    ((DefaultNode) context.getLastNode()).addChild(node);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        context.setCurNode(node);</span><br><span class="line">        fireEntry(context, resourceWrapper, node, count, prioritized, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exit</span><span class="params">(Context context, ResourceWrapper resourceWrapper, <span class="type">int</span> count, Object... args)</span> &#123;</span><br><span class="line">        fireExit(context, resourceWrapper, count, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>NodeSelectorSlot</code> 的职责是根据 <code>context</code> 构建 <code>DefaultNode</code>, 请求进入到 <code>NodeSelectorSlot</code> 后，会根据 <code>context</code> 获取到资源的 <code>DefaultNode</code> 并且向后传递</p>
+<h4 id="ClusterBuilderSlot"><a href="#ClusterBuilderSlot" class="headerlink" title="ClusterBuilderSlot"></a>ClusterBuilderSlot</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClusterBuilderSlot</span> <span class="keyword">extends</span> <span class="title class_">AbstractLinkedProcessorSlot</span>&lt;DefaultNode&gt; &#123;</span><br><span class="line">    <span class="comment">// key -&gt; value: 资源 -&gt; ClusterNode</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Map&lt;ResourceWrapper, ClusterNode&gt; clusterNodeMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">entry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, DefaultNode node, <span class="type">int</span> count,</span></span><br><span class="line"><span class="params">                      <span class="type">boolean</span> prioritized, Object... args)</span></span><br><span class="line">            <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">if</span> (clusterNode == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">                <span class="keyword">if</span> (clusterNode == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// Create the cluster node.</span></span><br><span class="line">                    clusterNode = <span class="keyword">new</span> <span class="title class_">ClusterNode</span>(resourceWrapper.getName(), resourceWrapper.getResourceType());</span><br><span class="line">                    HashMap&lt;ResourceWrapper, ClusterNode&gt; newMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(Math.max(clusterNodeMap.size(), <span class="number">16</span>));</span><br><span class="line">                    newMap.putAll(clusterNodeMap);</span><br><span class="line">                    newMap.put(node.getId(), clusterNode);</span><br><span class="line"></span><br><span class="line">                    clusterNodeMap = newMap;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        node.setClusterNode(clusterNode);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!<span class="string">&quot;&quot;</span>.equals(context.getOrigin())) &#123;</span><br><span class="line">            <span class="type">Node</span> <span class="variable">originNode</span> <span class="operator">=</span> node.getClusterNode().getOrCreateOriginNode(context.getOrigin());</span><br><span class="line">            context.getCurEntry().setOriginNode(originNode);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fireEntry(context, resourceWrapper, node, count, prioritized, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ClusterBuilderSlot</code> 的指责则是创建 <code>ClusterNode</code> 往后传递，非常容易理解</p>
+<h4 id="StatisticSlot"><a href="#StatisticSlot" class="headerlink" title="StatisticSlot"></a>StatisticSlot</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StatisticSlot</span> <span class="keyword">extends</span> <span class="title class_">AbstractLinkedProcessorSlot</span>&lt;DefaultNode&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">entry</span><span class="params">(Context context, ResourceWrapper resourceWrapper, DefaultNode node, <span class="type">int</span> count,</span></span><br><span class="line"><span class="params">                      <span class="type">boolean</span> prioritized, Object... args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// StatisticSlot 先执行后续的 processorSlot 的执行逻辑检查，例如是否需要被限流、降级、熔断</span></span><br><span class="line">            fireEntry(context, resourceWrapper, node, count, prioritized, args);</span><br><span class="line">            <span class="comment">// 如果没有报错，即代表流量放行，记录相关信息到滑动窗口中</span></span><br><span class="line">            node.increaseThreadNum();</span><br><span class="line">            node.addPassRequest(count);</span><br><span class="line">            <span class="keyword">if</span> (context.getCurEntry().getOriginNode() != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="comment">// Add count for origin node.</span></span><br><span class="line">                context.getCurEntry().getOriginNode().increaseThreadNum();</span><br><span class="line">                context.getCurEntry().getOriginNode().addPassRequest(count);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (resourceWrapper.getEntryType() == EntryType.IN) &#123;</span><br><span class="line">                <span class="comment">// Add count for global inbound entry node for global statistics.</span></span><br><span class="line">                Constants.ENTRY_NODE.increaseThreadNum();</span><br><span class="line">                Constants.ENTRY_NODE.addPassRequest(count);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 流量放行，执行提前注册好的一些回调方法</span></span><br><span class="line">            <span class="keyword">for</span> (ProcessorSlotEntryCallback&lt;DefaultNode&gt; handler : StatisticSlotCallbackRegistry.getEntryCallbacks()) &#123;</span><br><span class="line">                handler.onPass(context, resourceWrapper, node, count, args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (PriorityWaitException ex) &#123;</span><br><span class="line">            node.increaseThreadNum();</span><br><span class="line">            <span class="keyword">if</span> (context.getCurEntry().getOriginNode() != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="comment">// Add count for origin node.</span></span><br><span class="line">                context.getCurEntry().getOriginNode().increaseThreadNum();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (resourceWrapper.getEntryType() == EntryType.IN) &#123;</span><br><span class="line">                <span class="comment">// Add count for global inbound entry node for global statistics.</span></span><br><span class="line">                Constants.ENTRY_NODE.increaseThreadNum();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Handle pass event with registered entry callback handlers.</span></span><br><span class="line">            <span class="keyword">for</span> (ProcessorSlotEntryCallback&lt;DefaultNode&gt; handler : StatisticSlotCallbackRegistry.getEntryCallbacks()) &#123;</span><br><span class="line">                handler.onPass(context, resourceWrapper, node, count, args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (BlockException e) &#123;</span><br><span class="line">            <span class="comment">// 流量不允许通过</span></span><br><span class="line">            context.getCurEntry().setBlockError(e);</span><br><span class="line">            <span class="comment">// 记录相关统计信息到滑动窗口中</span></span><br><span class="line">            node.increaseBlockQps(count);</span><br><span class="line">            <span class="keyword">if</span> (context.getCurEntry().getOriginNode() != <span class="literal">null</span>) &#123;</span><br><span class="line">                context.getCurEntry().getOriginNode().increaseBlockQps(count);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (resourceWrapper.getEntryType() == EntryType.IN) &#123;</span><br><span class="line">                Constants.ENTRY_NODE.increaseBlockQps(count);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 流量不允许通过，执行提前注册好的一些回调方法</span></span><br><span class="line">            <span class="keyword">for</span> (ProcessorSlotEntryCallback&lt;DefaultNode&gt; handler : StatisticSlotCallbackRegistry.getEntryCallbacks()) &#123;</span><br><span class="line">                handler.onBlocked(e, context, resourceWrapper, node, count, args);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 最后向上抛出异常</span></span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            <span class="comment">// 未知错误</span></span><br><span class="line">            context.getCurEntry().setError(e);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exit</span><span class="params">(Context context, ResourceWrapper resourceWrapper, <span class="type">int</span> count, Object... args)</span> &#123;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">node</span> <span class="operator">=</span> context.getCurNode();</span><br><span class="line">        <span class="keyword">if</span> (context.getCurEntry().getBlockError() == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 记录执行 rt 相关统计信息</span></span><br><span class="line">            <span class="type">long</span> <span class="variable">completeStatTime</span> <span class="operator">=</span> TimeUtil.currentTimeMillis();</span><br><span class="line">            context.getCurEntry().setCompleteTimestamp(completeStatTime);</span><br><span class="line">            <span class="type">long</span> <span class="variable">rt</span> <span class="operator">=</span> completeStatTime - context.getCurEntry().getCreateTimestamp();</span><br><span class="line"></span><br><span class="line">            <span class="type">Throwable</span> <span class="variable">error</span> <span class="operator">=</span> context.getCurEntry().getError();</span><br><span class="line">            recordCompleteFor(node, count, rt, error);</span><br><span class="line">            recordCompleteFor(context.getCurEntry().getOriginNode(), count, rt, error);</span><br><span class="line">            <span class="keyword">if</span> (resourceWrapper.getEntryType() == EntryType.IN) &#123;</span><br><span class="line">                recordCompleteFor(Constants.ENTRY_NODE, count, rt, error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 流量执行完毕，执行提前注册好的一些回调方法</span></span><br><span class="line">        Collection&lt;ProcessorSlotExitCallback&gt; exitCallbacks = StatisticSlotCallbackRegistry.getExitCallbacks();</span><br><span class="line">        <span class="keyword">for</span> (ProcessorSlotExitCallback handler : exitCallbacks) &#123;</span><br><span class="line">            handler.onExit(context, resourceWrapper, count, args);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fireExit(context, resourceWrapper, count, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>StatisticSlot</code> 是 Sentinel <code>ProcessorSlotChain</code> 的核心，包含了数据信息统计，判断是否被流控，以及完成一些回调钩子 <code>ProcessorSlotEntryCallback</code>。</p>
+<p>可以看到 <code>StatisticSlot</code> 作为 Sentinel <code>ProcessorSlotChain</code> 的核心 slot，起着承上启下的作用，在 <code>StatisticSlot</code> 前面的 <code>processorSlot</code> 是构建&#x2F;获取 <code>DefaultNode</code>、<code>ClusterNode</code>，为后面的 <code>processorSlot</code> 的限流&#x2F;降级&#x2F;熔断提供数据支撑；真正决定流量是否通行的由 <code>StatisticSlot</code> 之后的 <code>processSlot</code> 决定。</p>
+]]></content>
+      <categories>
+        <category>Sentinel</category>
+      </categories>
+      <tags>
+        <tag>Sentinel</tag>
+        <tag>限流</tag>
+        <tag>降级</tag>
+        <tag>熔断</tag>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【JVM】CMS 工作流程梳理.md</title>
+    <url>/2025/02/19/%E3%80%90JVM%E3%80%91CMS%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/</url>
+    <content><![CDATA[<p>CMS （Concurrent Mark Sweep）是以最短回收停顿时间为目标的收集器，其相较于其他垃圾收集器能够做到：垃圾标记过程能于用户程序并行，一起探讨一下 CMS 的工作流程。</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>内存管理</tag>
+        <tag>CMS 垃圾收集器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【JVM】内存管理之垃圾回收</title>
+    <url>/2025/02/19/%E3%80%90JVM%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</url>
+    <content><![CDATA[<p>相较于 C&#x2F;C++，Java 能够对「垃圾对象」进行自动清理而不需要手动释放，是如何实现的？底层工作原理是什么？</p>
+<span id="more"></span>
+
+<h2 id="1-自动垃圾收集"><a href="#1-自动垃圾收集" class="headerlink" title="1. 自动垃圾收集"></a>1. 自动垃圾收集</h2><h3 id="1-1-判断对象是否为垃圾"><a href="#1-1-判断对象是否为垃圾" class="headerlink" title="1.1 判断对象是否为垃圾"></a>1.1 判断对象是否为垃圾</h3><p>首先，需要判断哪些对象是垃圾可回收，哪些是非垃圾还不可回收，主流的判断方法主要为： 1. 引用计数算法 2. 可达性分析算法</p>
+<h4 id="A-引用计数算法"><a href="#A-引用计数算法" class="headerlink" title="A. 引用计数算法"></a>A. 引用计数算法</h4><p>算法策略非常简单，每一个对象维护一个「引用计数器」，只要被引用，次数就 + 1，当引用次数为 0 时，就说明该对象已经沦为垃圾，可以被回收~</p>
+<p>这个算法的优点就是非常易懂，不过存在一个循环引用的问题；如下所示：<br> <img data-src="/../images/jvm/memory/image7.png" alt="alt text"></p>
+<p>  对于对象 a、b 来说，除了彼此之外没有额外的引用，当对象 a &#x2F; 对象 b 不再使用的时候，理论上对象 a&#x2F;b 都沦为垃圾，但实际上因为互相的引用，导致无法顺利的被判断为垃圾；</p>
+<h4 id="B-可达性分析算法"><a href="#B-可达性分析算法" class="headerlink" title="B. 可达性分析算法"></a>B. 可达性分析算法</h4><p>JVM 并没有使用「引用计数算法」，而是使用可达性分析算法；算法基本思想： 从一系列被称为<strong>GC Roots</strong>的根对象作为起始点，从这些节点根据引用关系开始向下搜索，只要能够根据引用关联起来的对象就是「可达对象」；反之，没有关联到的就是「不可达对象」，需要进行回收；<br> <img data-src="/../images/jvm/memory/image8.png" alt="alt text"><br>对于对象 a、b、c 来说，能够通过引用关系与 GC Roots 关联起来，为「可达对象」；<br>对于对象 e、f 来说，为「不可达对象」；</p>
+<h5 id="GC-Roots"><a href="#GC-Roots" class="headerlink" title="GC Roots"></a>GC Roots</h5><p>可以看到，关键是 GC Roots，在 Java 中 GC Roots 主要是以下对象组成：</p>
+<ul>
+<li>栈帧内本地方法表引用的对象：参数、局部变量、临时变量等~</li>
+<li>方法区内类变量、常量引用的对象</li>
+<li>被同步锁（synchronized 关键字）持有的对象</li>
+</ul>
+<h3 id="1-2-垃圾收集算法"><a href="#1-2-垃圾收集算法" class="headerlink" title="1.2 垃圾收集算法"></a>1.2 垃圾收集算法</h3><p> 主流的垃圾收集算法主要有以下几种：</p>
+<ol>
+<li>标记-清除算法</li>
+<li>标记-复制算法</li>
+<li>标记-整理算法</li>
+</ol>
+<p>不同算法的优缺点不一样，<strong>具体场景适用哪种算法要具体分析</strong></p>
+<h4 id="A-标记-清除算法"><a href="#A-标记-清除算法" class="headerlink" title="A. 标记-清除算法"></a>A. 标记-清除算法</h4><p>工作流程：</p>
+<ol>
+<li>首先标记需要回收的对象【标记阶段】</li>
+<li>统一回收垃圾对象【清理阶段】</li>
+</ol>
+<p>这个算法的优点是实现非常简单，但是有两个比较明显的缺点：</p>
+<ol>
+<li>标记阶段的效率「严重」受到需要被标记的对象数量所影响，导致回收效率不稳定</li>
+<li>回收阶段可能会产生比较多内存碎片，内存空间的使用率降低</li>
+</ol>
+<h4 id="B-标记-复制算法"><a href="#B-标记-复制算法" class="headerlink" title="B. 标记-复制算法"></a>B. 标记-复制算法</h4><p>工作流程：</p>
+<ol>
+<li>把可使用的空间，均分两份 a、b 两块区域，每次只使用其中一块，当这一块内存用完，则开始进行回收</li>
+<li>标记不需要回收的对象【标记阶段】</li>
+<li>每次回收的时候，将 a 区域中不需要回收的对象复制到 b 区域中【复制阶段】</li>
+</ol>
+<p>这个算法的优点是：不存在内存碎片的问题，每次复制的时候都可以按照顺序分配内存空间；<br>缺点则有以下：</p>
+<ol>
+<li>因为把内存空间均分成了两份，每次只能使用到其中一份进行分配，空间浪费严重</li>
+<li>如果每次回收的时候，存活的对象很多，每次复制的压力也很大</li>
+</ol>
+<p>所以，标记-复制算法比较适用于内存空间内都是存活时间短的对象</p>
+<h4 id="C-标记-整理算法"><a href="#C-标记-整理算法" class="headerlink" title="C. 标记-整理算法"></a>C. 标记-整理算法</h4><p> 工作流程：</p>
+<ol>
+<li>首先标记需要回收的对象【标记阶段】</li>
+<li>对仍存活的对象进行「移动」，按照内存顺序对「存活对象」进行移动【整理阶段】</li>
+</ol>
+<p>整理阶段因为对象的内存地址发生了变化，则需要对「存活对象」引用的更新；引用的更新势必要 STW（stop the world），对于用户程序来说就是产生了停顿，期间用户程序停止运行；</p>
+<p>这个算法的优点是：不存在内存碎片问题，也不存在空间浪费的情况；<br>缺点非常明显：整理阶段操作非常的重，回收效率「严重」受到存活对象的数量影响；</p>
+<h4 id="D-适用场景"><a href="#D-适用场景" class="headerlink" title="D. 适用场景"></a>D. 适用场景</h4><p>上面简单介绍了一下三种垃圾收集算法的优缺点，对于 JVM 来说，<strong>具体场景适用哪种算法要具体分析</strong></p>
+<h5 id="JVM-的分代收集理念"><a href="#JVM-的分代收集理念" class="headerlink" title="JVM 的分代收集理念"></a>JVM 的分代收集理念</h5><p>JVM 对「堆」空间划分新生代和老年代进行管理；</p>
+<p><strong>新生代</strong>：对象基本「朝生夕死」，在这个区域的对象存活时间短，不会长时间停留在内存</p>
+<ul>
+<li>常见于 Java 程序中的一些方法调用产生的临时对象，方法调用完即「死亡」</li>
+</ul>
+<p><strong>老年代</strong>：在这个区域的对象存活时间长，会长时间停留在内存</p>
+<ul>
+<li>常见于 Java 程序中一些全局对象，生命周期为整个 Java 程序的生命周期</li>
+</ul>
+<h5 id="新生代适用算法"><a href="#新生代适用算法" class="headerlink" title="新生代适用算法"></a>新生代适用算法</h5><p>新生代的对象朝生夕死，在这个区域的对象大部分都是需要被回收的对象，相较于「标记-清除算法」，更加适合适用「标记-复制算法」，因为每次只需要复制“一小部分”存活的对象；但是因为「标记-复制算法」存在空间利用率低的问题，JVM 采用了在新生代划分为两块区域：Eden 区 和 2 个 Survivor 区，HotSpot 虚拟机 Eden ： Survivor 大小比例默认为 8 ：1，也就是说新生代可用的内存空间为总空间的 90%；当新生代区域剩余空间不足以分配给到新对象时，就会触发一次 GC（新生代的 GC 称为 Young-GC），对当前所有对象进行标记，然后将「存活对象」全部复制到 Survivor 区域；如果剩余的 Survivor 区域不够存放这些「存活对象」，会怎么样？思考一下，我们下面解答~</p>
+<h5 id="老年代适用算法"><a href="#老年代适用算法" class="headerlink" title="老年代适用算法"></a>老年代适用算法</h5><p>老年代的对象大多存活时间久、且存在较多大对象（对于一些超过阈值的对象直接分配在老年代），在对这一块对象进行 GC 的时候，大部分的对象都是存活的，无法进行回收；</p>
+<ul>
+<li>「标记-清除算法」缺点是存在内存碎片</li>
+<li>「标记-复制算法」缺点是空间利用率低，明显不适合老年代的特性</li>
+<li>「标记-整理算法」缺点是需要重新对「存活对象」的引用进行重新调整，需要 STW；不会产生内存碎片</li>
+</ul>
+<p>除了「标记-复制算法」明显不适合老年代的特性，「标记-清除算法」和 「标记-整理算法」相对比较适合；实际上 不同的垃圾收集器在处理老年代时采用了不同的策略：</p>
+<ul>
+<li>对于 Serial 和 Parallel 收集器，在进行 Full GC 的时候，默认使用「标记-整理算法」对老年代进行垃圾收集</li>
+<li>对于 CMS 收集器，CMS 追求的是停顿时间短，使用「标记-清除算法」对老年代进行垃圾收集，对于内存碎片，会定期进行 Full GC 重新整理内存。</li>
+</ul>
+<h4 id="E-JVM-GC-的一些细节"><a href="#E-JVM-GC-的一些细节" class="headerlink" title="E. JVM GC 的一些细节"></a>E. JVM GC 的一些细节</h4><blockquote>
+<p>问：Young-GC 的时候，如果 Survivor 区无法存放「存活对象」会怎么样？</p>
+</blockquote>
+<ol>
+<li>每一个对象都会记录一个 GC 年龄（存储在对象头中），每次进行一次 Young-GC GC 年龄就 + 1，达到某个阈值之后（默认是 15，可以通过 JVM 参数进行调整），会进入到老年代，由更大的老年代进行存储</li>
+<li>如果剩余的「存活对象」的年龄还不够阈值（15 次），就会采用「<strong>空间分配担保机制</strong>」；</li>
+</ol>
+<p><strong>空间分配担保机制</strong></p>
+<blockquote>
+<p>JVM 在进行 Young-GC 之前，会先检查当前老年代的最大可用连续空间是不是大于新生代所有对象的总空间，如果大于，说明即使新生代对象全部存活并且都需要进入到老年代，也不会出现堆空间溢出的情况；<strong>即这次 Young-GC 是安全的</strong>；反过来，如果空间小于，这个时候会检查是否开启了<strong>空间分配担保机制</strong>（可以通过 JVM 参数控制开启），如果开启了，则会判断老年代最大可用连续空间是是不是大于<strong>历次晋升到老年代对象的平均大小</strong>，如果小于或者没有开启担保机制，这次 Young-GC 就会升级为 Full GC 对整个堆空间进行 GC。</p>
+</blockquote>
+<h3 id="1-3-垃圾收集器"><a href="#1-3-垃圾收集器" class="headerlink" title="1.3 垃圾收集器"></a>1.3 垃圾收集器</h3><h4 id="A-前言"><a href="#A-前言" class="headerlink" title="A. 前言"></a>A. 前言</h4><p> 垃圾收集算法作为方法论，垃圾收集器则是算法的实践者；正如各种算法之间存在各自的优劣，每一种垃圾收集器都存在各自的优势区间和短板，并不存在完美的垃圾收集器；<strong>需要根据具体的使用场景来选择正确的收集器</strong>。</p>
+<p>垃圾收集器需要考虑以下几个点：</p>
+<ol>
+<li>吞吐量：<code>用户线程工作时间 / (用户线程工作线程 + GC 线程工作时间)</code></li>
+<li>延迟：用户线程停顿时间</li>
+</ol>
+<p> 笔者主要是对经典的垃圾收集器有所了解：</p>
+<ol>
+<li>Serial 收集器</li>
+<li>ParNew 收集器</li>
+<li>Parallel Scavenge 收集器</li>
+<li>CMS 收集器</li>
+<li>G1 收集器</li>
+</ol>
+<h4 id="B-Serial-收集器"><a href="#B-Serial-收集器" class="headerlink" title="B. Serial 收集器"></a>B. Serial 收集器</h4><p>Serial 工作在新生代和老年代；</p>
+<ul>
+<li>新生代：采用「标记-复制」算法</li>
+<li>老年代：采用「标记-整理」算法</li>
+</ul>
+<p>Serial 收集器在进行垃圾收集的时候，只有单个 GC 线程在进行工作，收集过程中，用户线程处于停止状态。</p>
+<p>优点：实现简单、对一些<strong>内存小</strong>的 Java 应用来说运行高效，因为不存在线程上下文切换<br>缺点：单线程收集效率上限不高</p>
+<h4 id="C-ParNew-收集器"><a href="#C-ParNew-收集器" class="headerlink" title="C. ParNew 收集器"></a>C. ParNew 收集器</h4><p>ParNew 工作在老年代：采用「标记-复制」算法；</p>
+<p>Serial 收集器的「多线程」版本，区别在于进行垃圾收集的时候有多条 GC 线程在进行收集。</p>
+<p>优点：多线程进行 GC，收集效率上限高<br>缺点：对一些<strong>内存小</strong>的 Java 应用来说，运行效率不如 Serial 收集器，存在线程上下文切换</p>
+<h4 id="D-Parallel-Scavenge-收集器"><a href="#D-Parallel-Scavenge-收集器" class="headerlink" title="D. Parallel Scavenge 收集器"></a>D. Parallel Scavenge 收集器</h4><p>Parallel Scavenge 工作在老年代；采用「标记-复制」算法；</p>
+<blockquote>
+<p>吞吐量 &#x3D;  用户线程工作时间 &#x2F; （用户线程工作时间 + GC 线程工作时间）</p>
+</blockquote>
+<p>Parallel Scavenge 与 ParNew 一样是采用多条 GC 线程对垃圾进行收集，并且提供了两个参数用于精确控制吞吐量，分别是控制最大垃圾收集停顿时间的<code>-XX：MaxGCPauseMillis</code>参数以及直接设置吞吐量大小的<code>-XX：GCTimeRatio</code>参数。除此以外，Parallel Scavenge 收集器还有自适应调节策略，提供了 <code>-XX：+UseAdaptiveSizePolicy</code> 进行控制，开启之后，JVM 能够自行根据系统的运行情况对新生代的大小、Eden 与 Survivor 区的比例、晋升老年代对象大小等相关信息进行「动态调节」。</p>
+<p>优点：能够由开发者自行控制 GC 的停顿时间和应用的整体吞吐量<br>缺点：相当于 ParNew 的升级版</p>
+<h4 id="D-CMS-收集器"><a href="#D-CMS-收集器" class="headerlink" title="D. CMS 收集器"></a>D. CMS 收集器</h4><p>CMS （Concurrent Mark Sweep）工作在老年代；采用「标记-清除」算法；</p>
+<p>特点是：在进行垃圾回收的时候，能够与用户线程「并发」进行，提升了回收效率，缩短了 STW 的时间。</p>
+<p>主要工作流程有以下四个阶段：</p>
+<ol>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>重新标记</li>
+<li>并发清除</li>
+</ol>
+<p>CMS 相对比较复杂，在另外一篇文章中，详细展开聊聊这个收集器</p>
+<h4 id="E-G1-收集器"><a href="#E-G1-收集器" class="headerlink" title="E. G1 收集器"></a>E. G1 收集器</h4><p>G1 （Garbage First） 收集器作为 JDK 9 以上版本默认的垃圾收集器，其不再沿用传统的针对新生代进行 Young GC，针对老年代进行 Major GC，对整个 Java 堆空间进行 Full GC，而是将整个堆划分成一个一个区域（Region），Region 作为最小的回收单元，** G1 允许指定在 M 时间段内尽可能的只消耗 N 时间进行垃圾回收**，每一个 Region 都维护着各自的回收价值（即单位时间内能够回收到多少垃圾），在进行垃圾回收的时候，能够按照价值大小对各个 Region 进行回收。这就是 G1 建立起来的 <strong>可预测的时间停顿模型</strong>。</p>
+<p>G1 从逻辑上还存在新生代和老年代的划分，只不过新生代&#x2F;老年代在 G1 中已经是由一个一个 Region 组成的区域，在物理上不一定连续，不再是固定的了。</p>
+<h3 id="1-4-小结"><a href="#1-4-小结" class="headerlink" title="1.4 小结"></a>1.4 小结</h3><p>对 Java 的自动垃圾收集原理做了「并不深入」的介绍，从如何识别一个对象为「垃圾对象」，引出「引用技术」算法和「可达性分析」算法，到如何对「垃圾对象」进行回收，引出了「标记-清除」、「标记-复制」、「标记-整理」算法，介绍了一下各自的优缺点，最后是列举了一下传统垃圾收集器，梳理其主要特点。</p>
+<p>梳理下来，对 JVM 的垃圾回收工作机制有了更加清晰的认识，接下来就是深入细节去进行学习、梳理、总结~</p>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>内存管理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【JVM】 内存管理之区域划分</title>
+    <url>/2025/01/17/%E3%80%90JVM%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86/</url>
+    <content><![CDATA[<p>通过动手绘制一些图来让自己对 JVM 整体内存区域划分有了更加直观的理解~</p>
+<span id="more"></span>
+
+<h2 id="1-JVM-内存区域划分"><a href="#1-JVM-内存区域划分" class="headerlink" title="1. JVM 内存区域划分"></a>1. JVM 内存区域划分</h2><p><img data-src="/../images/jvm/memory/image1.png" alt="alt text"></p>
+<h3 id="1-1-程序计数器"><a href="#1-1-程序计数器" class="headerlink" title="1.1 程序计数器"></a>1.1 程序计数器</h3><ul>
+<li>平时 Java 开发并没有什么概念，它的主要作用就是用来记录「当前线程」运行的字节码行号；</li>
+<li>每一个线程独占空间</li>
+</ul>
+<h3 id="1-2-虚拟机栈、本地方法栈（Stack）"><a href="#1-2-虚拟机栈、本地方法栈（Stack）" class="headerlink" title="1.2 虚拟机栈、本地方法栈（Stack）"></a>1.2 虚拟机栈、本地方法栈（Stack）</h3><p>无论是虚拟机栈、还是本地方法栈，都是栈空间，区别只是在于是用来记录本地方法产生的栈帧还是 Java 方法产生的栈帧；</p>
+<p>和我们理解的栈类似，拥有先进后出的特性；每一个线程独占的空间</p>
+<h4 id="A-栈帧"><a href="#A-栈帧" class="headerlink" title="A. 栈帧"></a>A. 栈帧</h4><ul>
+<li>栈内元素称为「栈帧」，JVM 每执行一个方法，就会往栈内压入一个「栈帧」，栈帧内记录着方法执行需要的一些元素，例如局部变量表；局部变量表记录在编译期可以确定的一些变量，简单可以理解成 Java 方法内的临时变量；</li>
+<li></li>
+<li><img data-src="/../images/jvm/memory/image2.png" alt="alt text"></li>
+<li>JVM 在执行方法的时候，就会往栈中压入一个栈帧，方法执行完成则将栈帧弹出；</li>
+<li>局部变量表所占用的空间往往都是确定的，因为一个方法内的局部变量的数量总是确定的；</li>
+<li>注意👀，局部变量表占用空间的大小是确认的，不代表其所占用的内存大小是固定，因为存在「递归」调用的情况，以及各种逻辑判断的存在，有些方法是不会执行~</li>
+</ul>
+<h3 id="1-3-堆（heap）"><a href="#1-3-堆（heap）" class="headerlink" title="1.3 堆（heap）"></a>1.3 堆（heap）</h3><p>堆是 JVM 内存管理中最大的一块区域，Java 所有的对象实例数组都诞生于此，相较于程序计数器、栈为线程私有的空间，堆空间为所有线程共享的空间；堆空间的大小是 JVM 启动的时候就确定的，可以通过 <code>Xms</code> 和 <code>Xmx</code> 参数设定堆空间大小</p>
+<blockquote>
+<p>一般 Xms 和 Xmx 都是设定的相同大小，即一开始就明确堆空间大小，避免在运行期间发生堆空间的伸缩，对服务性能造成影响。</p>
+</blockquote>
+<p>堆空间是垃圾收集器的主要区域，因为占用空间最大，「垃圾」产生最多，所谓「垃圾」即方法在运行过程中创建出来的作用域仅在方法内的对象实例，在方法运行结束，该对象实例就已经没有用了，其所占用的内存空间应该会清理回收，以提供给到新的对象实例创建。</p>
+<p> <img data-src="/../images/jvm/memory/image3.png" alt="alt text"></p>
+<h4 id="对象实例"><a href="#对象实例" class="headerlink" title="对象实例"></a>对象实例</h4><p> <img data-src="/../images/jvm/memory/image4.png" alt="alt text"><br>每一个对象实例在堆空间所占用的空间，都有以下几部分组成</p>
+<h5 id="A-对象头"><a href="#A-对象头" class="headerlink" title="A. 对象头"></a>A. 对象头</h5><p>存储的数据主要包含两部分：</p>
+<ol>
+<li>运行时数据，例如锁信息、GC 年龄（超过一定年龄后进入老年代）、Hashcode </li>
+<li>执行实例类信息的指针，类信息存储在方法区（后续会讲到）</li>
+</ol>
+<h5 id="B-实际存储的数据"><a href="#B-实际存储的数据" class="headerlink" title="B. 实际存储的数据"></a>B. 实际存储的数据</h5><p>存储非静态（非 static）的实例变量相关值，主要是指基本类型（int、long、char等）和引用类型</p>
+<h5 id="C-填充部分"><a href="#C-填充部分" class="headerlink" title="C. 填充部分"></a>C. 填充部分</h5><p>为了提高CPU访问速度，JVM 可能会根据不同平台的要求进行字节对齐。</p>
+<h3 id="1-4-方法区（Method-Area）"><a href="#1-4-方法区（Method-Area）" class="headerlink" title="1.4 方法区（Method Area）"></a>1.4 方法区（Method Area）</h3><p>与堆空间一样，为所有线程共享的空间，主要是用来存储类型信息、常量、静态变量、运行时常量池等数据；简单来讲就是「类级别」的相关数据都在方法区中，实例级别的数据则存储在堆中。</p>
+<ul>
+<li>类型信息：不同的类有不同的 <code>Class</code> 类，包含了这个类的所有元数据信息</li>
+<li>常量：<code>final static</code> 修饰的变量</li>
+<li>静态变量：<code>static</code> 修饰的变量</li>
+<li>运行时常量池</li>
+</ul>
+<p> <img data-src="/../images/jvm/memory/image5.png" alt="alt text"></p>
+<h4 id="1-4-1-与对象实例之间的关系"><a href="#1-4-1-与对象实例之间的关系" class="headerlink" title="1.4.1 与对象实例之间的关系"></a>1.4.1 与对象实例之间的关系</h4><p> <img data-src="/../images/jvm/memory/image6.png" alt="alt text"></p>
+<p>堆空间的每一个对象实例的「对象头」部分都存储着指向方法区的</p>
+<h4 id="方法区、元空间、永久代三者有什么区别？"><a href="#方法区、元空间、永久代三者有什么区别？" class="headerlink" title="方法区、元空间、永久代三者有什么区别？"></a>方法区、元空间、永久代三者有什么区别？</h4><p>元空间和永久代都是方法区的其中一种实现（浅显的可以认为<strong>实现与规范</strong>的关系）</p>
+<ul>
+<li>永久代： JDK1.8 之前方法区的实现方式；内存大小固定并且难被调整，受垃圾回收机制管理；</li>
+<li>元空间： JDK1.9 方法区的实现方式；利用本地内存进行实现；</li>
+</ul>
+<h3 id="1-5-常量池"><a href="#1-5-常量池" class="headerlink" title="1.5 常量池"></a>1.5 常量池</h3><blockquote>
+<p>字符串常量池在 Java 7 之前是存储在永久代，在 Java 7 之后移到了堆空间中</p>
+</blockquote>
+<h4 id="1-5-1-静态常量池-运行时常量池"><a href="#1-5-1-静态常量池-运行时常量池" class="headerlink" title="1.5.1 静态常量池 &amp;&amp; 运行时常量池"></a>1.5.1 静态常量池 &amp;&amp; 运行时常量池</h4><p>经过编译后生成的 Class 文件除了包含类的版本、字段、方法、接口等描述信息，还包含一个静态常量池表，其中就存储在编译期间就能够确认的各种字面量和符号引用；在运行阶段会讲静态常量池的字面量加载到运行时常量池中，符号引用则是在经过链接、解析之后转化成直接引用，也会被加载到运行时常量池中。</p>
+<h5 id="A-字面量"><a href="#A-字面量" class="headerlink" title="A. 字面量"></a>A. 字面量</h5><p>简单来理解就是编译期可以确定的「常量」值；不会随着运行变化的值</p>
+<ul>
+<li>字符串字面量：如 “Hello, World!”。</li>
+<li>数值字面量：如整数 42 或浮点数 3.14。</li>
+<li>字符字面量：如 ‘A’。</li>
+<li>布尔字面量：如 true 或 false。</li>
+<li>类或接口的字面量：如使用 Class.forName(“java.lang.String”) 时，字符串 “java.lang.String” 就是一个类字面量。</li>
+</ul>
+<h5 id="B-符号引用"><a href="#B-符号引用" class="headerlink" title="B. 符号引用"></a>B. 符号引用</h5><p>符号引用简单来讲就是用来在编译期用来唯一标识类、接口、方法、字段；因为编译期还没有实际分配内存，所以用符号引用来「暂替」，在经过解析之后就会转化成实际指向内存的地址，称为「直接引用」，而直接引用也会被存储在运行时常量池中，直接进行使用。</p>
+<ul>
+<li>类和接口的符号引用：描述了类或接口的完全限定名，例如 java&#x2F;lang&#x2F;String</li>
+<li>字段的符号引用：包括字段所属的类或接口的符号引用、字段名称和字段描述符（即字段的类型签名）。</li>
+<li>方法的符号引用：类似于字段，它包括方法所属的类或接口的符号引用、方法名称和方法描述符（即参数列表和返回类型）。</li>
+</ul>
+<h4 id="1-6-小结"><a href="#1-6-小结" class="headerlink" title="1.6 小结"></a>1.6 小结</h4><p>JVM 内存区域总体划分为： 栈、堆、方法区、程序计数器；Java 的类为动态加载（后续类加载机制一篇会展开讲），加载的类元数据信息就存储在方法区中；而我们的程序运行生成的对象实例全部都在堆空间中，对象的头部信息中会存在一个指向方法区元数据的指针；我们程序的方法运行时，则会往栈中压入一个栈帧，代表一个方法调用，栈帧会存在一个局部变量表，方法运行过程中产生的临时变量就存储在这个局部变量表中~</p>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>内存管理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读《深入理解 Java 虚拟机》的一些思考</title>
+    <url>/2025/01/12/%E8%AF%BB%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</url>
+    <content><![CDATA[<p>周志明的《<a href="https://book.douban.com/subject/34907497/">深入理解 Java 虚拟机</a>》作为 Java 必读经典，很惭愧直到工作两年多以后才第一次拜读，不得不说，写的确实好！</p>
+<span id="more"></span>
+
+<h3 id="1-为什么读这本书"><a href="#1-为什么读这本书" class="headerlink" title="1. 为什么读这本书"></a>1. 为什么读这本书</h3><p>首先想先讲讲为什么读这本书，我22 年毕业，大学期间对 Java 的学习程度只能说是会一点皮毛，对 Java 很多底层运行逻辑并不算太熟悉，大学毕业为了找工作，也会在网上看一些博客讲解 JVM 相关的知识，不过这些博客整体知识点还是很零散，不够系统，对底层工作原理其实还是有很多不了解的；在有一定工作经验之后，想要对 JVM 的知识有一个更加系统的认识和更深的理解，于是了解到这本 Java 必读经典~</p>
+<h3 id="2-JVM-是什么"><a href="#2-JVM-是什么" class="headerlink" title="2. JVM 是什么"></a>2. JVM 是什么</h3><p>JVM，即 <code>Java Virtual Machine</code> ，Java 虚拟机，Java 是运行在 JVM 上的，JVM 才是运行在操作系统之上，大体层次如下：</p>
+<p><img data-src="/../images/jvm/image1.png" alt="alt text"></p>
+<p>相比较 C&#x2F;C++，C&#x2F;C++ 在编译之后是转化成「特定平台的本地机器码」，由操作系统来加载并执行；</p>
+<p>C&#x2F;C++ 在不同平台生成的机器码「不完全」相同，相较于 Java 而言，C&#x2F;C++ 跨平台的能力较低，因为 Java 是运行在 JVM 上，Java 代码在真正执行之前，会先编译成「与平台无关的字节码」，字节码是 JVM 识别的语言，然后再由 JVM 将字节码转义成「相应平台的本地机器码」，由 JVM 来抹平不同平台机器码不一样的差异性，使得 Java 的跨平台性较强（一次编译，多处运行）；</p>
+<p>Java 开发者也可以更加关注逻辑部分的开发，底层运行的差异性已经由「不同版本」的 JVM「抹平」了。</p>
+<p>所以，一句话总结 JVM 就是 Java 代码运行的「容器」，是一层中间抽象层，JVM 是真正对接操作系统的“软件”。</p>
+<h3 id="3-为什么要学习了解-JVM"><a href="#3-为什么要学习了解-JVM" class="headerlink" title="3. 为什么要学习了解 JVM"></a>3. 为什么要学习了解 JVM</h3><p>JVM 作为 Java 代码运行的「容器」，为了能够帮助 Java 程序能够更加高效的运行，引入了内存管理、垃圾回收、类加载机制等高级特性，如果对这些特性没有任何程度的理解的话，也很难写出高效代码，对底层原理没有了解，不知所以然，很容易写出来有问题的代码~</p>
+<ul>
+<li><p>在了解 JVM 工作原理之后，当服务运行出现了 GC 频繁、FullGC 低效回收垃圾等问题时，利用 JVM 提供的各种排查工具，分析内存情况，分析可能出现问题的代码；</p>
+</li>
+<li><p>了解 JVM 工作原理，能够根据 JVM 提供出来的参数，根据业务属性来对 JVM 进行「调整」（JVM 调优），让 JVM 运行的更加“健康”；</p>
+</li>
+<li><p>了解 JVM 的类加载机制，就能够更好的理解 Java 反射 API 、动态代理、动态字节码生成等功能的底层原理；</p>
+</li>
+</ul>
+<h3 id="4-JVM-重要知识点"><a href="#4-JVM-重要知识点" class="headerlink" title="4. JVM 重要知识点"></a>4. JVM 重要知识点</h3><p>&#x2F;&#x2F; TODO</p>
+]]></content>
+      <categories>
+        <category>深入理解 Java 虚拟机</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>深入理解 Java 虚拟机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP 的「三握四挥」</title>
+    <url>/2025/01/05/TCP%20%E7%9A%84%E3%80%8C%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5%E3%80%8D/</url>
+    <content><![CDATA[<p>TCP 是「有状态」的传输协议，相比较于 UDP， TCP 在真正的数据传输之前，需要通讯双方进行「三次握手」建立连接之后才能进行数据传输；数据传输完成，需要经过「四次挥手」连接才完成释放；有没有思考过为什么 TCP 要建立连接？为什么“握手”是三次、而“挥手”而是四次？</p>
+<span id="more"></span>
+
+<h2 id="1-为什么需要建立连接"><a href="#1-为什么需要建立连接" class="headerlink" title="1. 为什么需要建立连接"></a>1. 为什么需要建立连接</h2><p>无论是 TCP&#x2F;IP 四层分层模型，还是 OSI 七层分层模型，TCP 都是处于「传输层」的协议，「网络层」的 IP 是不可靠的，其并不能保证数据包一定能够成功被接收方所接收；数据包在网络传输过程中，有可能丢失；在 <a href="https://onecastle.cn/2024/12/26/%E5%AF%B9%20TCP%20%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/#more">TCP 是如何实现可靠传输的</a> 这篇文章中，我们知道TCP 通过引入序号机制、ACK 应答机制、滑动窗口和拥塞控制能够做到在错综复杂的网络中实现「可靠」传输；通过「建立连接」的过程，能够明确以下几种场景：</p>
+<ol>
+<li><strong>明确通信双方所在的网络环境是可以实现通信的</strong>，并不存在通信双方网络不通等情况；</li>
+<li><strong>明确通信双方的「起始序号」</strong>，TCP 通过序号机制来保证不重复接收数据、不丢失数据、有序地接收数据交付给到「应用层」；</li>
+<li><strong>明确通信双方初始「窗口」大小</strong>，避免传输一开始就大量的传输数据，超出接收方的处理速度，这些超出的数据报文会被丢弃，造成资源浪费；</li>
+</ol>
+<p>可以看到，建立连接的过程，本质上还是在确认实现「可靠」传输的基本要素：起始序号、滑动窗口大小</p>
+<h2 id="2-建立连接的过程"><a href="#2-建立连接的过程" class="headerlink" title="2. 建立连接的过程"></a>2. 建立连接的过程</h2><p><img data-src="/../images/tcp34/image1.png" alt="img.png"></p>
+<ol>
+<li>【第一次握手】客户端「随机生成」起始序号 X，确认窗口大小为 A，发送 SYN 控制报文给服务端，客户端进入 <code>SYNC_SENT</code> 阶段，等待服务端返回 ACK 报文；</li>
+<li>【第二次握手】服务端成功收到 SYN 控制报文以后，ACK 序号为 X+1，同时「随机生成」起始序号为 Y，确认窗口大小为 B，发送 ACK 控制报文给到客户端，服务端进入<code>SYNC_RCVD</code> 阶段，等待客户端返回 ACK 报文；</li>
+<li>【第三次握手】客户端成功收到 ACK 控制报文以后，发送 ACK 控制报文，ACK 序号为 Y+1， 对于客户端来说连接已成功建立，进入 <code>ESTABLISHED</code> 阶段，已经可以开始数据传输了; </li>
+<li>服务端成功收到 ACK 控制报文以后，对于服务端来说连接也已经成功建立，进入 <code>ESTABLISHED</code> 阶段，可以开始数据传输了。</li>
+</ol>
+<p>其中，起始序号是基于时钟生成的「时间值」+ 「TCP 四元组」经过 Hash 算法计算生成的，每一个时刻的起始序号都不一样~</p>
+<h3 id="2-1-为什么是三次「握手」？"><a href="#2-1-为什么是三次「握手」？" class="headerlink" title="2.1 为什么是三次「握手」？"></a>2.1 为什么是三次「握手」？</h3><p>首先，为什么建立连接的过程是三次，不是两次或者四次、五次？</p>
+<p>我们上面提到建立连接的过程，实际上是确认通信双方的「起始序号」、「窗口大小」、「网络环境可用」</p>
+<h4 id="A-网络环境可用"><a href="#A-网络环境可用" class="headerlink" title="A. 网络环境可用"></a>A. 网络环境可用</h4><p>对于通信双方来说，最低三次「握手」才能够确认双方都能够接收到消息：</p>
+<ol>
+<li>对于客户端来说，发出去的 SYN 控制报文，只有成功接收到服务端的 ACK 控制报文，才能确认本身能够成功发送报文、能够成功接收报文，即「接发」能力正常；</li>
+<li>对于服务端来说，只有收到来自客户端的 ACK 报文，才能确认本身能够成功发送报文、能够成功接收报文，即「接发」能力正常；</li>
+</ol>
+<p>能确认双方「接发」能力正常的最低发送次数为三次，两次只能确认一方的「接发」能力正常；当然四次、五次也可以，只是「没有必要」。</p>
+<h4 id="B-确认「起始序号」、「窗口大小」"><a href="#B-确认「起始序号」、「窗口大小」" class="headerlink" title="B. 确认「起始序号」、「窗口大小」"></a>B. 确认「起始序号」、「窗口大小」</h4><p>起始序号和窗口大小本质上是一样的，属于数据传输的起始数据；<br>无论是对于客户端来说、还是对服务端来说，都只有接收到了来自服务端的 ACK 控制报文，才能确认自己发送的「起始序号」成功被对方感知。</p>
+<h3 id="2-2-「握手」过程出现异常"><a href="#2-2-「握手」过程出现异常" class="headerlink" title="2.2 「握手」过程出现异常"></a>2.2 「握手」过程出现异常</h3><h4 id="A-第一次握手异常"><a href="#A-第一次握手异常" class="headerlink" title="A. 第一次握手异常"></a>A. 第一次握手异常</h4><p>我们知道 TCP 有「超时重传」机制，在客户端发送完 SYN 控制报文想要建立连接时，如果因为「网络原因」，在规定的时间内没有收到相应的 ACK 报文，会触发重传机制，重新发送 SYN 控制报文；这种情况下，发送了两个 SYN 控制报文；假设为 SYN 1 、SYN 2，可能会有以下几种情况：</p>
+<ol>
+<li><p>只有 SYN 1 或者 SYN 2 到达服务端<br>如果只有 SYN 1&#x2F; SYN 2 成功抵达服务端，则服务端只会处理这个最新的 SYN 报文，正常进行三次握手建立连接</p>
+</li>
+<li><p>SYN 1 和 SYN 2 都到达服务端<br>服务端会为每个 SYN 报文创建一个新的连接记录<strong>半连接队列</strong>，如果两个 SYN 报文都到达了服务端，因为这两个 SYN 来自同一源 IP 地址和端口，且目标相同的 IP 地址和端口，所以它们实际上是试图建立同一个连接；服务端能够根据<strong>半连接队列</strong>识别到两个 SYN 是重复的，会从中选择一个 SYN 报文进行处理。</p>
+</li>
+<li><p>SYN 1 最终也到达服务端<br>如果最初的 SYN 1在网络中滞留了一段时间后终于到达服务端，而此时服务端已经通过SYN 2与客户端建立了连接，服务端能够根据<strong>全连接队列</strong>识别到这是一个重复的SYN，并将其视为无效，并且返回一个RST 报文给客户端，指示该 SYN 不再有效。</p>
+</li>
+</ol>
+<p>上面提到了<strong>半连接队列</strong>和<strong>全连接队列</strong>，这两个是什么东西？</p>
+<h5 id="半连接队列"><a href="#半连接队列" class="headerlink" title="半连接队列"></a>半连接队列</h5><ul>
+<li>当客户端发起第一次握手请求时（即 SYN 报文），服务端会将此次握手的相关信息存储到一个队列中，这个队列就是「<strong>半连接队列</strong>」</li>
+<li>相关信息中就包含了 TCP 四元组： 目的 IP 地址、源 IP 地址、目的端口、源端口</li>
+</ul>
+<h5 id="全连接队列"><a href="#全连接队列" class="headerlink" title="全连接队列"></a>全连接队列</h5><ul>
+<li>当服务端收到来自客户端的第三次握手（即 ACK 报文），服务端会将此次握手的相关信息存储到一个队列中，这个队列就是「<strong>全连接队列</strong>」</li>
+</ul>
+<h5 id="SYN-攻击"><a href="#SYN-攻击" class="headerlink" title="SYN 攻击"></a>SYN 攻击</h5><p>这两个队列是维护在服务端中，并且队列都存在最大数量上限，服务端不可能支撑无限多的 TCP 连接，从而引申出 <strong>SYN 攻击</strong>：攻击方只发 SYN 报文，不回应 ACK，对于服务端来说，收到 SYN 报文之后，会将其加入到半连接队列中，并且会返回携带  SYN 的 ACK 报文给客户端，服务端无法分辨是否为攻击，只能傻傻等待；攻击方只要大量的发送 SYN 报文，服务端的半连接队列很容易就被堆满，对于正常的 SYN 报文，服务端半连接队列已经无法容纳了~</p>
+<p>那怎么来处理这种攻击呢？留给你思考思考hhh</p>
+<h4 id="B-第二次握手异常"><a href="#B-第二次握手异常" class="headerlink" title="B. 第二次握手异常"></a>B. 第二次握手异常</h4><p>对于成功到达服务端的 SYN 报文，服务端会将其记录在半连接队列中，随后返回携带 SYN 的 ACK 报文给到客户端，如果这个报文在网络中丢失了：</p>
+<p>对于客户端来说，因为没有收到 ACK 报文，在超过 RTO 时间之后，会触发「超时重传」，重发 SYN 报文，如下图：<br><img data-src="/../images/tcp34/image2.png" alt="img.png"></p>
+<p>对于服务端来说，因为没有收到来自客户端的 ACK 报文，在超过 RTO 时间之后，同样会触发「超时重传」，在重传超过「一定次数」之后，服务端会认为握手失败，放弃此次连接请求；如下图：<br><img data-src="/../images/tcp34/image3.png" alt="img.png"></p>
+<h4 id="C-第三次握手异常"><a href="#C-第三次握手异常" class="headerlink" title="C. 第三次握手异常"></a>C. 第三次握手异常</h4><p>客户端在回复完 ACK 报文之后，就进入 <code>ESTABLISHED</code> 阶段了，认为已经成功建立起连接，开始发送数据了，假如回复的 ACK 报文丢失在网络中，会造成服务端并不知道自己的第二次握手是否成功抵达；超过「RTO」时间还是没有收到 ACK 报文就会「超时重传」。</p>
+<h5 id="服务端超时重传"><a href="#服务端超时重传" class="headerlink" title="服务端超时重传"></a>服务端超时重传</h5><p>服务端在超过 RTO 时间之后还是没有收到 ACK 包，就会触发「超时重传」。</p>
+<h5 id="客户端发送数据"><a href="#客户端发送数据" class="headerlink" title="客户端发送数据"></a>客户端发送数据</h5><p>客户端发送第三次握手的 ACK 报文之后，就会进入 <code>ESTABLISHED</code> 阶段，开始发送数据，如果后续的数据报文能够成功被服务端接收，那服务端就不会继续依赖第三次握手的 ACK 报文，自动切换状态到 <code>ESTABLISHED</code> 阶段</p>
+<p><img data-src="/../images/tcp34/image4.png" alt="img.png"></p>
+<h2 id="3-释放连接的过程"><a href="#3-释放连接的过程" class="headerlink" title="3. 释放连接的过程"></a>3. 释放连接的过程</h2><p>上面梳理完了建立连接过程中的「三握」，接下来对释放连接的「四挥」进行梳理；</p>
+<p>释放连接是可以由通讯双方任意一方发起，即可以是客户端，也可以是服务端发起，下面我以客户端主动发起释放为例子进行梳理：<br><img data-src="/../images/tcp34/image5.png" alt="img.png"></p>
+<ol>
+<li>【第一次挥手】客户端主动发起释放，发送 FIN 报文，从 <code>ESTABLISHED</code> 阶段进入 <code>FIN_WAIT_1</code> 阶段，等待 ACK 报文；此时客户端仅接收数据，不再发送数据；</li>
+<li>【第二次挥手】服务端接收到来自客户端的 FIN 报文之后，回复 ACK 报文，从 <code>ESTABLISHED</code> 阶段进入 <code>CLOSE_WAIT</code> 阶段，此时服务端仍可以继续发送和接收数据；</li>
+<li>【第三次挥手】服务端发送 FIN 报文，从 <code>CLOSE_WAIT</code> 阶段进入 <code>LAST_ACK</code> 阶段，等待 ACK 报文；此时服务端仅接收数据，不再发送数据；</li>
+<li>【第四次挥手】客户端接收到来自服务端的 FIN 报文之后，回复 ACK 报文，从<code>FIN_WAIT_2</code> 阶段进入<code>TIME_WAIT</code> 阶段，此时客户端已经不再接收和发送数据；等待 <strong>2MSL</strong> 之后则进入 <code>CLOSE</code> 阶段；服务端接收到 ACK 报文后进入 <code>CLOSE</code> 阶段。</li>
+</ol>
+<h3 id="3-1-为什么是四次「挥手」？"><a href="#3-1-为什么是四次「挥手」？" class="headerlink" title="3.1 为什么是四次「挥手」？"></a>3.1 为什么是四次「挥手」？</h3><p>释放连接可以由任意一方发起，因为 TCP 是全双工通信，客户端可以发送数据，服务端也可以发送数据；客户端发送 FIN 报文，仅仅意味着服务端知道客户端不再继续发送数据了，不意味着服务端不可以继续发送数据了；所以通信双方必定存在通知对方不再发送数据的信号（即 FIN 报文），以及确保对方已经明确收到 FIN 报文的 ACK 报文，即最少 4 个控制报文。（对应四次挥手）</p>
+<h3 id="3-2-「挥手」过程出现异常"><a href="#3-2-「挥手」过程出现异常" class="headerlink" title="3.2 「挥手」过程出现异常"></a>3.2 「挥手」过程出现异常</h3><p>相应的，网络环境从不保证每一次报文都能顺利到达目的地，每一次「挥手」都有可能无法送达</p>
+<h4 id="A-第一次挥手异常"><a href="#A-第一次挥手异常" class="headerlink" title="A. 第一次挥手异常"></a>A. 第一次挥手异常</h4><p>对于客户端来说，超过 RTO 时间之后，还是没有收到 ACK 报文，则会触发「超时重传」，重传超过一定次数之后，会直接进入 <code>CLOSE</code> 阶段，相当于实在无法通知服务端要释放连接了；</p>
+<p>对于服务端来说，并没有收到来自客户端的 FIN 报文，认为还是正常的连接，有可能继续进行发送数据：此时客户端收到来自服务端的数据报文，识别到连接已经断开，会回复 RST 控制报文，通知服务端释放资源。</p>
+<p><img data-src="/../images/tcp34/image7.png" alt="img.png"></p>
+<h4 id="B-第二次挥手异常"><a href="#B-第二次挥手异常" class="headerlink" title="B. 第二次挥手异常"></a>B. 第二次挥手异常</h4><p>即客户端收不到来自服务端的 ACK 报文，超过 RTO 时间之后还是收不到 ACK 报文，客户端会触发「超时重传」；重传超过一定次数之后，客户端还是收不到 ACK 报文，会直接进入 <code>CLOSE</code> 阶段；跟第一次挥手异常类似。</p>
+<p><img data-src="/../images/tcp34/image8.png" alt="img.png"></p>
+<h4 id="C-第三次挥手异常"><a href="#C-第三次挥手异常" class="headerlink" title="C. 第三次挥手异常"></a>C. 第三次挥手异常</h4><p>即服务端的 FIN 报文无法成功送达客户端，客户端无法响应 ACK 报文，超过 RTO 时间之后还是收不到 ACK 报文，服务端会触发「超时重传」，如果重传一直失败：</p>
+<p>对于客户端来说，在收到 ACK 报文之后，就进入 <code>FIN_WAIT_2</code> 阶段，等待服务端的 FIN 报文，如果超时「一定时间」还是没有收到来自服务端的 FIN 报文，客户端就不再等待了，直接进入 <code>CLOSE</code> 阶段，主动释放连接；</p>
+<p>对于服务端来说：在重试超过「一定次数」之后，还是没能收到 ACK，因为已经是第三次握手，也会进入 <code>CLOSE</code> 阶段，释放连接；</p>
+<p><img data-src="/../images/tcp34/image6.png" alt="img.png"></p>
+<h4 id="D-第四次挥手异常"><a href="#D-第四次挥手异常" class="headerlink" title="D. 第四次挥手异常"></a>D. 第四次挥手异常</h4><p>客户端在成功收到来自服务端的 FIN 报文时，则从 <code>FIN_WAIT_2</code> 阶段进入到 <code>TIME_WAIT</code> 阶段，在等待 <strong>2MSL</strong> 之后就会进入 <code>CLOSE</code> 阶段；假设第四次挥手失败，对于服务端来说，没有收到 ACK 报文，会触发「超时重传」机制；重传一定次数之后，客户端还是收不到 ACK 报文，就会直接进入<code>CLOSE</code> 阶段；</p>
+<p><img data-src="/../images/tcp34/image9.png" alt="img.png"></p>
+<h4 id="E-异常小结"><a href="#E-异常小结" class="headerlink" title="E. 异常小结"></a>E. 异常小结</h4><p>可以看到四次挥手，发送 FIN 报文端如果没有收到相应的 ACK 报文，都会触发重传机制，「尽可能」让自己的 FIN 报文抵达，如果经过重试之后还是无法到达，也不会「死等」，会进入到 <code>CLOSE</code> 阶段，因为每一个 TCP 连接都是需要服务端&#x2F;客户端消耗内核资源的（CPU、内存等）</p>
+<h3 id="3-3-为什么要等待-2MSL"><a href="#3-3-为什么要等待-2MSL" class="headerlink" title="3.3 为什么要等待 2MSL"></a>3.3 为什么要等待 2MSL</h3><p>我们可以看到，客户端在成功接收到第三次挥手之后会进入 <code>TIME_WAIT</code> 阶段，在等待<strong>2MSL</strong>之后才会真正的进入<code>CLOSE</code> 阶段，为什么是 2MSL 呢？ 1MSL 可以吗？</p>
+<p>MSL，即 <code>Maximum Segment Lifetime</code> ，最大报文生存时间，它是指报文在网络上存在的最长时间，超过这个时间报文将被丢弃。</p>
+<h4 id="A-避免历史报文出现在新链接中"><a href="#A-避免历史报文出现在新链接中" class="headerlink" title="A. 避免历史报文出现在新链接中"></a>A. 避免历史报文出现在新链接中</h4><p>如果不等待 <strong>2MSL</strong> 才进入 <code>CLOSE</code> 阶段，有可能因为网络原因在网络中滞留的报文延迟到达了客户端，而此时又刚好存在使用相同「TCP 四元组」建立起的连接，就会接收到这个「历史报文」，造成错乱。</p>
+<p><img data-src="/../images/tcp34/image10.png" alt="img.png"></p>
+<h4 id="B-「尽量」让服务端也正常关闭"><a href="#B-「尽量」让服务端也正常关闭" class="headerlink" title="B. 「尽量」让服务端也正常关闭"></a>B. 「尽量」让服务端也正常关闭</h4><p>如果第四次挥手在网络中丢失，在超过 RTO 之后，服务端会「超时重传」，如果不等待 <strong>2MSL</strong> 就进入 <code>CLOSE</code> 阶段，那即使客户端收到重传的「第三次挥手」，也无法正常进行第四次挥手，服务端没有办法走「正常」的关闭流程。</p>
+<h4 id="C-1-MSL-可以吗？"><a href="#C-1-MSL-可以吗？" class="headerlink" title="C.  1 MSL 可以吗？"></a>C.  1 MSL 可以吗？</h4><p>实际上，重要的是客户端在进行第四次挥手之后，不要立即进入 <code>CLOSE</code> 阶段，给服务端一次机会；等待 1 MSL 理论上已经能够覆盖绝大部分因网络超时导致的异常，2 MSL 则是为了能够更加保险；</p>
+<h4 id="D-3、4、5-MSL可以吗？"><a href="#D-3、4、5-MSL可以吗？" class="headerlink" title="D. 3、4、5 MSL可以吗？"></a>D. 3、4、5 MSL可以吗？</h4><p>等待时间太长也存在弊端，处于 <code>TIME_WAIT</code> 阶段的客户端，此时无法接受&#x2F;发送数据，但是内核的资源仍然占用着，也无法发起新的 TCP 连接，CPU、内存、端口都被占用着；如果短时间存在大量连接进入到 <code> TIME_WAIT</code> 阶段，上述影响则会更加明显，所以合理的等待时间也是非常重要的~</p>
+<h2 id="4-最后"><a href="#4-最后" class="headerlink" title="4. 最后"></a>4. 最后</h2><p>写这篇文章，主要还是想要对 TCP 建立连接、释放连接的过程有一个清晰的认识，文中那么多阶段，我想在过一段时间之后肯定会忘记，重要的是梳理这个过程时产生的一些思考~ 继续加油</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【JVM】 并发支持</title>
+    <url>/2025/01/05/%E3%80%90JVM%E3%80%91%E5%B9%B6%E5%8F%91%E6%94%AF%E6%8C%81/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>并发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【JVM】 类加载机制</title>
+    <url>/2025/01/05/%E3%80%90JVM%E3%80%91%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<p>Java 中的所有类都是</p>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>类加载机制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2024 心路历程回顾</title>
+    <url>/2024/12/27/2024%20%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B%E5%9B%9E%E9%A1%BE/</url>
+    <content><![CDATA[<p>2024 即将过去，白驹过隙，转眼 2025 马上到来，总感觉是要写点什么，来记录一下今年「艰辛」的一路～</p>
+<span id="more"></span>
+
+<h3 id="1-懵懂大学生"><a href="#1-懵懂大学生" class="headerlink" title="1. 懵懂大学生"></a>1. 懵懂大学生</h3><p>工作第一年，无论做什么事情都是激情满满、做什么都能感觉到成长、不管辛不辛苦，心情总是很开心的，因为相比较在大学念书，我终于可以自己赚钱，终于有钱可以买游戏机了（大学心心念念的 switch 在工作之后很快就买了一台，终于圆了心愿），可以自己租一间房子住，有自己的独立空间，从大学到初入职场，什么都是新鲜的，因为我在大学没有实习经验，所以在刚开始工作的时候，能够很明显的感受到自己在大学学习到的知识投入到实际的应用中，可以这么说，做的每一件事都是进步，都是成长～「新鲜」大学生刚毕业，那个时候对未来充满了期望～ </p>
+<h3 id="2-开始出现问题"><a href="#2-开始出现问题" class="headerlink" title="2. 开始出现问题"></a>2. 开始出现问题</h3><p>后来，慢慢在工作上的事情焦头烂额，频繁出现问题，感觉永远在修补前面埋下的坑，问题永远处理不完，我开始思考，思考出问题的原因，我应该怎么做能够让自己少出问题；持续了很久，我感觉我的脚步停滞了，越来越没有自信，想要做出改变，但是没有方向、停滞不前，自身能够接受到的正反馈越来越少；</p>
+<h3 id="3-思考提升自己"><a href="#3-思考提升自己" class="headerlink" title="3. 思考提升自己"></a>3. 思考提升自己</h3><p>到今年下半年，调整心态，开始思考自己当前阶段最重要的是什么，在实际行动上也做出一些改变，从原本所有时间、所有精力 all in 到工作上转变为合理规划部分时间给到自己本身，让自己能够有所成长；</p>
+<h4 id="3-1-阅读与思考"><a href="#3-1-阅读与思考" class="headerlink" title="3.1 阅读与思考"></a>3.1 阅读与思考</h4><p>今年相较于去年，今年会尝试去看经典技术类书籍：《重构 改善既有代码的设计》、《mysql 是怎么运行的》、《Redis 设计与实现》、《数据密集型应用系统设计》、《研磨设计模式》、《网络是怎么连接的》、《深入理解 Java 虚拟机》、《Effective Java》等，除了经典书籍之外，还学习了解 RPC、消息队列等组件底层工作原理、重新对自己这两年使用到的技术栈做一次梳理学习，相较于在大学时候的学习，有了两年多的工作经验再来回顾这些内容，有了不少的收获～ <strong>这应该是我今年最大的收获了！</strong> </p>
+<p>同时，技术比较好的朋友给我建议：“学习一门技术，不要单纯为了学这门技术而学，要在学习的过程中，思考总结如何学习一门技术，这个很关键。” 谨记于心中；技术永远在更新迭代，在「输入」的时候，<strong>多思考，多总结，多实践</strong>会让自己对技术有更深的理解；</p>
+<p>为了更好收录我的思考，我特意花了一点时间搭建了一个博客 <a href="https://onecastle.cn/">onecastle.cn</a>，虽然还很简陋（后面再慢慢完善 hhh），内容也并不多，但我会尽量持续的产出自己的思考。</p>
+<p>我「尝试」去思考发散，xxx 是如何实现的，选用这种方案有什么好处、有什么坏处；多总结，让自己学习到的知识实践起来，我也开始自己手动写一些组件，不过这些小组件最后都没有比较好的完结（这也是我后面应该改正过来的点），不过相比较之前，我已经很满意了，因为我在思考、我在总结、我在实践；这总归是一个好的事情。</p>
+<p>明年除了一些技术书籍📚，我也会尝试去看有关表达方面的书籍，软实力也很重要，慢慢来～</p>
+<h4 id="3-2-周末时间"><a href="#3-2-周末时间" class="headerlink" title="3.2 周末时间"></a>3.2 周末时间</h4><p>在周末除了写写代码，现在我也会尽量让自己出去走走，什么都不做，就出去逛一逛也行，不让自己闷在家里，给自己也充充电；</p>
+<p>我也很喜欢看动漫、玩游戏，所以也会抽出一点时间看看动漫、玩玩游戏；做自己喜欢的事情；（原神启动！）</p>
+<h4 id="3-3-锻炼方面"><a href="#3-3-锻炼方面" class="headerlink" title="3.3 锻炼方面"></a>3.3 锻炼方面</h4><p>这个是做的比较差的方面，今年又长胖了，之前坚持的健身也没有坚持了，T-T, 就是偷懒去了，后面注意</p>
+<p>不过今年跟几个好哥们去打篮球，上一次打篮球应该是在初中？虽然打的不好，但是一起玩就是会很开心～</p>
+<h3 id="4-心态转变"><a href="#4-心态转变" class="headerlink" title="4. 心态转变"></a>4. 心态转变</h3><p>之前我总以为什么事情只要扎进去猛猛干，不管结果好不好，都是好的；现在我回过头来看，应该分阶段，不同阶段不同想法、不同的目标和要求，不同阶段也有不同的追求；</p>
+<p>都是希望自己变得更好，但是变得更好的这条路，可以让自己尽量走的平坦，不摔的那么疼；要有取舍，有舍有得，很难做到什么都要；我现在很清楚我想要的是什么，为了这个目标我应该怎么做～</p>
+<h3 id="5-最后"><a href="#5-最后" class="headerlink" title="5. 最后"></a>5. 最后</h3><p>其实我感觉我刚开始敲键盘的时候，脑海里有很多很多想要表达的，语文不好的劣势就体现出来了，不知道怎么给他表达出来；</p>
+<p>多些「输入」、多些思考、多停下来回头看看自己走过的路，然后花一些时间总结，再继续往前走～</p>
+]]></content>
+      <categories>
+        <category>成长</category>
+      </categories>
+      <tags>
+        <tag>内心独白</tag>
+        <tag>碎碎念</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对 TCP 可靠传输的一些思考</title>
+    <url>/2024/12/26/%E5%AF%B9%20TCP%20%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</url>
+    <content><![CDATA[<p>TCP 是面向连接的、基于字节流的「可靠」传输协议；相较于 UDP ，TCP 依靠序号、ACK应答机制、重传机制、流量控制（滑动窗口）、拥塞控制算法能够在错综复杂的网络中确保消息的可靠传输~ </p>
+<span id="more"></span>
+
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>在上大学《计算机网络》这门课的时候，老师也会给我们讲 TCP 、讲 UDP ，只不过当时老师讲的更多的是什么是 TCP、什么是 UDP，它是如何工作的，但是没有给我们讲为什么要有这个东西，有这个东西能做什么？再后来接触学习 TCP 协议是大学毕业要准备找工作了，这个时候就看网上文章的各种分析，因为缺少一些实习经验，还是没有真正理解其在我们实际应用中真正的作用；</p>
+<p>今年是工作的第三年，在过去的工作经验中，频繁的接触 HTTP 协议、RPC 框架，网络通信相关「充满」在日常工作中，最近重新梳理网络相关知识，过去似懂非懂的知识，这个时候又有了更清晰的认识，所谓“读万卷书，不如行万里路”，实践过，经历过，才能让我们对事物的认识更加具象化，所以如果当前时间段比较迷茫，不妨先绕过，等以后再回头看，有可能会有其他收获~</p>
+<h2 id="2-TCP-是什么"><a href="#2-TCP-是什么" class="headerlink" title="2. TCP 是什么"></a>2. TCP 是什么</h2><p>传输控制协议（英语：Transmission Control Protocol，缩写：<strong>TCP</strong>）是一种面向连接的、可靠的、基于字节流的传输层通信协议；—— wiki 百科</p>
+<p>「面向连接」、「可靠」、「基于字节流」三个特性，TCP 为了实现这三个特性引入了序号、ACK 应答机制、重传机制，流量控制（滑动窗口）机制；</p>
+<h2 id="3-序号机制"><a href="#3-序号机制" class="headerlink" title="3. 序号机制"></a>3. 序号机制</h2><p>TCP 工作在传输层，数据在 TCP层 被称为流（相应的数据在 IP 中称为包、在 MAC 中称为帧），TCP 承接来自应用层需要传输的数据，负责将其「运送」到目标机器，应用层的数据有可能很小、也有可能很大，TCP 每次能够传输的数据有限制；即 MSS (<code>Maximum Segement Size</code> )；</p>
+<p>对于超过最大限制的数据会将按照 MSS 将其进行分为多个报文进行传输；TCP 为了提高发送速率，引入了「滑动窗口」，实际传输中，多个报文有可能在网络中同时进行传输，因为网络传输的不确定性，无法确认对方先接收到哪一个报文；最终对方接收到多个报文，也不知道正确的顺序是怎么样的；</p>
+<p>所以 TCP 为每一个报文都分配了一个序号，例如将数据 Data 拆分成两个报文：报文1、报文2，即使对方先接收到报文 2 也知道还有一个报文 1，等报文 1 也顺序到达之后，再根据序号组装成正确的数据「上交」给应用层；从而保证了消息的顺序性与正确性。</p>
+<p><img data-src="/../images/tcp/image1.png" alt="alt text"></p>
+<h2 id="4-ACK-应答机制"><a href="#4-ACK-应答机制" class="headerlink" title="4. ACK 应答机制"></a>4. ACK 应答机制</h2><p>TCP 通过 ACK 应答机制来反馈发送方，发送的数据已经成功被对方接收到。</p>
+<p><img data-src="/../images/tcp/image2.png" alt="alt text"></p>
+<p>在TCP协议中，ACK（确认）字段中的序号表示的是<strong>下一个期望接收的数据字节的序号</strong>；发送方的报文1 成功被接收方接收到之后，接收方会返回下一个序号的 ACK，表示你的报文 1 我已经收到了，接下来我希望收到序号为 2 的数据报文</p>
+<h2 id="5-重传机制"><a href="#5-重传机制" class="headerlink" title="5. 重传机制"></a>5. 重传机制</h2><p>在上面实例中，有可能会因为网络原因出现以下两种异常场景：</p>
+<ol>
+<li>发送方在发送数据的时候有可能会因为网络丢失<br><img data-src="/../images/tcp/image4.png" alt="alt text"></li>
+<li>接收方收到数据之后返回 ACK 给到发送方的时候丢失<br><img data-src="/../images/tcp/image3.png" alt="alt text"></li>
+</ol>
+<p>上述两种情况，对于发送方来说，都无法正常收到 ACK 报文，也就意味着数据并没有发送成功；TCP 针对上述这种情况，有对应的重传机制：超时重传、快速重传；</p>
+<h3 id="5-1-超时重传"><a href="#5-1-超时重传" class="headerlink" title="5.1 超时重传"></a>5.1 超时重传</h3><blockquote>
+<p>Retransmission Timeout 超时重传：指当一个数据段被发送出去后，发送方等待接收方确认的时间长度。如果在这个时间内没有收到确认，发送方将认为该数据段丢失，并重新发送。RTO的数值是基于平滑的往返时间（RTT）及其偏差来计算的。</p>
+</blockquote>
+<p>很好理解，在发出报文之后，在超过 RTO 之后没有接收到 ACK 报文，则会对数据报文进行重传；关键在于这个「时间」的大小：</p>
+<ol>
+<li>时间间隔太大导致网络吞吐降低；</li>
+<li>时间间隔太小有可能会导致原本正常网络上传输的报文被「误认为」超时了</li>
+</ol>
+<p>在 TCP 中，这个 RTO 是实时变化的，会比「报文往返时间」大一点；如下所示</p>
+<p> <img data-src="/../images/tcp/image5.png" alt="alt text"></p>
+<p><strong>优点：</strong><br> 实现简单，从数据报文发出开始计时，在收到相应 ACK 报文之后，其间相差的时间就是「报文往返时间」；超时时间设置的比「报文往返时间」大一点即可。</p>
+<p><strong>缺点：</strong><br>在发生因网络原因超时的原因时，会一直等到超过了 RTO 也没有返回 ACK 报文才触发重传；期间发送方啥也没做，吞吐变低了。</p>
+<h3 id="5-2-快速重传"><a href="#5-2-快速重传" class="headerlink" title="5.2 快速重传"></a>5.2 快速重传</h3><p>针对上述 RTO 不容易设置的刚刚好的场景，TCP 引入了一个快速重传的机制；如下所示</p>
+<h4 id="A-数据报文在网络中丢失"><a href="#A-数据报文在网络中丢失" class="headerlink" title="A. 数据报文在网络中丢失"></a>A. 数据报文在网络中丢失</h4><p> <img data-src="/../images/tcp/image6.png" alt="alt text"></p>
+<ol>
+<li>发送方发送的数据报文 1 在网络传输时丢失；</li>
+<li>因为「滑动窗口」的存在，发送方继续发送数据报文 2、3、4；</li>
+<li>接受方在成功收到数据报文 2、3、4 之后则都返回 ACK 1；</li>
+<li>此时发送方连续收到三个 ACK 为 1 的报文，表示没有收到数据包 1 ，此时发送方就会重传数据报文 1。</li>
+</ol>
+<p>发送方连续接收到对同一个序号的 ACK 报文，即便在没有超过 RTO 的情况下，也会对丢失的数据报文进行重传。</p>
+<h4 id="B-ACK-报文丢失"><a href="#B-ACK-报文丢失" class="headerlink" title="B. ACK 报文丢失"></a>B. ACK 报文丢失</h4><p> <img data-src="/../images/tcp/image7.png" alt="alt text"></p>
+<ol>
+<li>发送方发送的数据报文 1 成功被接收方所接收，但 ACK 报文在网络传输过程中丢失了；</li>
+<li>如果后续发送方还有继续发送数据报文，并且能成功收到 ACK 的话，则同样也能够感知到自己发送的数据报文 1 被成功接收；</li>
+<li>例如收到了 ACK 3 则表示数据报文 3 之前的数据都成功的被接收了</li>
+</ol>
+<p>这种机制称为「<strong>累计应答</strong>」。</p>
+<h4 id="C-快速重传的缺点"><a href="#C-快速重传的缺点" class="headerlink" title="C. 快速重传的缺点"></a>C. 快速重传的缺点</h4><p>快速重传很好的解决了：如果数据报文在网络传输过程中丢失了，需要一直等待超过 RTO 才进行重传的缺点，接收方通过快速返回同一序号的 ACK 报文 3 次，让发送方感知到相应的数据报文丢失了；</p>
+<p><strong>但是同样也带来缺点：</strong></p>
+<h5 id="1-不必要的重传"><a href="#1-不必要的重传" class="headerlink" title="1. 不必要的重传"></a>1. 不必要的重传</h5><p>假设在一个网络中，由于路由器缓冲区的短暂拥塞导致部分数据包延迟到达接收端。如果接收端已经收到了后续的数据包并发送了三个重复的ACK给发送端，发送端可能会错误地认为中间的数据包丢失，并触发快速重传。然而，实际上被认为“丢失”的数据包随后到达了接收端。</p>
+<p> <img data-src="/../images/tcp/image8.png" alt="alt text"></p>
+<h5 id="2-无法明确重传哪些数据报文"><a href="#2-无法明确重传哪些数据报文" class="headerlink" title="2. 无法明确重传哪些数据报文"></a>2. 无法明确重传哪些数据报文</h5><p>假设发送方需要发送总共 5 个数据报文，数据报文 1、2 在网络中丢失了，数据报文 3、4、5 顺利到达，按照「快速重传」的约定，会在收到数据报文 3、4、5 的时候返回 ACK 1 给到发送方，发送方触发重传数据报文 1，接收方收到后返回 ACK 2，即丢失的数据报文 2 ，但是这个时候只有一个 ACK 2，无法触发「快速重传」机制；此时 <strong>只能等待</strong> 在超过 RTO 之后，发送方会重传没有收到 ACK 的数据报文 2。</p>
+<p>发送方可以选择在收到连续 3 个 ACK 1 之后，将数据报文 2、3、4、5 重新发送，但这样产生了很多重复的发送。</p>
+<h4 id="D-SACK"><a href="#D-SACK" class="headerlink" title="D. SACK"></a>D. SACK</h4><p><strong>Selective Acknowledgment</strong>，即选择性确认；针对「快速重传」无法明确需要重传哪些数据报文的情况，SACK 能够在返回 ACK 的时候通知发送方已经成功收到哪些数据报文段了。<br> <img data-src="/../images/tcp/image9.png" alt="alt text"></p>
+<p>SACK 搭配「快速重传」机制能够保证重传效率的同时，减少重复报文的传输。</p>
+<h2 id="6-滑动窗口"><a href="#6-滑动窗口" class="headerlink" title="6. 滑动窗口"></a>6. 滑动窗口</h2><p>滑动窗口机制是为了提升 TCP 发送和接收的效率，如果每一个数据报文都需要等待成功接收到 ACK 报文之后再进行发送的话，对于发送方来说，有较多空闲时间（在等待 ACK 报文）</p>
+<p> <img data-src="/../images/tcp/image10.png" alt="alt text"></p>
+<p>对于发送方来说，在发送数据报文 1 之后，需要等待 ACK 报文回来在进行发送；然后才发送数据报文 2；</p>
+<p>滑动窗口则是在发送方和接收方都维护一个「窗」，大小由双方协定「<strong>拥塞控制的关键</strong>」，如下所示：</p>
+<p> <img data-src="/../images/tcp/image11.png" alt="alt text"></p>
+<ol>
+<li>窗口大小为 4，发送方在发送数据报文的时候，不用等待 ACK 报文的返回就可以将后续「还未发送」的数据报文发送出去</li>
+<li>对于发送方来说，发送数据报文 1 之后，不用等待 ACK 2 的接收，就可以将数据报文 2、3、4 发送出去，提高了吞吐量；</li>
+<li>对于接收方来说，如果同时接收到数据报文 1、2、3、4，并不需要应答 ACK 2、3、4、5，而是只需要应答 ACK 5，发送方接收到 ACK 5 之后就知道前面序号的数据报文已经成功被接收；即「<strong>累计应答</strong>」</li>
+<li>发送方发现「窗口」内的报文都成功发送出去了，就会继续选中后续 4 个数据报文，整体看起来类似「滑动」，所以称为「滑动窗口」。</li>
+</ol>
+<p>滑动窗口结合了序号、ACK应答、重传等机制，保证报文可靠性~</p>
+<h2 id="7-拥塞控制"><a href="#7-拥塞控制" class="headerlink" title="7. 拥塞控制"></a>7. 拥塞控制</h2><p>TCP 还能根据传输的网络质量自行调节发送速率，避免在网络繁忙的时候大量传输报文，导致网络拥堵，容易造成超时，然后触发重试，导致网络更加拥；也会在网络不繁忙的时候，尽可能的加快发送速率。</p>
+<p>实现速率控制就是依赖调整「滑动窗口」的大小，窗口怎么调，什么时候调多大，TCP 引入了拥塞控制算法：</p>
+<ol>
+<li>慢启动</li>
+<li>拥塞避免</li>
+<li>快重传</li>
+<li>快恢复</li>
+</ol>
+<p>这里就不一一展开来讲，因为我也没记住 &gt;_&lt; hhh</p>
+<p>言而总之，总而言之，拥塞控制算法就是通过控制窗口的大小来控制 TCP 的传输速率，在没有出现超时的情况情况，就持续地调大窗口大小，「慢启动和拥塞避免算法就是在控制初期窗口的应该调多大」；当出现<strong>连续收到三个相同序号的 ACK 报文时</strong>，即发生了「快重传」，则说明网络有可能出现了拥堵，需要慢点了，需要将窗口大小调小，但是也不能调太小，所以「快恢复」算法就是来计算当出现「快重传」的时候，窗口大小应该调整到多大；</p>
+<h2 id="8-总结"><a href="#8-总结" class="headerlink" title="8. 总结"></a>8. 总结</h2><p>TCP 作为传输层协议，承接应用层数据，其「保证」将数据成功发送到接收方，主要是依靠以上序号、ACK应答、重传机制、滑动窗口、拥塞控制机制来实现对消息的「可靠」传输；当然 TCP 并没有这里列觉的那么简单，还有很多异常场景、小的场景可以拿出来讲，在后面，分多篇文章来写一写理解和总结~</p>
+<p>留下一个问题：UDP 同样作为传输层的协议，其是可靠的吗？为什么？有什么优缺点吗？</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对多级缓存的一些思考</title>
+    <url>/2024/12/22/%E5%AF%B9%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</url>
+    <content><![CDATA[<p>缓存是我们提升性能的一大利器,  引入缓存, 能够极大的提 </p>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>缓存</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+        <tag>多级缓存</tag>
+        <tag>本地缓存</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对分布式事务的一些思考</title>
+    <url>/2024/12/16/%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</url>
+    <content><![CDATA[<p>分布式事务是处理跨多个数据库或服务的事务操作的一种方式，它确保了一组操作要么全部成功执行，要么全部不执行，从而保持数据的一致性；下面是我对分布式事务的一些思考～</p>
+<span id="more"></span>
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><blockquote>
+<p>阅读这篇文章之前，需要对以下知识点有所了解~</p>
+<ol>
+<li>BASE 理论</li>
+<li>事务的概念</li>
+<li>分布式架构</li>
+</ol>
+</blockquote>
+<h2 id="1-什么是分布式事务"><a href="#1-什么是分布式事务" class="headerlink" title="1. 什么是分布式事务"></a>1. 什么是分布式事务</h2><blockquote>
+<p>是指在分布式系统中，事务的参与者、支持该事务的服务器、资源管理器和事务管理器分别位于不同的分布式节点之上。一个分布式事务通常涉及多个操作，这些操作可能跨越多个不同的数据库系统或服务，并且需要保证所有操作要么全部成功执行，要么全部不执行（即保持事务的原子性）。</p>
+</blockquote>
+<p>例如：xx 电商系统的交易系统，承担用户下单功能；当用户对商品 A 进行购买的时候，假设商品 A 不允许超卖的场景，需要执行下面几个步骤：</p>
+<ol>
+<li>检查库存：当用户提交订单时，系统首先调用库存服务检查所需商品是否有足够的库存。</li>
+<li>锁定库存：如果库存充足，库存服务将临时锁定这些商品的数量，防止其他订单同时购买导致超卖。</li>
+<li>检查积分：当用户选择使用积分抵扣现金时，系统需要调用积分服务检查用户是否有足够的积分进行抵扣。</li>
+<li>锁定积分：如果积分充足，积分服务将临时锁定用户选择抵扣的积分数量，防止其他订单同时使用这份积分。</li>
+<li>创建订单：订单服务创建一个新的订单记录，并设置订单状态为“待支付”。</li>
+<li>发起支付：系统调用第三方支付网关交互以完成实际的支付过程。</li>
+<li>确认支付并减少库存：支付成功后，系统通知库存服务正式减少商品库存，通知积分服务正式减少可使用积分，并更新订单状态为“已支付”。</li>
+</ol>
+<p>涉及的服务有: </p>
+<ol>
+<li>库存服务：负责管理商品的库存。</li>
+<li>订单服务：负责处理用户的订单创建和对接第三方支付流程。</li>
+<li>积分服务：负责处理用户的积分抵扣逻辑。</li>
+</ol>
+<p>如果这些服务都是部署在同一台机器上，那就可以使用本地事务轻松控制一致性；但实际上述服务可能跑在不同的服务上，如下图所示：<br><img data-src="/../images/dtran/image1.png" alt="alt text"></p>
+<p>不同的服务部署在不同的节点上，节点之间通过 <code>RPC</code> 进行通讯；回到用户购买商品 A 这个流程，每个步骤都是由不同的服务执行的，用户想要购买成功，上述 5 个步骤都需要执行成功，如果任何一个步骤失败（例如库存不足、积分不足），那失败之前的步骤都需要进行回滚，例如锁定积分失败，那就需要将原本锁定成功的库存给释放掉，避免资源被长时间占用；</p>
+<p>即用户购买商品的整个行为要么成功、要么失败。</p>
+<h2 id="2-TCC-是什么"><a href="#2-TCC-是什么" class="headerlink" title="2. TCC 是什么"></a>2. TCC 是什么</h2><p>即 <code>Try-Confirm-Cancel</code>，分布式事务的其中一种实现方式，是基于补偿机制实现的最终一致性；体现了 <code>BASE</code> 理论的一种实现方式；</p>
+<h3 id="2-1-整体架构"><a href="#2-1-整体架构" class="headerlink" title="2.1 整体架构"></a>2.1 整体架构</h3><p><img data-src="/../images/dtran/image2.png" alt="alt text"></p>
+<h4 id="事务协调方"><a href="#事务协调方" class="headerlink" title="事务协调方"></a>事务协调方</h4><p>分布式事务的核心角色：负责管理和协调参与事务的各个服务或资源管理器；是分布式事务的发起方，需要确保所有参与者都能一致地提交或回滚事务。</p>
+<h4 id="资源方"><a href="#资源方" class="headerlink" title="资源方"></a>资源方</h4><p>分布式事务中负责管理本地资源（例如对于库存服务来说，库存就是本地资源）、执行资源锁定、核销或回滚操作。资源方都需要实现 <code>Try()</code>、<code>Confirm()</code>、<code>Cancel()</code> 三个接口, 下面简述一下每个接口需要承担的责任；</p>
+<blockquote>
+<ol>
+<li>Try(): 当分布式事务开启时，事务协调方会调用所有资源方的<code>Try()</code>进行「资源锁定」；资源方需要保证只要<code>Try()</code>调用成功，后续的<code>Confirm</code>、<code>Cancel()</code>能够对「被锁定的资源」进行核销或释放。</li>
+<li>Confirm(): 用于提交分布式事务，核销前面通过<code>Try()</code>锁定的资源。</li>
+<li>Cancel(): 用于回滚分布式事务，释放前面通过<code>Try()</code>锁定的资源。</li>
+</ol>
+</blockquote>
+<h3 id="2-2-工作流程"><a href="#2-2-工作流程" class="headerlink" title="2.2 工作流程"></a>2.2 工作流程</h3><p>下面描述一下正常的工作流程，即所有服务不出现异常的情况</p>
+<h4 id="2-2-1-分布式事务开启"><a href="#2-2-1-分布式事务开启" class="headerlink" title="2.2.1 分布式事务开启"></a>2.2.1 分布式事务开启</h4><p>分布式事务开启，事务协调方调用所有资源方的<code>Try()</code>接口，以上述用户购买商品作为示例：<br><img data-src="/../images/dtran/image3.png" alt="alt text"></p>
+<blockquote>
+<p>所有资源方都响应成功：</p>
+<ol>
+<li>库存服务（资源方）锁定库存成功，库存状态标记为「锁定中」；</li>
+<li>积分服务（资源方）锁定积分成功，积分状态标记为「锁定中」；</li>
+<li>订单服务（事务协调方）发现所有资源方都响应成功，接着便开始创建订单，然后向支付渠道发起支付请求，订单标记为「未支付」；等待用户完成真正的支付。<ul>
+<li>从发起支付到用户真正完成支付这个过程一般是异步的，订单服务需要等待支付的结果（成功&#x2F;失败）来决定后续是对资源方发起 <code>Confirm()</code> 进行资源核销还是发起 <code>Cancel()</code> 进行资源释放。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h4 id="2-2-2-分布式事务提交"><a href="#2-2-2-分布式事务提交" class="headerlink" title="2.2.2 分布式事务提交"></a>2.2.2 分布式事务提交</h4><p><img data-src="/../images/dtran/image4.png" alt="alt text"></p>
+<blockquote>
+<p>假设用户顺利完成支付，订单服务则标识订单为「已支付」，并且对资源方发起<code>Confirm()</code> 请求对资源进行核销；</p>
+<ol>
+<li>库存服务（资源方）正式扣减库存，库存状态标记为「已扣减」；</li>
+<li>积分服务（资源方）正式扣减积分，积分状态标记为「已扣减」；</li>
+</ol>
+</blockquote>
+<h4 id="2-2-3-分布式事务回滚"><a href="#2-2-3-分布式事务回滚" class="headerlink" title="2.2.3 分布式事务回滚"></a>2.2.3 分布式事务回滚</h4><p><img data-src="/../images/dtran/image5.png" alt="alt text"></p>
+<blockquote>
+<p>假设用户放弃支付：订单服务则标识订单为「放弃支付」，并且对资源方发起<code>Cancel()</code> 请求对资源进行释放：</p>
+<ol>
+<li>库存服务（资源方）释放锁定库存，库存状态标记为「已释放」；</li>
+<li>积分服务（资源方）释放锁定积分，积分状态标记为「已释放」；</li>
+</ol>
+<p>被释放出来的资源则可以继续被其他用户进行锁定-核销&#x2F;释放</p>
+</blockquote>
+<h3 id="2-3-异常场景"><a href="#2-3-异常场景" class="headerlink" title="2.3 异常场景"></a>2.3 异常场景</h3><p>上述都是各个服务都能够正常响应、正常处理业务逻辑的成功场景；一切都很美好，但实际上可能会存在各种各样的异常场景，例如：</p>
+<ol>
+<li>有可能 <code>Try()</code> 请求应答成功了，但是后续的 <code>Confirm()</code>&#x2F;<code>Cancel()</code> 无论怎么调也调用失败，资源一直处于锁定中。</li>
+<li>有可能作为事务协调方的订单服务挂了，原本对库存服务已经调用<code>Try()</code>进行资源锁定，重启之后因为丢失了上一次调用的结果，又重新调用了一次，一个订单锁定了两份资源</li>
+<li>….</li>
+</ol>
+<p>我们针对每个步骤可能出现的异常做一下分析：</p>
+<h4 id="2-3-1-Try-阶段"><a href="#2-3-1-Try-阶段" class="headerlink" title="2.3.1 Try 阶段"></a>2.3.1 Try 阶段</h4><h5 id="部分资源方返回成功，部分资源方返回失败"><a href="#部分资源方返回成功，部分资源方返回失败" class="headerlink" title="部分资源方返回成功，部分资源方返回失败"></a>部分资源方返回成功，部分资源方返回失败</h5><p>情况1：<br><img data-src="/../images/dtran/image6.png" alt="alt text"><br>资源方明确返回资源不充足，此时事务无法开启，需要通知<code>Try()</code>返回成功的资源方进行资源释放，即调用 <code>Cancel()</code>.</p>
+<p>情况2：<br><img data-src="/../images/dtran/image7.png" alt="alt text"><br>超时导致的失败，则此次<code>Try()</code>调用有可能成功到达了资源方，也有可能因为网络问题最终没有到达资源方；但是对于事务协调方来说，就是调用 <code>Try()</code> 失败了；需要对所有资源方调用 <code>Cancel()</code> 进行资源释放。</p>
+<p>情况3：<br><img data-src="/../images/dtran/image8.png" alt="alt text"><br><code>Try()</code> 最终因为网络原因没有到达积分服务，此时接收到 <code>Cancel()</code> 请求，对于积分服务来说，没有任何资源可以支持回滚。</p>
+<blockquote>
+<p>资源方的<code>Cancel()</code> 接口需要能够支持空回滚。</p>
+</blockquote>
+<p>情况4：<br><img data-src="/../images/dtran/image9.png" alt="alt text"></p>
+<ol>
+<li>刚开始调用<code>Try()</code>超时了，事务协调方调用<code>Cancel()</code>进行资源释放。</li>
+<li>在收到 <code>Cancel()</code> 之后，前面在网络中迷失的<code>Try()</code>请求又到达了积分服务；如果积分服务执行 <code>Try()</code> 成功，就会把资源给锁定了，并且对于事务协调方来说，分布式事务已经执行完成了，不会再有后续的 <code>Confirm()</code>&#x2F;<code>Cancel()</code> 来对资源核销或者释放了；这个是因为网络原因导致的 <strong>乱序问题</strong>。</li>
+</ol>
+<blockquote>
+<p>资源方需要对每一次的<code>Cancel()</code>做好记录，当先执行的<code>Cancel()</code> 后执行的 <code>Try()</code> 的时候，能够识别不至于造成资源被锁定无法释放。</p>
+</blockquote>
+<h4 id="2-3-2-Confirm-阶段"><a href="#2-3-2-Confirm-阶段" class="headerlink" title="2.3.2 Confirm 阶段"></a>2.3.2 Confirm 阶段</h4><p>作为事务协调方（订单服务），在进入<code>Confirm</code> 阶段之后，一定要确保通知所有资源方执行 <code>Confirm()</code> 进行事务的提交；</p>
+<h5 id="Confirm-调用失败"><a href="#Confirm-调用失败" class="headerlink" title="Confirm 调用失败"></a>Confirm 调用失败</h5><p>同 <code>Try</code> 阶段，因为存在网络&#x2F;资源方服务状态这些不可控因素，无法确保 <code>Confirm()</code> 调用一定是成功的。<br><img data-src="/../images/dtran/image10.png" alt="alt text"><br>对于事务协调方来说，调用结果是失败的，积分服务是否成功无法感知，但是事务协调方不可能一直等待某个资源方的 <code>Confirm()</code> 响应成功。</p>
+<p>此时，可以通过引入消息队列组件, 利用消息队列能够确保消息最低能够被消费一次的特性，让资源方自行监听消息，收到<code>Confirm</code>的消息，自行调用 <code>Confirm()</code> 逻辑， 完成<code>Confirm</code>阶段。如下图所示：<br><img data-src="/../images/dtran/image11.png" alt="alt text"><br>这里同样有一个问题：订单服务（事务协调方）和消息队列 Broker同样是部署在不同的节点上，同样存在不确定性，如何确保消息一定发送出来呢？例如下列场景：</p>
+<blockquote>
+<ol>
+<li>Try 阶段完成，库存锁定成功、用户积分锁定成功、对应的订单创建成功，并且订单状态为「未支付」。</li>
+<li>用户完成支付，此时事务要进入<code>Confirm</code> 阶段，开始调用资源方的 <code>Confirm()</code> 接口进行事务提交。</li>
+<li>大部分情况下，调用都很顺利；此时事务顺利完成。</li>
+<li>如果资源方的<code>Confirm()</code>接口调用失败，则往消息队列投递消息将其转化成异步消息实现<strong>最终一致</strong>，成功投递之后则更新订单状态为「已支付」，后续等待资源方消费消息完成资源核销即可。</li>
+<li>调用 <code>Confirm()</code> 接口失败之后，转化成投递异步消息，假设这个时候消息队列挂了，消息发不出去了，没办法通知资源方了，并且如果订单服务需要一直等待这个发送成功，则订单状态一直无法更新为「已支付」。</li>
+</ol>
+</blockquote>
+<p>针对上述第五步的情况，可以通过引入<code>本地消息表</code> 来解决，具体怎么做呢？</p>
+<p><img data-src="/../images/dtran/image12.png" alt="alt text"></p>
+<blockquote>
+<ol>
+<li>在调用资源方 <code>Confirm()</code> 接口出现异常的时候，借助消息队列最少能消费一次的特性，发送「补偿」消息，延后通知资源方进行核销, 实现最终一致性；并且此时订单状态更新为「已支付」。</li>
+<li>如果发送「补偿」消息失败，则生成一条状态为「待发送」的消息记录到数据库，标识事务还有一个「补偿」消息没有完成发送；并且将存储「补偿」消息的动作和更新订单状态为「已支付」放到<strong>同一个本地事务</strong>里，要么一起成功、要么就一起失败；</li>
+<li>然后另起一个定时任务来扫描「本地消息表」里「待发送」的消息记录，然后去做补偿发送消息。</li>
+</ol>
+</blockquote>
+<h4 id="2-3-3-Cancel-阶段"><a href="#2-3-3-Cancel-阶段" class="headerlink" title="2.3.3 Cancel 阶段"></a>2.3.3 Cancel 阶段</h4><p>其实<code>Cancel()</code>阶段和<code>Confirm()</code>阶段可能产生的异常类似，事务协调方都需要保证<code>Cancel()</code>通知到位；</p>
+<h2 id="3-最后"><a href="#3-最后" class="headerlink" title="3. 最后"></a>3. 最后</h2><p>对于分布式架构的服务，整体成功率受到网络稳定性、各个节点服务自身的稳定性所影响，可能存在相同的请求重复请求多次、相同消息进行多次投递，这个要求各个资源方的 <code>Try-Confirm-Cancel</code> 接口需要做好幂等性；并且针对可能出现的请求乱序到达场景，需要做判断处理；其实上面只是列举到了一些常见的异常场景，还有可能存在更多更极端的情况，不能死记硬背，要理解每一种方式解决问题的本质是什么，可以用哪种方法来优化处理；</p>
+<p>多多思考，多多学习</p>
+]]></content>
+      <categories>
+        <category>分布式事务</category>
+      </categories>
+      <tags>
+        <tag>TCC</tag>
+        <tag>分布式事务</tag>
+        <tag>事务消息</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IO 多路复用与 Reactor 模式</title>
+    <url>/2024/12/12/IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B8%8E%20Reactor%20%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>简述 Reactor 模式和 I&#x2F;O 多路复用，并用 Java 实现一个简单的 Reactor 模型～</p>
+<span id="more"></span>
+
+<blockquote>
+<p>要求</p>
+<ol>
+<li>对网络 IO 模型有一定认识。</li>
+<li>具有一定的 socket 编程基础。</li>
+</ol>
+</blockquote>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>对于支持高效处理大量并发连接的网络程序，I&#x2F;O 多路复用技术和 Reactor 模式必不可少；例如 Redis、Netty 等，我们一起来学习学习~</p>
+<h2 id="2-I-O-多路复用"><a href="#2-I-O-多路复用" class="headerlink" title="2. I&#x2F;O 多路复用"></a>2. I&#x2F;O 多路复用</h2><p><img data-src="/../images/reactor/img.png" alt="img.png"><br>如图所示, 操作系统将网络连接抽象为 FD <code>文件描述符</code>, 多路复用器<code>select/poll/epll</code>能够同时监听多个 FD，当进行<code>select()</code>系统调用的时候，多路复用器能够将存在事件的 FD 返回。</p>
+<blockquote>
+<p>实现的效果：</p>
+<ol>
+<li>只需要使用一个线程&#x2F;进程不断的进行<code>select()</code>，就能够做到同时监控多个网络连接的读写事件。</li>
+<li>因为不需要一个线程&#x2F;进程处理一个连接请求，线程&#x2F;进程的数量不再成为瓶颈</li>
+<li>多路：多个网路连接；复用：复用同一个线程&#x2F;进程</li>
+</ol>
+</blockquote>
+<h3 id="2-1-代码实现"><a href="#2-1-代码实现" class="headerlink" title="2.1 代码实现"></a>2.1 代码实现</h3><blockquote>
+<p>我们使用 Java 的 NIO 来实现一个简单的 I&#x2F;O 多路复用程序</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wangjiabao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IOMultiplexing</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 多路复用器，select/poll/epoll</span></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line">        <span class="comment">// 打开服务器套接字通道</span></span><br><span class="line">        <span class="type">ServerSocketChannel</span> <span class="variable">serverSocketChannel</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line">        <span class="comment">// 非阻塞模式</span></span><br><span class="line">        serverSocketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">        <span class="comment">// 监听端口</span></span><br><span class="line">        serverSocketChannel.socket().bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">30000</span>));</span><br><span class="line">        <span class="comment">// 注册到选择器上，监听接受事件</span></span><br><span class="line">        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">        <span class="comment">// 事件循环</span></span><br><span class="line">        <span class="keyword">while</span> (!Thread.interrupted()) &#123;</span><br><span class="line">            <span class="comment">// 阻塞直到至少有一个通道产生 I/O 事件</span></span><br><span class="line">            selector.select();</span><br><span class="line">            <span class="comment">// 获取存在就绪事件的 FD</span></span><br><span class="line">            Set&lt;SelectionKey&gt; selectedKeys = selector.selectedKeys();</span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selectedKeys.iterator();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">key</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">                iterator.remove(); <span class="comment">// 避免重复处理</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (key.isAcceptable()) &#123;</span><br><span class="line">                    <span class="comment">// 处理客户端连接事件</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> serverSocketChannel.accept();</span><br><span class="line">                    socketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">                    <span class="comment">// 将 client 连接注册到 selector 中，统一监听，监听可读事件</span></span><br><span class="line">                    socketChannel.register(selector, SelectionKey.OP_READ);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key.isReadable()) &#123;</span><br><span class="line">                    <span class="comment">// 处理可读事件</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol>
+<li>代码实例展示了服务端监听 30000 端口，等待 client 发起网络连接，即对应 OP_ACCEPT 事件；</li>
+<li>监听到 OP_ACCEPT 事件之后，调用 <code>accept()</code> 获取代表为客户端连接的 <code>socketChannel</code> ，并且将其注册到 <code>selector</code>; </li>
+<li>然后进入下一轮 <code>select()</code>; 这一次 <code>select()</code> 就会同时监听 <code>serverSocketChannel</code> 和 <code>socketChannel</code>，此时可能产生 <code>OP_READ</code> 和 <code>OP_ACCEPT</code> 事件</li>
+</ol>
+</blockquote>
+<p>可以看到，我们只需一个线程就能做到同时监听多个 FD 产生的事件，只需要一次 <code>select()</code> 系统调用就能同时处理多个 IO 事件，大大提高了 I&#x2F;O 效率。</p>
+<h2 id="3-Reactor-模式"><a href="#3-Reactor-模式" class="headerlink" title="3. Reactor 模式"></a>3. Reactor 模式</h2><h3 id="3-1-Reactor-是什么"><a href="#3-1-Reactor-是什么" class="headerlink" title="3.1 Reactor 是什么"></a>3.1 Reactor 是什么</h3><p>维基百科上的定义是：</p>
+<blockquote>
+<p>反应器模式（Reactor_pattern）是一种为处理服务请求并发 提交到一个或者多个服务处理程序的事件设计模式。当请求抵达后，服务处理程序使用解多路分配策略，然后同步地派发这些请求至相关的请求处理程序。</p>
+</blockquote>
+<p>我的理解是：</p>
+<blockquote>
+<p>Reactor 模式提供了一种优雅的方式来处理大量的并发 I&#x2F;O 操作；将 Client 与 server 建立网络连接拆分成三个步骤：</p>
+<ol>
+<li>监听 I&#x2F;O 事件（监听事件）</li>
+<li>根据 I&#x2F;O 事件类型，将事件分发给不同的 Handler（分发事件）</li>
+<li>Handler 处理相应的 I&#x2F;O 事件（处理事件）</li>
+</ol>
+</blockquote>
+<p>Reactor 模式包含以下几个重要角色：</p>
+<h4 id="Reactor"><a href="#Reactor" class="headerlink" title="Reactor"></a>Reactor</h4><p>反应堆，可以简单理解成事件产生的地方；并且针对 I&#x2F;O 事件类型，进行分发，<strong>本质上是一个分发器</strong></p>
+<blockquote>
+<p>一般 Reactor 都选择 <code>I/O 多路复用技术</code>，因为能够做到使用一个线程&#x2F;进程就能够批量的监听多个 FD 产生的事件，非常高效~</p>
+</blockquote>
+<h4 id="Acceptor"><a href="#Acceptor" class="headerlink" title="Acceptor"></a>Acceptor</h4><p>专门处理 Accept 事件的地方；当 Reactor 监听到 Accept 事件的时候，就会将对应的 FD 丢给 Acceptor 进行连接处理；</p>
+<blockquote>
+<p>Accept 处理的内容一般是：<br>调用 <code>accept()</code> 方法获取 client 连接，然后将连接注册到多路复用器，监听后续的读写事件</p>
+</blockquote>
+<h4 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h4><p>专门处理事件的地方；当 client 连接产生相应的读写事件之后，需要做的处理；</p>
+<p><strong>整体架构如下图所示</strong><br><img data-src="/../images/reactor/reactor.png" alt="img.png"></p>
+<h3 id="3-2-单-Reactor-单线程模式"><a href="#3-2-单-Reactor-单线程模式" class="headerlink" title="3.2 单 Reactor 单线程模式"></a>3.2 单 Reactor 单线程模式</h3><p>上图是一个最简单的<strong>单 Reactor 单线程模型</strong>，我们看看代码如何来实现</p>
+<h4 id="Reactor-1"><a href="#Reactor-1" class="headerlink" title="Reactor"></a>Reactor</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TinyReactor</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Selector selector;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> port;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TinyReactor</span><span class="params">(<span class="type">int</span> port)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.selector = Selector.open();</span><br><span class="line">        <span class="built_in">this</span>.port = port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span>(<span class="type">ServerSocketChannel</span> <span class="variable">serverSocketChannel</span> <span class="operator">=</span> ServerSocketChannel.open()) &#123;</span><br><span class="line">            <span class="comment">// 非阻塞模式</span></span><br><span class="line">            serverSocketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">            <span class="comment">// 绑定端口</span></span><br><span class="line">            serverSocketChannel.socket().bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(port));</span><br><span class="line">            <span class="comment">// 注册到多路复用器中，att 是一个 Accept </span></span><br><span class="line">            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT, <span class="keyword">new</span> <span class="title class_">TinyAcceptor</span>(selector, serverSocketChannel));</span><br><span class="line">            <span class="keyword">while</span> (!Thread.interrupted()) &#123;</span><br><span class="line">                <span class="comment">// 阻塞直到至少有一个通道产生 I/O 事件</span></span><br><span class="line">                <span class="built_in">this</span>.selector.select();</span><br><span class="line">                <span class="comment">// 获取存在就绪事件的 FD</span></span><br><span class="line">                Set&lt;SelectionKey&gt; selectionKeys = <span class="built_in">this</span>.selector.selectedKeys();</span><br><span class="line">                Iterator&lt;SelectionKey&gt; iterator = selectionKeys.iterator();</span><br><span class="line">                <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">                    <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">                    <span class="comment">// 分发</span></span><br><span class="line">                    <span class="built_in">this</span>.dispatch(selectionKey);</span><br><span class="line">                    iterator.remove();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据不同的 IO 事件类型进行分发处理</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> selectionKey</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dispatch</span><span class="params">(SelectionKey selectionKey)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">if</span> (selectionKey.isAcceptable()) &#123;</span><br><span class="line">            <span class="comment">// 连接事件则分发给 Acceptor </span></span><br><span class="line">            <span class="type">TinyAcceptor</span> <span class="variable">accept</span> <span class="operator">=</span> (TinyAcceptor) selectionKey.attachment();</span><br><span class="line">            accept.doAccept();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line">            <span class="comment">// 可读事件则分发给 handler</span></span><br><span class="line">            <span class="type">EventHandler</span> <span class="variable">eventHandler</span> <span class="operator">=</span> (EventHandler) selectionKey.attachment();</span><br><span class="line">            eventHandler.handle(SelectionKey.OP_READ);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isWritable()) &#123;</span><br><span class="line">            <span class="comment">// 可写事件则分发给 handler</span></span><br><span class="line">            <span class="type">EventHandler</span> <span class="variable">eventHandler</span> <span class="operator">=</span> (EventHandler) selectionKey.attachment();</span><br><span class="line">            eventHandler.handle(SelectionKey.OP_WRITE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Reactor 借助 I&#x2F;O 多路复用技术实现高效监听多个 FD 就绪事件，并且根据事件类型就行分发</p>
+<ol>
+<li><code>Accept</code> 事件类型，则分发给 <code>TinyAcceptor</code></li>
+<li><code>Read/Write</code> 事件类型，则分发给 <code>EventHandler</code></li>
+</ol>
+</blockquote>
+<h4 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TinyAcceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Selector selector;</span><br><span class="line">    <span class="keyword">private</span> ServerSocketChannel serverSocketChannel;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TinyAcceptor</span><span class="params">(Selector selector, ServerSocketChannel serverSocketChannel)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.selector = selector;</span><br><span class="line">        <span class="built_in">this</span>.serverSocketChannel = serverSocketChannel;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doAccept</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 获取到客户端连接</span></span><br><span class="line">        <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> <span class="built_in">this</span>.serverSocketChannel.accept();</span><br><span class="line">        socketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">        <span class="comment">// 注册到 selector 中, 监听读、写事件</span></span><br><span class="line">        socketChannel.register(selector,  SelectionKey.OP_READ, <span class="keyword">new</span> <span class="title class_">EventHandler</span>(socketChannel));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>TinyAcceptor</code> 做了两个事情：</p>
+<ol>
+<li>调用 <code>accept()</code> 获取 client 连接</li>
+<li>将获取到的连接注册到多路复用器中，并且监听<code>Read/Write</code> 事件</li>
+</ol>
+</blockquote>
+<h4 id="Handler-1"><a href="#Handler-1" class="headerlink" title="Handler"></a>Handler</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EventHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SocketChannel socketChannel;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">EventHandler</span><span class="params">(SocketChannel socketChannel)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.socketChannel = socketChannel;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(<span class="type">int</span> eventType)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (eventType == SelectionKey.OP_READ) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">ReadEventHandler</span>().handleEvent(<span class="built_in">this</span>.socketChannel);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (eventType == SelectionKey.OP_WRITE) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">WriteEventHandler</span>().handleEvent(<span class="built_in">this</span>.socketChannel);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里实现的较为简易，主要想表达的意思是，handler 一般用来相应的读写事件</p>
+</blockquote>
+<h3 id="3-3-单-Reactor-多线程模式"><a href="#3-3-单-Reactor-多线程模式" class="headerlink" title="3.3 单 Reactor 多线程模式"></a>3.3 单 Reactor 多线程模式</h3><p>上述是单 Reactor 单线程模式，从 Reactor 获取 I&#x2F;O 事件，分发 I&#x2F;O 事件，Accept 处理连接，到 Handler 处理读写请求都是使用同一个线程，如果 Handler 处理的逻辑是较为耗时的操作，则很容易拖垮整个程序的性能；我们很容易想到可以在 handler 引入线程池进行异步处理。</p>
+<h4 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h4><p><img data-src="/../images/reactor/reactor2.png" alt="img.png"></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EventHandler</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SocketChannel socketChannel;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 核心线程、最大 10 线程的线程池</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadPoolExecutor</span> <span class="variable">threadPool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(</span><br><span class="line">            <span class="number">2</span>, <span class="comment">// 核心线程数</span></span><br><span class="line">            <span class="number">10</span>, <span class="comment">// 最大线程数</span></span><br><span class="line">            <span class="number">60L</span>, TimeUnit.SECONDS, <span class="comment">// 当超过核心线程闲置时的存活时间</span></span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">LinkedBlockingQueue</span>&lt;Runnable&gt;(), <span class="comment">// 任务队列</span></span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.CallerRunsPolicy() <span class="comment">// 拒绝策略</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">EventHandler</span><span class="params">(SocketChannel socketChannel)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.socketChannel = socketChannel;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(<span class="type">int</span> eventType)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (eventType == SelectionKey.OP_READ) &#123;</span><br><span class="line">            <span class="comment">// 提交读事件处理器到线程池</span></span><br><span class="line">            threadPool.submit(<span class="keyword">new</span> <span class="title class_">ReadEventHandler</span>(socketChannel)); </span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (eventType == SelectionKey.OP_WRITE) &#123;</span><br><span class="line">            <span class="comment">// 提交写事件处理器到线程池</span></span><br><span class="line">            threadPool.submit(<span class="keyword">new</span> <span class="title class_">WriteEventHandler</span>(socketChannel)); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看到，我们 handler 执行不再使用 I&#x2F;O 线程，而是丢到一个线程池中执行，这就是 单 Reactor 多线程模型</p>
+</blockquote>
+<h3 id="3-4-多-Reactor-多线程模式"><a href="#3-4-多-Reactor-多线程模式" class="headerlink" title="3.4 多 Reactor 多线程模式"></a>3.4 多 Reactor 多线程模式</h3><p>上述两种模式的区别在于 handler 执行是 I&#x2F;O 线程还是提交到线程池中去执行；我们 Reactor 模型需要建立客户端连接、监听就绪事件 <code>accept()</code>、<code>select()</code>；当面对并发客户端连接时，显然 Reactor 就成为了瓶颈。<br>所以衍生出<code>多 Reactor 多线程模式</code></p>
+<h4 id="整体结构-1"><a href="#整体结构-1" class="headerlink" title="整体结构"></a>整体结构</h4><p><img data-src="/../images/reactor/reactor3.png" alt="img.png"></p>
+<blockquote>
+<p>Reactor 划分为</p>
+<ol>
+<li>主 Reactor <ul>
+<li>仅仅监听处理 Accept 事件，然后将 Accept 事件分发给 Acceptor</li>
+<li>Acceptor 负责调用<code>accept()</code>获取 client 连接，并且将连接注册到一个 从 Reactor 中</li>
+</ul>
+</li>
+<li>从 Reactor<ul>
+<li>仅仅负责监听处理 <code>Read/Write</code> 事件，然后将事件提交到 Handler 线程池中进行执行</li>
+</ul>
+</li>
+</ol>
+<p>主 Reactor 的线程仅处理 Accept 事件，不再监听处理<code>Read/Write</code> 事件, 而是提交给 从 Reactor 来处理；这样主 Reactor 能够专注于处理客户端连接，应对并发连接场景也能够高效处理~</p>
+</blockquote>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><h5 id="MainReactor"><a href="#MainReactor" class="headerlink" title="MainReactor"></a>MainReactor</h5><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 主 Reactor</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wangjiabao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainReactor</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Selector selector;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> port;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MainReactor</span><span class="params">(<span class="type">int</span> port)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.selector = Selector.open();</span><br><span class="line">        <span class="built_in">this</span>.port = port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span>(<span class="type">ServerSocketChannel</span> <span class="variable">serverSocketChannel</span> <span class="operator">=</span> ServerSocketChannel.open()) &#123;</span><br><span class="line">            <span class="comment">// 非阻塞模式</span></span><br><span class="line">            serverSocketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">            <span class="comment">// 绑定端口</span></span><br><span class="line">            serverSocketChannel.socket().bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(port));</span><br><span class="line">            <span class="comment">// 注册到多路复用器中，att 是一个 Accept</span></span><br><span class="line">            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT, <span class="keyword">new</span> <span class="title class_">TinyAcceptor</span>(selector, serverSocketChannel));</span><br><span class="line">            <span class="keyword">while</span> (!Thread.interrupted()) &#123;</span><br><span class="line">                <span class="comment">// 阻塞直到至少有一个通道产生 I/O 事件</span></span><br><span class="line">                <span class="built_in">this</span>.selector.select();</span><br><span class="line">                <span class="comment">// 获取存在就绪事件的 FD</span></span><br><span class="line">                Set&lt;SelectionKey&gt; selectionKeys = <span class="built_in">this</span>.selector.selectedKeys();</span><br><span class="line">                Iterator&lt;SelectionKey&gt; iterator = selectionKeys.iterator();</span><br><span class="line">                <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">                    <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">                    <span class="comment">// 分发</span></span><br><span class="line">                    <span class="built_in">this</span>.dispatch(selectionKey);</span><br><span class="line">                    iterator.remove();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据不同的 IO 事件类型进行分发处理</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> selectionKey</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dispatch</span><span class="params">(SelectionKey selectionKey)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">if</span> (selectionKey.isAcceptable()) &#123;</span><br><span class="line">            <span class="comment">// 连接事件则分发给 Acceptor</span></span><br><span class="line">            <span class="type">TinyAcceptor</span> <span class="variable">accept</span> <span class="operator">=</span> (TinyAcceptor) selectionKey.attachment();</span><br><span class="line">            accept.doAccept();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看到 MainReactor 仅仅处理 Accept 事件</p>
+</blockquote>
+<h6 id="TinyReactor"><a href="#TinyReactor" class="headerlink" title="TinyReactor"></a>TinyReactor</h6><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TinyAcceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_SUB_REACTOR_NUM</span> <span class="operator">=</span> <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Selector selector;</span><br><span class="line">    <span class="keyword">private</span> ServerSocketChannel serverSocketChannel;</span><br><span class="line">    <span class="comment">// 从 Reactor</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;SubReactor&gt; subReactorList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(DEFAULT_SUB_REACTOR_NUM);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个具有 4 核心线程、最大 10 线程的线程池</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ThreadPoolExecutor</span> <span class="variable">threadPool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(</span><br><span class="line">            <span class="number">4</span>, <span class="comment">// 核心线程数</span></span><br><span class="line">            <span class="number">10</span>, <span class="comment">// 最大线程数</span></span><br><span class="line">            <span class="number">60L</span>, TimeUnit.SECONDS, <span class="comment">// 当超过核心线程闲置时的存活时间</span></span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">LinkedBlockingQueue</span>&lt;Runnable&gt;(), <span class="comment">// 任务队列</span></span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.CallerRunsPolicy() <span class="comment">// 拒绝策略</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TinyAcceptor</span><span class="params">(Selector selector, ServerSocketChannel serverSocketChannel)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.selector = selector;</span><br><span class="line">        <span class="built_in">this</span>.serverSocketChannel = serverSocketChannel;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// init subReactor</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; DEFAULT_SUB_REACTOR_NUM; i++) &#123;</span><br><span class="line">            <span class="type">SubReactor</span> <span class="variable">subReactor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SubReactor</span>();</span><br><span class="line">            subReactorList.add(subReactor);</span><br><span class="line">            <span class="comment">// 加入到线程池中启动</span></span><br><span class="line">            threadPool.execute(subReactor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doAccept</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 获取到客户端连接</span></span><br><span class="line">        <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> <span class="built_in">this</span>.serverSocketChannel.accept();</span><br><span class="line">        socketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line">        <span class="comment">// 选择一个 从 Reactor</span></span><br><span class="line">        <span class="type">SubReactor</span> <span class="variable">subReactor</span> <span class="operator">=</span> LoadBalance.getSubReactor(subReactorList);</span><br><span class="line">        <span class="comment">// 唤醒 select()</span></span><br><span class="line">        subReactor.getSelector().wakeup();</span><br><span class="line">        <span class="comment">// 注册读写事件</span></span><br><span class="line">        socketChannel.register(subReactor.getSelector(), SelectionKey.OP_READ | SelectionKey.OP_WRITE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>获取到 client 连接之后，通过负载均衡选择一个 从 Reactor，将 client 连接注册到 从 Reactor 上，并且仅关注读&#x2F;写事件</p>
+</blockquote>
+<h5 id="SubReactor"><a href="#SubReactor" class="headerlink" title="SubReactor"></a>SubReactor</h5><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SubReactor</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Selector selector;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SubReactor</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.selector = Selector.open();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (!Thread.interrupted()) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="built_in">this</span>.selector.select();</span><br><span class="line">                Set&lt;SelectionKey&gt; selectionKeys = <span class="built_in">this</span>.selector.selectedKeys();</span><br><span class="line">                Iterator&lt;SelectionKey&gt; iterator = selectionKeys.iterator();</span><br><span class="line">                <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">                    <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">                    <span class="comment">// 分发</span></span><br><span class="line">                    <span class="built_in">this</span>.dispatch(selectionKey);</span><br><span class="line">                    iterator.remove();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据不同的 IO 事件类型进行分发处理</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> selectionKey</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dispatch</span><span class="params">(SelectionKey selectionKey)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 从 Reactor 只有读写事件</span></span><br><span class="line">       <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line">            <span class="comment">// 可读事件</span></span><br><span class="line">            <span class="type">EventHandler</span> <span class="variable">eventHandler</span> <span class="operator">=</span> (EventHandler) selectionKey.attachment();</span><br><span class="line">            eventHandler.handle(SelectionKey.OP_READ);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isWritable()) &#123;</span><br><span class="line">            <span class="comment">// 可写事件</span></span><br><span class="line">            <span class="type">EventHandler</span> <span class="variable">eventHandler</span> <span class="operator">=</span> (EventHandler) selectionKey.attachment();</span><br><span class="line">            eventHandler.handle(SelectionKey.OP_WRITE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从 Reactor 的逻辑与 主 Reactor 基本相同，都是不断调用 <code>select()</code> 获取就绪事件，然后进行分发。</p>
+</blockquote>
+<h3 id="3-5-上述代码地址"><a href="#3-5-上述代码地址" class="headerlink" title="3.5 上述代码地址"></a>3.5 上述代码地址</h3><p><a href="https://github.com/OneCastle5280/tiny-reactor.git">https://github.com/OneCastle5280/tiny-reactor.git</a></p>
+<h3 id="3-4-总结"><a href="#3-4-总结" class="headerlink" title="3.4 总结"></a>3.4 总结</h3><p>本篇文章简单介绍总结了 I&#x2F;O 多路复用和 Reactor 模型，Redis 使用的是单 Reactor 模型，Netty 支持上述三种模型，我也是在学习 Redis、Netty 过程中，发现对这些核心基础概念理解的并不是很透彻，就花点时间学习总结~</p>
+]]></content>
+      <categories>
+        <category>I/O</category>
+      </categories>
+      <tags>
+        <tag>I/O</tag>
+        <tag>Netty</tag>
+        <tag>Reactor</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>什么是黏包，半包又是什么？</title>
+    <url>/2024/12/01/%E4%BB%80%E4%B9%88%E6%98%AF%E9%BB%8F%E5%8C%85%EF%BC%8C%E5%8D%8A%E5%8C%85%E5%8F%88%E6%98%AF%E4%BB%80%E4%B9%88/</url>
+    <content><![CDATA[<p>最近在学习如何手写一个 <a href="https://github.com/OneCastle5280/tiny-mq">tiny-mq</a>，其中在写网络通讯模块的时候，了解到黏包和半包的概念，并且需要对其进行处理；这篇文档就简单聊一聊什么是黏包、半包，产生的原因是什么，对我们有什么影响，我们应该如何来处理。</p>
+<span id="more"></span>
+<h2 id="1-TCP-IP-四层协议模型"><a href="#1-TCP-IP-四层协议模型" class="headerlink" title="1. TCP&#x2F;IP 四层协议模型"></a>1. TCP&#x2F;IP 四层协议模型</h2><p>我们先了解一下 TCP&#x2F;IP 四层协议模型，结构如下： </p>
+<p><img data-src="/../images/sticky/tcpip.png" alt="tcp-ip.png"></p>
+<ul>
+<li>应用层<ul>
+<li>HTTP、DNS、FTP 等都是处于应用层的协议</li>
+</ul>
+</li>
+<li>传输层<ul>
+<li>负责上层（即应用层）的数据传输，代表协议为可靠传输的 TCP 协议和高效的 UDP 协议</li>
+</ul>
+</li>
+<li>网络层<ul>
+<li>负责将上层的数据在网络中传输，主要为 IP 协议</li>
+</ul>
+</li>
+<li>数据链路层<ul>
+<li>负责将上层数字信号转化成物理信号，例如 ARP（地址解析协议），根据 IP 地址转化成 Mac 地址。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Nagle-算法"><a href="#2-Nagle-算法" class="headerlink" title="2. Nagle 算法"></a>2. Nagle 算法</h2><p>当我们在应用层发送消息 <code>hi,shildon</code>，消息在四层的表现如下：</p>
+<p><img data-src="/../images/sticky/msgTran.png" alt="msgTran.png"></p>
+<ol>
+<li>消息由应用层产生，并且将数据向下层传递，消息为 <code>hi, shildon</code></li>
+<li>传输层采用可靠的 TCP 协议，TCP 协议会为消息加上 TCP 首部，首部包含 TCP 相关的信息，此时变成 <code>TCP 首部 + hi, shildon</code>，继续向下层传递</li>
+<li>网络层为 IP 协议，IP 协议会为消息加上 IP 首部，首部包含 IP 相关的信息，此时消息变成 <code>IP 首部 + TCP 首部 + hi, shildon</code>，继续向下层传递</li>
+<li>数据链路层会将上层消息封装成帧，为消息加上 Mac 首部，此时消息变成 <code>Mac 首部 + IP 首部 + TCP 首部 + hi, shildon</code>，经过网线等物理介质传输，到达目的地</li>
+<li>首先到达数据链路层，会将 Mac 首部拆掉，此时消息变成 <code>IP 首部 + TCP 首部 + hi, shildon</code>, 向上层传递</li>
+<li>数据到达网络层，在网络层会将 Ip 首部拆掉，此时消息变成 <code>TCP 首部 + hi, shildon</code>，继续向上传递</li>
+<li>数据到达传输层，在传输层会将 TCP 首部拆掉，此时消息变成 <code>hi, shildon</code>，继续向上传递</li>
+<li>在应用层成功收到 <code>hi, shildon</code>。</li>
+</ol>
+<p>我们可以看到数据在 TCP&#x2F;IP 四层协议模型中，数据传输是正向封包和反向拆包的两个过程。发送过程，每一层都会为其新增专属首部；基于这个流程，假设应用层将 <code>hi, shildon</code> 拆成 <code>h</code> <code>i</code> <code>,</code> <code>s</code> <code>h</code> <code>i</code> <code>l</code> <code>d</code> <code>o</code> <code>n</code> 分别进行发送，<br>按照上述流程，会分别为 <code>h</code> <code>i</code> <code>,</code> <code>s</code> <code>h</code> <code>i</code> <code>l</code> <code>d</code> <code>o</code> <code>n</code> 加上各层的首部，最后再进行传输；这样会有什么坏处？</p>
+<p>假设我们每一个字符、 tcp 首部、ip 首部、mac 首部各占用 1 Byte，那将 <code>hi, shildon</code> 一起发送的时候，最终发送出去的消息大小为：10 + 3 Byte。现在将<code>hi, shildon</code>拆分成一个一个字符进行传输，每一个字符都会加上<code>tcp首部、ip 首部、mac 首部</code>，那么最终发送出去的消息大小为：10 + 3 * 10 Byte；数据传输吞吐量变低了，太浪费了。</p>
+<p>针对上述这种频繁发送小消息而带来的网络开销、(有可能会造成网络拥堵), tcp 协议提供了一种解决方案，即 Nagle 算法，也叫小包合并算法。当发送的数据量小于等于 <code>n</code> (n 是一个常量) 字节时，TCP 会将这些数据合并，直到收到一个大于 <code>n</code> 字节的数据，才将这些数据发送出去。<br>这种场景下， Nagle 算法能够大量的节省我们的网络开销；相应的，因为消息并不是即刻发送出去的，所以消息时效性会变低。</p>
+<h2 id="3-黏包和半包"><a href="#3-黏包和半包" class="headerlink" title="3. 黏包和半包"></a>3. 黏包和半包</h2><p>那 TCP 的 Nagle 算法跟我们的黏包、半包有什么关系呢？ </p>
+<h3 id="半包"><a href="#半包" class="headerlink" title="半包"></a>半包</h3><p>还是上面的例子，假设 Nagle 的 n &#x3D; 5,<code>h</code> <code>i</code> <code>,</code> <code>s</code> <code>h</code> 已经达到了可以发送的大小，TCP 就会将 <code>hi,sh</code> 经过 TCP&#x2F;IP 模型发送出去，对于接收方来说收到的是 <code>hi,sh</code>，接收方就会很疑惑 <code>sh</code> 是谁？</p>
+<p>这就是<strong>半包问题: 接收方在一次读取操作中未能接收到一个完整的消息，而是只接收到部分数据</strong>。</p>
+<p><img data-src="/../images/sticky/demo1.png" alt="img.png"></p>
+<h3 id="黏包"><a href="#黏包" class="headerlink" title="黏包"></a>黏包</h3><p>那什么是黏包呢？</p>
+<p>假设 n &#x3D; 15, 发送方除开发送 <code>hi,shildon</code> 之外，还发送了<code>shuaige</code>消息，这样有可能在发送出去之后变成了 <code>hi,shildonshuai</code>，本应是两个消息的，接收方接收到的是 <code>hi,shildonshuai</code>，接收方也很迷惑，<code>shildonshuai</code> 是谁？ </p>
+<p>这就是<strong>黏包问题：接收方在一次读取操作中接收到多个消息黏在一起</strong></p>
+<p><img data-src="/../images/sticky/demo2.png" alt="img.png"></p>
+<p>那 Nagle 算法是黏包、半包产生的根本原因吗？</p>
+<p>不是的，根本原因还是 TCP 是面向字节流的协议，消息本身无边界，而当缓冲区的大小相比较消息偏大或者偏小的时候，就会出现黏包和半包问题。</p>
+<h2 id="4-MTU-和-MSS-产生的半包问题"><a href="#4-MTU-和-MSS-产生的半包问题" class="headerlink" title="4. MTU 和 MSS 产生的半包问题"></a>4. MTU 和 MSS 产生的半包问题</h2><p>传输层和数据链路层都有一次最大传输大小限制，在传输层有 MSS（<code>Maximum Segement Size</code>）最大报文大小，TCP 会将消息拆分成 MSS 大小的报文（这个时候就有可能将你的一个消息拆分成多个报文），在数据链路层有 MTU（<code>Maxitum Transmission Unit</code>） 最大传输单元.</p>
+<p><img data-src="/../images/sticky/mtuandmss.png" alt="img.png"></p>
+<p><code>MTU = MSS + TCP 首部大小 + IP 首部大小</code>; 如果 <code>MTC &lt; MSS + TCP 首部大小 + IP 首部大小</code>，那么就会将你的消息拆分发送。</p>
+<h2 id="5-如何解决"><a href="#5-如何解决" class="headerlink" title="5. 如何解决"></a>5. 如何解决</h2><p>既然根本原因是因为 TCP 是面向字节流的，无边界的，那我们在应用层自己去把这个“边界”定义出来，自己去辨别一次读取的数据是否为完整的消息。</p>
+<h3 id="定长消息"><a href="#定长消息" class="headerlink" title="定长消息"></a>定长消息</h3><p>每个数据都是一个固定的长度。当接收方累计读取到固定长度的报文后，就认为已经获得一个完整的消息。当发送方的数据小于固定长度时，则需要空位补齐。<br>这个很好理解，相当于双方约定好，我每一个消息都固定是 <code>n</code> 长度，你收到 <code>n</code> 个长度，就是一个完整的消息了，反之，就认为没有收到完整的消息。</p>
+<p>优点： 实现非常简单</p>
+<p>缺点： 因为消息的长度不好固定，太容易造成浪费了</p>
+<h3 id="特殊符分隔"><a href="#特殊符分隔" class="headerlink" title="特殊符分隔"></a>特殊符分隔</h3><p>可以在每次发送报文的尾部加上特定分隔符，接收方就可以根据特殊分隔符进行消息拆分。（redis 就是使用的这种方式）</p>
+<p>例如，发送方在每一个完整的消息后面加一个 <code>\n</code>, 这样在接收方就可以根据 <code>\n</code> 进行消息拆分。反之，则认为还没有收到完整的消息。<br>需要特别注意你的分隔符一定不会出现在的消息中，分隔符的选择特别重要。</p>
+<h3 id="消息长度-消息体"><a href="#消息长度-消息体" class="headerlink" title="消息长度 + 消息体"></a>消息长度 + 消息体</h3><p><img data-src="/../images/sticky/img.png" alt="img.png"></p>
+<p>消息分为两部分：消息头 + 消息体，消息头中有消息体的长度，接收方首先接收到消息头，然后从中获取到消息长度，表示往后取<code>length</code>个长度即为消息完整体。这种处理方法非常常见并且特别灵活。</p>
+<blockquote>
+<p>我在 <a href="https://github.com/OneCastle5280/tiny-mq">tiny-mq</a> 处理黏包的方式就是采用消息长度 + 消息体的方式。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 继承 Netty ByteToMessageDecoder 实现解码逻辑</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Decoder</span> <span class="keyword">extends</span> <span class="title class_">ByteToMessageDecoder</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">decode</span><span class="params">(ChannelHandlerContext channelHandlerContext, ByteBuf in, List&lt;Object&gt; out)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">if</span> (in.readableBytes() &lt; HEADER_LEN) &#123;</span><br><span class="line">            <span class="comment">// 消息头的长度是固定的，如果可读长度小于消息头长度，说明“完整”的消息肯定还没准备好，先不处理</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// mark readIndex，如果发现收到的消息体长度小于请求头里的数据长度的时候，就 reset readIndex</span></span><br><span class="line">        in.markReaderIndex();</span><br><span class="line"></span><br><span class="line">        <span class="type">char</span> <span class="variable">magic</span> <span class="operator">=</span> in.readChar();</span><br><span class="line">        <span class="type">byte</span> <span class="variable">version</span> <span class="operator">=</span> in.readByte();</span><br><span class="line">        <span class="type">byte</span> <span class="variable">type</span> <span class="operator">=</span> in.readByte();</span><br><span class="line">        <span class="type">CharSequence</span> <span class="variable">requestId</span> <span class="operator">=</span> in.readCharSequence(REQUEST_ID_LEN, StandardCharsets.UTF_8);</span><br><span class="line">        <span class="type">int</span> <span class="variable">msgLen</span> <span class="operator">=</span> in.readInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (in.readableBytes() &lt; msgLen) &#123;</span><br><span class="line">            <span class="comment">// 说明现收到的消息长度还不够消息头定义的长度，先不读取</span></span><br><span class="line">            in.resetReaderIndex();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">byte</span>[] data = <span class="keyword">new</span> <span class="title class_">byte</span>[msgLen];</span><br><span class="line">        in.readBytes(data);</span><br><span class="line">        <span class="comment">// 对 data 进行反序列化处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-小结"><a href="#6-小结" class="headerlink" title="6.小结"></a>6.小结</h2><p>Nagle 算法是 TCP 协议中的一个优化策略，它通过合并小数据包来减少网络开销，但是同时也会导致半包和黏包的问题；MTU 和 MSS 是 TCP&#x2F;IP 协议中的一个限制，它们限制了网络传输的单个数据包的大小，如果数据包过大，可能会被拆分成多个更小的数据包进行传输，从而可能导致黏包和半包的问题。<br>目前黏包、半包常见的解决思路有三种 1. 定长消息 2. 特殊符分隔 3. 消息长度+消息体。</p>
+<p>结束～ 关于 TCP 其实能聊的还有很多，我们在后面慢慢展开学习～</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>黏包/半包</tag>
+        <tag>Nagle 算法</tag>
+        <tag>TCP/IP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何手写一个消息队列【更新中】</title>
+    <url>/2024/12/01/%E5%A6%82%E4%BD%95%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</url>
+    <content><![CDATA[<p>最近在了解学习消息队列的底层实现原理，尝试自己手写一个简易版本消息队列 <a href="https://github.com/OneCastle5280/tiny-mq">tiny-mq</a>。</p>
+<span id="more"></span>
+
+<h2 id="1-整体框架"><a href="#1-整体框架" class="headerlink" title="1. 整体框架"></a>1. 整体框架</h2><p><img data-src="/../images/tinymq/%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84.png" alt="img.png"><br>消息队列的整体架构如图所示，包含生产者、消费者、存储元数据的 MetaServer、实际存储 Topic&#x2F;Partition 的 Broker</p>
+<h2 id="2-核心模块划分"><a href="#2-核心模块划分" class="headerlink" title="2. 核心模块划分"></a>2. 核心模块划分</h2><h3 id="2-1-网络模块"><a href="#2-1-网络模块" class="headerlink" title="2.1 网络模块"></a>2.1 网络模块</h3><p><img data-src="/../images/tinymq/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF.png" alt="img.png"></p>
+<p>Producer 生产一个消息之后，根据通讯协议进行编码，然后进行序列化，最后发送到网络中，经过网络传输之后到达 Broker， Broker 经过反序列化之后，根据通讯协议进行解码，Broker 讲过内部处理之后，Consumer 按照同样的流程从 Broker 获取消息进行消费。</p>
+<p>从这个流程上来看，我们看到性能瓶颈在几个地方：</p>
+<ol>
+<li>编解码、序列化&#x2F;反序列化的速度<ul>
+<li>可以选择更加编解码更快，序列化&#x2F;反序列化更快的算法进行优化</li>
+</ul>
+</li>
+<li>网络传输速度<ul>
+<li>这一个我们没办法在应用层面去进行优化</li>
+</ul>
+</li>
+<li>网络连接管理<ul>
+<li>随着客户端和服务端的网络连接数量增多，网络连接增多，我们应该如何进行高效管理连接、处理连接事件</li>
+</ul>
+</li>
+<li>并发请求处理<ul>
+<li>面对海量的请求，应该如何高效处理这些请求</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-1-1-消息协议"><a href="#2-1-1-消息协议" class="headerlink" title="2.1.1 消息协议"></a>2.1.1 消息协议</h4><p>消息协议的设计应该要有以下几个特点：1. 消息大小尽可能小，消息队列的吞吐和消息的大小成反比  2. 可扩展，消息协议需要能做到向前兼容，方便功能扩展。</p>
+<p><img data-src="/../images/tinymq/%E6%B6%88%E6%81%AF%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1.png" alt="alt text"></p>
+<p>一个完整的消息会包含 header 和 body 两部分，其中</p>
+<ul>
+<li>header： 消息头<ul>
+<li>Magic：魔数，用来快速标识是否为需要处理的“合法”数据</li>
+<li>Version：版本，方便后续兼容升级</li>
+<li>Type: 消息类型，标识消息为生产者请求、消费者请求、ACK 等消息类型</li>
+<li>MessageId： 消息唯一标识，实现全双工通信</li>
+<li>MsgLen： 消息长度，为 Body 的消息长度</li>
+</ul>
+</li>
+<li>body: 消息体<ul>
+<li>承载按照特定序列化之后的产物，即实际的数据</li>
+</ul>
+</li>
+</ul>
+<p>所以，消息头固定长度为 <code>12 Byte</code> ，消息体的长度由 <code>MsgLen</code> 决定</p>
+<h4 id="2-1-3-序列化方式"><a href="#2-1-3-序列化方式" class="headerlink" title="2.1.3 序列化方式"></a>2.1.3 序列化方式</h4><p>todo</p>
+<h4 id="2-1-4-连接管理"><a href="#2-1-4-连接管理" class="headerlink" title="2.1.4 连接管理"></a>2.1.4 连接管理</h4><p>面对海量的 TCP 连接，目前主流的处理方式都是借助 I&#x2F;O 多路复用实现。<br><img data-src="/../images/tinymq/io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8.png" alt="img.png"></p>
+<p>对于 TCP 连接，Broker 会为将分配一个 <code>FD(文件句柄)</code>, 然后将其注册到 <code>select/poll/epoll</code> 上，后续 <code>select/poll/epoll</code> 会监听 <code>FD</code> 的各种事件（读&#x2F;写&#x2F;就绪等事件），然后配合 <strong>Reactor 事件驱动模型高效处理请求。</strong></p>
+<h4 id="2-1-5-事件驱动模型"><a href="#2-1-5-事件驱动模型" class="headerlink" title="2.1.5 事件驱动模型"></a>2.1.5 事件驱动模型</h4><p>Reactor 模型，是一个异步事件驱动模型；<br><img data-src="/../images/tinymq/reactor.png" alt="alt text"></p>
+<p>Reactor 负责接受所有事件，然后根据事件类型去做分发，所有的连接事件都由 accept 处理，读写事件则分发给到业务 handler 去处理。</p>
+<h3 id="2-2-数据存储"><a href="#2-2-数据存储" class="headerlink" title="2.2 数据存储"></a>2.2 数据存储</h3><h4 id="2-2-1-元数据存储"><a href="#2-2-1-元数据存储" class="headerlink" title="2.2.1 元数据存储"></a>2.2.1 元数据存储</h4><p>消息队列元数据包含：</p>
+<ol>
+<li>Broker</li>
+<li>Topic</li>
+<li>Producer</li>
+<li>Consumer</li>
+</ol>
+<p>其中，Broker 和 Topic 的元数据存储在 <code>MetaSever</code> 中，Producer 和 Consumer 的元数据存储在 <code>Broker</code> 中</p>
+<p><img data-src="/../images/tinymq/%E5%85%83%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8.png" alt="img.png"></p>
+<h4 id="2-2-2-消息持久化"><a href="#2-2-2-消息持久化" class="headerlink" title="2.2.2 消息持久化"></a>2.2.2 消息持久化</h4><p>TODO 1.0 暂不考虑做数据持久化</p>
+<h3 id="2-2-生产者"><a href="#2-2-生产者" class="headerlink" title="2.2 生产者"></a>2.2 生产者</h3><p>发送消息的流程如下：</p>
+<p><img data-src="/../images/tinymq/producer.png" alt="img.png"></p>
+<p>生产者对外提供统一的 API进行使用。对于使用方来说，只需要提供 Topic 信息即可。</p>
+<h4 id="2-2-1-负载均衡"><a href="#2-2-1-负载均衡" class="headerlink" title="2.2.1 负载均衡"></a>2.2.1 负载均衡</h4><p>Topic 在哪个 Broker 上，这个映射关系存储在 MetaServer 上，Producer 在发送消息之前需要从 MetaServer 获取映射关系（为了减少频繁请求，我们可以在本地缓存一份，然后定时刷新），然后根据路由规则选择好 Broker 经过网络模块，将消息发送出去。</p>
+<p>消息发送选择哪一个 Partition 路由规则一般有以下方式：</p>
+<ul>
+<li>轮询<ul>
+<li>可以实现将消息均匀地分布在 Partition 上，缺点是只能在 Topic 维度做到顺序消费，而无法在 Partition 维度做到顺序消费</li>
+</ul>
+</li>
+<li>哈希<ul>
+<li>可以根据消息设定的键值来选择 Partition 进行消息发送，能够做到在 Topic 和 Partition 维度都是顺序消费；缺点是可能会存在数据倾斜的情况。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-2-ACK-机制"><a href="#2-2-2-ACK-机制" class="headerlink" title="2.2.2 ACK 机制"></a>2.2.2 ACK 机制</h4><p>为保证 Broker 收到了发送的消息，Broker 在收到消息之后，会给 Producer 返回一个 ACK 消息，表示已经成功收到。</p>
+<p>这里有几种场景可以拿出来讨论以下：</p>
+<ol>
+<li>Broker 成功收到消息，并且 Producer 成功收到 ACK 消息；消息成功发送。</li>
+<li>Broker 成功收到消息，ACK 消息有可能在网络传输中丟失了，导致 Producer 最终没有收到消息，以为消息发送失败了。</li>
+<li>Broker 没有收到消息，消息有可能在网络传输中丢失了，自然就不会有 ACK 消息。</li>
+</ol>
+<p>场景 1 是正常场景，场景 2、3 出现了异常，我们应该如何来处理呢？</p>
+<ul>
+<li>重试：如果在固定时间内没有收到 ACK 消息，可以将消息进行重新发送。</li>
+<li>幂等：如果是场景 2 的情况下，对同一消息进行重试发送，有可能造成消费者多次收到同一个消息；所以需要做好幂等处理（我们放在消费者模块再展开讲）</li>
+</ul>
+<h3 id="2-3-消费者"><a href="#2-3-消费者" class="headerlink" title="2.3 消费者"></a>2.3 消费者</h3>]]></content>
+      <categories>
+        <category>消息队列</category>
+      </categories>
+      <tags>
+        <tag>消息队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对网络 I/O 模型的简单总结</title>
+    <url>/2024/12/01/%E5%AF%B9%E7%BD%91%E7%BB%9C%20IO%20%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>网络I&#x2F;O模型是操作系统提供给应用程序用于处理网络通信的机制。不同的I&#x2F;O模型会影响程序的性能和资源使用效率，尤其是在高并发场景下。以下是几种常见的网络I&#x2F;O模型及其简单总结～</p>
+<span id="more"></span>
+
+<h2 id="1-I-O-操作与操作系统的关系"><a href="#1-I-O-操作与操作系统的关系" class="headerlink" title="1. I&#x2F;O 操作与操作系统的关系"></a>1. I&#x2F;O 操作与操作系统的关系</h2><p>首先，我想先简单聊聊程序在进行 I&#x2F;O 操作的时候，跟操作系统之间的交互是怎么样的。</p>
+<p>I&#x2F;O 根据是否发生了网络传输区分为本地 I&#x2F;O 和网络 I&#x2F;O ；本地 I&#x2F;O 就是程序在本机进行文件读取和生成，网络 I&#x2F;O 则是程序通过机器的网络设备（例如网卡）进行文件流传输；无论是<br>本地 I&#x2F;O 还是网络 I&#x2F;O 程序都需要借助操作系统的力量，需要操作系统调度切换到内核态才能执行相应的一些命令，例如：从磁盘中读取指定文件字节流&#x2F;往磁盘文件写入字节流；将字节流通过网卡发送到网络中。这些都只有内核态才能执行的能力；所以我们程序进行 I&#x2F;O 操作，一定会涉及到用户态&#x2F;内核态的切换。</p>
+<h2 id="2-三种网络-I-O-模型"><a href="#2-三种网络-I-O-模型" class="headerlink" title="2. 三种网络 I&#x2F;O 模型"></a>2. 三种网络 I&#x2F;O 模型</h2><h3 id="2-1-阻塞-I-O-模型"><a href="#2-1-阻塞-I-O-模型" class="headerlink" title="2.1 阻塞 I&#x2F;O 模型"></a>2.1 阻塞 I&#x2F;O 模型</h3><p>程序要进行 I&#x2F;O 操作时，我们上面说到，需要操作系统切换内核态才能对文件进行读&#x2F;写的操作，操作系统提供了特殊的 API，程序通过调用特殊的 API 就能获得文件读写的能力。这特殊 API 有一个专业名词 <code>系统调用</code>。</p>
+<p>例如：程序需要对文件进行读取，需要调用操作系统的 <code>read()</code> 方法，此时操作系统会切换到内核态，调用硬件能力，将文件内容从磁盘读取到内核缓冲区，然后通过 CPU 将内核缓冲区的数据拷贝到用户态；然后再从内核态切回用户态。<br>这样程序就完成了对文件的读取操作。这里涉及到几个步骤：</p>
+<ol>
+<li>线程调用 <code>read()</code> 通知操作系统需要对文件进行读取</li>
+<li>操作系统从用户态转化成内核态</li>
+<li>操作系统在内核态操作调用硬件能力，将文件拷贝到内核缓冲区</li>
+<li>然后将内核缓冲区的数据拷贝到用户态</li>
+<li>线程成功读取到文件内容</li>
+</ol>
+<p>在这个流程中，在调用 <code>read()</code> 之后，线程则一直阻塞等待操作系统返回数据，线程是阻塞等待的，线程不能去执行其他操作；<br>会产生两次态的转变，1. 调用的时候用户态转变成内核态，2. 就绪的时候内核态转化成用户态。 会有两次阻塞：1. 进行系统调用的时候 2. 等待就绪的过程，线程也是阻塞的</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>实现简单、使用简单易懂</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>无法处理大量 I&#x2F;O 请求的场景。一个 I&#x2F;O 请求就会占用一个线程，并且在进行<code>系统调用</code>的时候，线程是阻塞的，无法执行其他操作。如果一瞬间有比较多的 I&#x2F;O 请求，就需要创建对应数量的线程，线程的创建与维护都是非常消耗内存和CPU资源的。</li>
+</ul>
+<h3 id="2-2-非阻塞-I-O-模型"><a href="#2-2-非阻塞-I-O-模型" class="headerlink" title="2.2 非阻塞 I&#x2F;O 模型"></a>2.2 非阻塞 I&#x2F;O 模型</h3><p>阻塞 I&#x2F;O 的阻塞是指线程在进行系统调用之后，阻塞等待系统调用(例：<code>read()</code>)的结果，期间线程不能做其他操作；非阻塞 I&#x2F;O 则是指线程在进行系统调用之后，不需要阻塞等待 I&#x2F;O 操作的处理完成。流程如下：</p>
+<ol>
+<li>线程进行系统调用，通知操作系统需要对文件进行读取</li>
+<li>操作系统立即返回此次系统调用的结果：文件已经准备好了或者还在处理中</li>
+<li>因为线程是马上获取到系统调用的响应，线程是非阻塞状态的；</li>
+<li>但是因为线程无法知道操作系统什么时候能把文件准备好，所以需要一直询问操作系统：你准备好了吗？你准备好了吗？（即一直进行系统调用）</li>
+<li>直到操作系统把文件准备好了，这个时候系统调用就会返回程序：文件已经准备好了</li>
+<li>此时，线程就能够成功读取到文件内容</li>
+</ol>
+<p>同样会产生两次态的转变，但是阻塞从两次变成了一次（进行系统调用的时候）</p>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>线程在进行系统调用之后，不用进入阻塞状态</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>todo 是否同样不适配大量 I&#x2F;O 请求的场景？待确认</li>
+<li>因为线程无法知道操作系统什么时候才能把文件准备好，只能一直轮询，cpu 资源都消耗在系统调用询问结果上了，一直在空转。</li>
+</ul>
+<h3 id="2-3-I-O-多路复用模型"><a href="#2-3-I-O-多路复用模型" class="headerlink" title="2.3 I&#x2F;O 多路复用模型"></a>2.3 I&#x2F;O 多路复用模型</h3><p>上述阻塞 I&#x2F;O 模型、非阻塞 I&#x2F;O 模型对于大量 I&#x2F;O 请求的场景都不适用，原因在于需要为每一个 I&#x2F;O 请求分配一个线程去处理。当面对大量请求时，线程的创建就成为瓶颈。I&#x2F;O 多路复用则能做到一个线程对多个 I&#x2F;O 请求的管理，做到复用线程的效果。<br>流程如下：</p>
+<ol>
+<li>每一个 I&#x2F;O 请求都统一注册到复用器（select&#x2F;poll&#x2F;epoll）上，这个复用器能够做到一次返回多个就绪状态的 I&#x2F;O</li>
+<li>大量 I&#x2F;O 请求只需要将注册到复用器上，然后用一个线程来调用复用器，就能做到同时监听处理多个 I&#x2F;O 事件</li>
+</ol>
+<p>通过复用器，就能做到线程与 I&#x2F;O 请求的处理关系是 1:N （N 取决于复用器支持注册的 I&#x2F;O 请求上限）</p>
+<h4 id="复用器"><a href="#复用器" class="headerlink" title="复用器"></a>复用器</h4><p>我了解到linux中常见的复用器实现有三种： select、poll、epoll</p>
+<p><strong>select</strong></p>
+<p>底层数据结构使用的是数组，元素对应与每一个 I&#x2F;O 请求，当调用<code>select</code>的时候，需要传入全部注册的文件描述符（一个文件描述符fd就对应我们一个 I&#x2F;O 请求），然后扫描看哪一个文件描述符已经就绪（即哪一个 I&#x2F;O 请求已经就绪）。</p>
+<p><strong>poll</strong></p>
+<p>底层数据结构使用的是链表，不存在上限值，工作机制与 <code>select</code> 类似。同样需要传入全部注册的文件描述符，存在扫描性能问题。</p>
+<p><strong>epoll</strong></p>
+<p>是 <code>select</code> 和 <code>poll</code> 的增强实现，不需要像 <code>select</code> 和 <code>poll</code> 一样轮询就绪的文件描述符，是基于<strong>事件驱动</strong>获取到就绪的文件描述符。对于注册进来的 I&#x2F;O 请求，<code>epoll</code> 底层是使用<strong>红黑树</strong>来存储的，当进行调用的时候<br>不需要传入全部注册的文件描述符；并且 <code>epoll</code> 使用队列来存储就绪的文件描述符，当文件描述符就绪之后，会将就绪的文件描述符放在队列中，这样当要获取就绪的文件描述的时候，就不用遍历整个红黑树了，只需要从队列中获取。</p>
+<p>除此之外，我还学习到 <code>epoll</code> 有两种工作模式：边缘触发和水平触发。简单来理解就是：边缘触发对于已经就绪过一次的文件描述符，后续不会再返回，而水平触发则是只要文件描述就绪，没有进行处理，就会一直返回。<br>两者对比：边缘触发会产生较少的事件通知，但是一次要将所有就绪的文件描述符处理完；水平触发相对来说会产生较多的事件通知，但是不需要一次处理完所有就绪的文件描述符。</p>
+<h3 id="2-4-总结"><a href="#2-4-总结" class="headerlink" title="2.4 总结"></a>2.4 总结</h3><p>对三个网络 I&#x2F;O 模型进行了简单的梳理，阻塞 I&#x2F;O、非阻塞 I&#x2F;O、I&#x2F;O 多路复用，三个模型各有特点，其中 I&#x2F;O 多路复用模型经常出现在中间件网络通信模块中，例如：Redis、Netty 等。I&#x2F;O 多路复用思想也常与事件驱动的思想绑定在一起，<br>比较经典的设计思想就是 Reactor 模式，Reactor 模式将检测和具体处理解耦，借助于 I&#x2F;O 多路复用同时对多个文件描述符进行监听，当文件描述符就绪之后，Reactor 将其分发给到相应的事件处理器进行处理。</p>
+<p>暂时想到那么多，后续我继续学习之后继续补充。</p>
+]]></content>
+      <categories>
+        <category>I/O</category>
+      </categories>
+      <tags>
+        <tag>I/O</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>手写一个简单时间轮</title>
+    <url>/2024/12/01/%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%97%B6%E9%97%B4%E8%BD%AE/</url>
+    <content><![CDATA[<p>在学习了解 <code>rpc</code> 底层工作原理的时候，好奇 rpc 的超时判断、定时心跳检测这些定时类的功能是如何实现的；了解到可以通过时间轮算法来进行实现；在我学习其底层实现原理之后，尝试自己动手实现一个～</p>
+<span id="more"></span>
+<h3 id="1-时间轮算法"><a href="#1-时间轮算法" class="headerlink" title="1. 时间轮算法"></a>1. 时间轮算法</h3><p>时间轮算法其实也并不复杂，简单来讲，就是将时间固定切分为多个时间槽，并用一个指针周期性的扫描每一个槽来处理定时任务。<br>例如：我们把一分钟切分成 60 个槽，指针每一秒移动一次，然后判断槽关联的任务是否需要触发执行。这就是时间轮的核心思想。</p>
+<h4 id="单层时间轮整体结构"><a href="#单层时间轮整体结构" class="headerlink" title="单层时间轮整体结构"></a>单层时间轮整体结构</h4><p><img data-src="/../images/timewheel.png" alt="timewheel.png"><br><code>图源网络，如有侵权，请联系删除</code></p>
+<p>如图所示，时间轮将整段时间划分成多个时间槽（<code>bucket</code>），每个槽与槽之间有一定时间间隔（<code>duration</code>）。指针每隔 <code>duration</code> 就扫描 <code>bucket</code> 上的任务列表（<code>taskList</code>），执行<code>等待执行状态</code>的任务。</p>
+<p>有以下四个主要元素组成：</p>
+<ul>
+<li>时间轮(<code>wheel</code>)：由多个时间槽组成，逻辑上头尾相连。</li>
+<li>时间槽（<code>bucket</code>）：表示一整段时间的其中一部分，例如：将 1000 ms 划分成 100 个时间槽，每一个时间槽则表示 10ms。</li>
+<li>任务列表(<code>taskList</code>)：存储待执行的定时任务，本质上是一个链表。</li>
+<li>指针(<code>tick</code>): 按照设定的间隔时间扫描 <code>bucket</code>。</li>
+</ul>
+<h3 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2. 代码实现"></a>2. 代码实现</h3><h4 id="2-1-线程模型"><a href="#2-1-线程模型" class="headerlink" title="2.1 线程模型"></a>2.1 线程模型</h4><p><code>tiny-time-wheel</code> 采用单线程模型；时间槽扫描和任务执行均为同一工作线程；当然，使用一个工作线程的很多弊端，例如任务的时间执行精度下降、线程可能会被某个任务异常而导致直接卡死；关于这一点会在<br>后续考虑引入线程池来进行任务执行，引入线程池，则需要考虑更多的并发场景，例如任务的状态维护，不过在时间轮实现中谈不上复杂，后续有时间会改造加上~</p>
+<h4 id="2-2-核心实现思路"><a href="#2-2-核心实现思路" class="headerlink" title="2.2 核心实现思路"></a>2.2 核心实现思路</h4><p><strong>A. 时间槽数量参考 hashMap 实现</strong></p>
+<p>因为每一个定时任务都需要进行哈希找到对应的时间槽，即需要进行取模运算，例如： 将 1000 ms 划分成 100个 10ms 时间槽组成，那对于定时 100ms 之后执行的任务来说，<code>100 % 1000 = 10</code>，即将任务存放在第 10 个时间槽中。<br>位运算执行速度要比执行 <code>%</code> 快。在生成时间轮槽数的时候，我们控制其生成的值为 2 的幂数。以 <code>a &amp; n -1</code> 取代 <code>a % n</code>。相关代码如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">normalizeWheelBucketNum</span><span class="params">(<span class="type">int</span> bucketNum)</span> &#123;</span><br><span class="line">    <span class="comment">// 参考 hashmap的算法</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> bucketNum - <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">2</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">8</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">16</span>;</span><br><span class="line">    <span class="comment">// 这里1073741824 = 2^30,防止溢出</span></span><br><span class="line">    <span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= <span class="number">1073741824</span>) ? <span class="number">1073741824</span> : n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>取模计算</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getBucketIndex</span><span class="params">(<span class="type">int</span> tick)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> tick &amp; mask;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>B. 新增定时任务时，引入队列解耦、简化处理并发问题</strong></p>
+<p>当有新的定时任务需要加入到时间轮的时候，并没有采用直接加入的方式；而是先加入到 <code>Queue&lt;TinyTimeTaskHolder&gt; timeoutQueue</code> 队列中，由指针扫描的时候将队列中的任务加入到时间轮。</p>
+<p>好处是：</p>
+<ol>
+<li>解耦削峰：将任务提交和执行解耦开，分别由不同的线程来处理，逻辑解耦，同时也可以避免短时间内大量任务提交导致资源都耗在将任务加入到时间轮中。</li>
+<li>并发场景处理简单：定时任务的提交都是统一由队列处理，只需要保证队列是线程安全即可实现线程安全。</li>
+</ol>
+<p>缺点是：</p>
+<ol>
+<li>定时任务的准确性下降：因为不是立即加入到时间轮中，相比较之下时延较大</li>
+<li>需要额外的内存开销：因为维护了一个列表来存储<strong>待加入时间轮的任务</strong></li>
+</ol>
+<p><strong>C. 如何确认新增的定时任务应该加入到哪个时间槽中</strong></p>
+<p>参考 <code>netty</code> 单层时间轮实现：</p>
+<ol>
+<li>当时间轮开启的时候，记录开启时间 <code>startTime</code>, 记录时间轮距离<code>startTime</code>已经经过多少个设定的时间间隔，用 <code>tick</code> 表示</li>
+<li>当有新的定时任务需要加入到时间轮时，计算定时任务的实际执行时间： <code>executeTime = timeUnit.toMillis(delay) + System.currentTimeMillis()</code></li>
+<li>然后以<code>startTime</code>作为基准，计算出两者之间还相差多久 <code>offset = executeTime - startTime</code></li>
+<li>根据设定的时间轮间隔 <code>duration</code>，计算出时间轮还需要指针走多少步才会执行 <code>taskTickCount = offset / duration</code></li>
+<li>判断 <code>taskTickCount</code> 与 <code>tick</code> 的大小关系、</li>
+</ol>
+<p>具体的代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 计算任务执行时间需要具体多少次时针移动才能到达</span></span><br><span class="line"><span class="type">long</span> <span class="variable">offset</span> <span class="operator">=</span> taskHolder.getExecuteTime() - startTime;</span><br><span class="line"><span class="type">int</span> <span class="variable">taskTickCount</span> <span class="operator">=</span> (<span class="type">int</span>) (offset / duration);</span><br><span class="line"><span class="keyword">if</span> (taskTickCount &lt; tick) &#123;</span><br><span class="line">    <span class="comment">// 说明任务在队列呆着已经超过了真正的执行时间，直接加入到当前 bucket，立即执行</span></span><br><span class="line">    wheel[getBucketIndex(tick)].getTaskList().add(taskHolder);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 计算轮数</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">rounds</span> <span class="operator">=</span> (taskTickCount - tick) / wheel.length;</span><br><span class="line">    taskHolder.setRounds(rounds);</span><br><span class="line">    <span class="comment">// 取模计算实际的时间槽位置</span></span><br><span class="line">    wheel[getBucketIndex(taskTickCount)].getTaskList().add(taskHolder);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算具体的时间槽位置</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getBucketIndex</span><span class="params">(<span class="type">int</span> tick)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> tick &amp; mask;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>D.指针如何计算等待下一个时间间隔？</strong></p>
+<p>最简单的做法就是固定让线程 <code>Thread.sleep(duration)</code>， 因为我在实现中，代表指针的线程不仅仅是扫描时间槽而已，还会执行其中的任务，所以当执行完成任务之后，很可能已经超过了设定的时间间隔，<br>这样就会让后面的任务都延后。所以我在实现的时候，每次都先计算一下，下一个时间槽的实际执行时间，然后跟当前时间比对；实现如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 计算下一次执行的绝对时间</span></span><br><span class="line"><span class="type">long</span> <span class="variable">nextExecuteTime</span> <span class="operator">=</span> (<span class="built_in">this</span>.tick + <span class="number">1</span>) * duration + startTime;</span><br><span class="line"><span class="type">long</span> <span class="variable">sleepTime</span> <span class="operator">=</span> nextExecuteTime - System.currentTimeMillis();</span><br><span class="line"><span class="keyword">if</span> (sleepTime &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Thread.sleep(sleepTime);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        <span class="comment">// 出现了中断异常</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 说明当前已经超过了设定的时间间隔，不再进行 sleep，直接执行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-源码核心组件简介"><a href="#2-3-源码核心组件简介" class="headerlink" title="2.3 源码核心组件简介"></a>2.3 源码核心组件简介</h4><p><strong>TinyTimeWheelBucket</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TinyTimeWheelBucket</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * bucket 中的任务列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;TinyTimeTaskHolder&gt; taskList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间槽，包含了任务列表。</p>
+<p><strong>TinyTimeTask</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">TinyTimeTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>是一个抽象类，实现 <code>Runnable</code> 接口</p>
+<p><strong>TinyTimeTaskHolder</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TinyTimeTaskHolder</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定时任务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> TinyTimeTask timeTask;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 任务延迟时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Long executeTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 周期数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Integer rounds;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 任务状态 </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Integer status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>封装了 <code>TimeTask</code>，其中，还附带任务的其他信息</p>
+<p><strong>TinyTimeWheel</strong></p>
+<p>时间轮本体，实现了 <code>TimeWheel</code> 接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TimeWheel</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定时任务</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeTask 任务</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> delay    延迟时间</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeUnit 时间单位</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">scheduledTask</span><span class="params">(TinyTimeTask timeTask, <span class="type">long</span> delay, TimeUnit timeUnit)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 停止</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">stop</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>TickWorker</strong></p>
+<p>即时间轮指针，实现了 <code>Runnable</code> 接口；指针每隔设定的间隔时间开始“循环”扫描时间轮。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">TickWorker</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 具体时间轮开始时间有 tick 个 duration，即距离开始时间的的绝对长度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> tick;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-小结"><a href="#3-小结" class="headerlink" title="3. 小结"></a>3. 小结</h3><p><code>tiny-time-wheel</code> 的实现并不复杂，实现上整体参考了<code>netty</code>单层时间轮的实现思路。<code>tiny-time-wheel</code> 还有非常多地方值得优化，包括但不限于以下几点：</p>
+<ol>
+<li>线程模型改造，目前时间槽扫描和任务执行均为单一线程；可以加入线程池设计，可以根据任务类型来进行自由选择哪种模式</li>
+<li>目前实现上，任务并不支持取消，可以引入取消功能，即 <code>task</code> 需要更多的状态</li>
+<li>时间轮状态维护，目前只是最简单的写了一个 <code>stop()</code> 方法；创建时间轮就开启了轮询，是不是可以考虑只有当有任务加入的时候，指针才进行工作呢；减少 CPU 空转</li>
+<li>…</li>
+</ol>
+<p>项目地址: <a href="https://github.com/OneCastle5280/tiny-time-wheel">tiny-time-wheel</a>。</p>
+]]></content>
+      <tags>
+        <tag>时间轮算法</tag>
+      </tags>
+  </entry>
+</search>

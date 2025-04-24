@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"onecastle.cn","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="TCP 是面向连接的、基于字节流的「可靠」传输协议；相较于 UDP ，TCP 依靠序号、ACK应答机制、重传机制、流量控制（滑动窗口）、拥塞控制算法能够在错综复杂的网络中确保消息的可靠传输~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对 TCP 可靠传输的一些思考">
+<meta property="og:url" content="https://onecastle.cn/2024/12/26/%E5%AF%B9%20TCP%20%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="OneCastle&#96;s blog">
+<meta property="og:description" content="TCP 是面向连接的、基于字节流的「可靠」传输协议；相较于 UDP ，TCP 依靠序号、ACK应答机制、重传机制、流量控制（滑动窗口）、拥塞控制算法能够在错综复杂的网络中确保消息的可靠传输~">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image1.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image2.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image4.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image3.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image5.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image6.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image7.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image8.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image9.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image10.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp/image11.png">
+<meta property="article:published_time" content="2024-12-26T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-01-02T13:10:10.000Z">
+<meta property="article:author" content="OneCastle">
+<meta property="article:tag" content="TCP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://onecastle.cn/images/tcp/image1.png">
+
+
+<link rel="canonical" href="https://onecastle.cn/2024/12/26/%E5%AF%B9%20TCP%20%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://onecastle.cn/2024/12/26/%E5%AF%B9%20TCP%20%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/","path":"2024/12/26/对 TCP 可靠传输的一些思考/","title":"对 TCP 可靠传输的一些思考"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>对 TCP 可靠传输的一些思考 | OneCastle`s blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OneCastle`s blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书使人充实，思考使人深邃</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%89%8D%E8%A8%80"><span class="nav-text">1. 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-TCP-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">2. TCP 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BA%8F%E5%8F%B7%E6%9C%BA%E5%88%B6"><span class="nav-text">3. 序号机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ACK-%E5%BA%94%E7%AD%94%E6%9C%BA%E5%88%B6"><span class="nav-text">4. ACK 应答机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="nav-text">5. 重传机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0"><span class="nav-text">5.1 超时重传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0"><span class="nav-text">5.2 快速重传</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%96%87%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%B8%AD%E4%B8%A2%E5%A4%B1"><span class="nav-text">A. 数据报文在网络中丢失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-ACK-%E6%8A%A5%E6%96%87%E4%B8%A2%E5%A4%B1"><span class="nav-text">B. ACK 报文丢失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-text">C. 快速重传的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84%E9%87%8D%E4%BC%A0"><span class="nav-text">1. 不必要的重传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%97%A0%E6%B3%95%E6%98%8E%E7%A1%AE%E9%87%8D%E4%BC%A0%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%96%87"><span class="nav-text">2. 无法明确重传哪些数据报文</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#D-SACK"><span class="nav-text">D. SACK</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-text">6. 滑动窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-text">7. 拥塞控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E6%80%BB%E7%BB%93"><span class="nav-text">8. 总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">OneCastle</p>
+  <div class="site-description" itemprop="description">记录成长的点滴，分享技术的思考</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OneCastle5280" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OneCastle5280" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://onecastle.cn/2024/12/26/%E5%AF%B9%20TCP%20%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="OneCastle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OneCastle`s blog">
+      <meta itemprop="description" content="记录成长的点滴，分享技术的思考">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="对 TCP 可靠传输的一些思考 | OneCastle`s blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          对 TCP 可靠传输的一些思考
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-12-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-12-26T00:00:00+00:00">2024-12-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-01-02 13:10:10" itemprop="dateModified" datetime="2025-01-02T13:10:10+00:00">2025-01-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>TCP 是面向连接的、基于字节流的「可靠」传输协议；相较于 UDP ，TCP 依靠序号、ACK应答机制、重传机制、流量控制（滑动窗口）、拥塞控制算法能够在错综复杂的网络中确保消息的可靠传输~ </p>
+<span id="more"></span>
+
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>在上大学《计算机网络》这门课的时候，老师也会给我们讲 TCP 、讲 UDP ，只不过当时老师讲的更多的是什么是 TCP、什么是 UDP，它是如何工作的，但是没有给我们讲为什么要有这个东西，有这个东西能做什么？再后来接触学习 TCP 协议是大学毕业要准备找工作了，这个时候就看网上文章的各种分析，因为缺少一些实习经验，还是没有真正理解其在我们实际应用中真正的作用；</p>
+<p>今年是工作的第三年，在过去的工作经验中，频繁的接触 HTTP 协议、RPC 框架，网络通信相关「充满」在日常工作中，最近重新梳理网络相关知识，过去似懂非懂的知识，这个时候又有了更清晰的认识，所谓“读万卷书，不如行万里路”，实践过，经历过，才能让我们对事物的认识更加具象化，所以如果当前时间段比较迷茫，不妨先绕过，等以后再回头看，有可能会有其他收获~</p>
+<h2 id="2-TCP-是什么"><a href="#2-TCP-是什么" class="headerlink" title="2. TCP 是什么"></a>2. TCP 是什么</h2><p>传输控制协议（英语：Transmission Control Protocol，缩写：<strong>TCP</strong>）是一种面向连接的、可靠的、基于字节流的传输层通信协议；—— wiki 百科</p>
+<p>「面向连接」、「可靠」、「基于字节流」三个特性，TCP 为了实现这三个特性引入了序号、ACK 应答机制、重传机制，流量控制（滑动窗口）机制；</p>
+<h2 id="3-序号机制"><a href="#3-序号机制" class="headerlink" title="3. 序号机制"></a>3. 序号机制</h2><p>TCP 工作在传输层，数据在 TCP层 被称为流（相应的数据在 IP 中称为包、在 MAC 中称为帧），TCP 承接来自应用层需要传输的数据，负责将其「运送」到目标机器，应用层的数据有可能很小、也有可能很大，TCP 每次能够传输的数据有限制；即 MSS (<code>Maximum Segement Size</code> )；</p>
+<p>对于超过最大限制的数据会将按照 MSS 将其进行分为多个报文进行传输；TCP 为了提高发送速率，引入了「滑动窗口」，实际传输中，多个报文有可能在网络中同时进行传输，因为网络传输的不确定性，无法确认对方先接收到哪一个报文；最终对方接收到多个报文，也不知道正确的顺序是怎么样的；</p>
+<p>所以 TCP 为每一个报文都分配了一个序号，例如将数据 Data 拆分成两个报文：报文1、报文2，即使对方先接收到报文 2 也知道还有一个报文 1，等报文 1 也顺序到达之后，再根据序号组装成正确的数据「上交」给应用层；从而保证了消息的顺序性与正确性。</p>
+<p><img data-src="/../images/tcp/image1.png" alt="alt text"></p>
+<h2 id="4-ACK-应答机制"><a href="#4-ACK-应答机制" class="headerlink" title="4. ACK 应答机制"></a>4. ACK 应答机制</h2><p>TCP 通过 ACK 应答机制来反馈发送方，发送的数据已经成功被对方接收到。</p>
+<p><img data-src="/../images/tcp/image2.png" alt="alt text"></p>
+<p>在TCP协议中，ACK（确认）字段中的序号表示的是<strong>下一个期望接收的数据字节的序号</strong>；发送方的报文1 成功被接收方接收到之后，接收方会返回下一个序号的 ACK，表示你的报文 1 我已经收到了，接下来我希望收到序号为 2 的数据报文</p>
+<h2 id="5-重传机制"><a href="#5-重传机制" class="headerlink" title="5. 重传机制"></a>5. 重传机制</h2><p>在上面实例中，有可能会因为网络原因出现以下两种异常场景：</p>
+<ol>
+<li>发送方在发送数据的时候有可能会因为网络丢失<br><img data-src="/../images/tcp/image4.png" alt="alt text"></li>
+<li>接收方收到数据之后返回 ACK 给到发送方的时候丢失<br><img data-src="/../images/tcp/image3.png" alt="alt text"></li>
+</ol>
+<p>上述两种情况，对于发送方来说，都无法正常收到 ACK 报文，也就意味着数据并没有发送成功；TCP 针对上述这种情况，有对应的重传机制：超时重传、快速重传；</p>
+<h3 id="5-1-超时重传"><a href="#5-1-超时重传" class="headerlink" title="5.1 超时重传"></a>5.1 超时重传</h3><blockquote>
+<p>Retransmission Timeout 超时重传：指当一个数据段被发送出去后，发送方等待接收方确认的时间长度。如果在这个时间内没有收到确认，发送方将认为该数据段丢失，并重新发送。RTO的数值是基于平滑的往返时间（RTT）及其偏差来计算的。</p>
+</blockquote>
+<p>很好理解，在发出报文之后，在超过 RTO 之后没有接收到 ACK 报文，则会对数据报文进行重传；关键在于这个「时间」的大小：</p>
+<ol>
+<li>时间间隔太大导致网络吞吐降低；</li>
+<li>时间间隔太小有可能会导致原本正常网络上传输的报文被「误认为」超时了</li>
+</ol>
+<p>在 TCP 中，这个 RTO 是实时变化的，会比「报文往返时间」大一点；如下所示</p>
+<p> <img data-src="/../images/tcp/image5.png" alt="alt text"></p>
+<p><strong>优点：</strong><br> 实现简单，从数据报文发出开始计时，在收到相应 ACK 报文之后，其间相差的时间就是「报文往返时间」；超时时间设置的比「报文往返时间」大一点即可。</p>
+<p><strong>缺点：</strong><br>在发生因网络原因超时的原因时，会一直等到超过了 RTO 也没有返回 ACK 报文才触发重传；期间发送方啥也没做，吞吐变低了。</p>
+<h3 id="5-2-快速重传"><a href="#5-2-快速重传" class="headerlink" title="5.2 快速重传"></a>5.2 快速重传</h3><p>针对上述 RTO 不容易设置的刚刚好的场景，TCP 引入了一个快速重传的机制；如下所示</p>
+<h4 id="A-数据报文在网络中丢失"><a href="#A-数据报文在网络中丢失" class="headerlink" title="A. 数据报文在网络中丢失"></a>A. 数据报文在网络中丢失</h4><p> <img data-src="/../images/tcp/image6.png" alt="alt text"></p>
+<ol>
+<li>发送方发送的数据报文 1 在网络传输时丢失；</li>
+<li>因为「滑动窗口」的存在，发送方继续发送数据报文 2、3、4；</li>
+<li>接受方在成功收到数据报文 2、3、4 之后则都返回 ACK 1；</li>
+<li>此时发送方连续收到三个 ACK 为 1 的报文，表示没有收到数据包 1 ，此时发送方就会重传数据报文 1。</li>
+</ol>
+<p>发送方连续接收到对同一个序号的 ACK 报文，即便在没有超过 RTO 的情况下，也会对丢失的数据报文进行重传。</p>
+<h4 id="B-ACK-报文丢失"><a href="#B-ACK-报文丢失" class="headerlink" title="B. ACK 报文丢失"></a>B. ACK 报文丢失</h4><p> <img data-src="/../images/tcp/image7.png" alt="alt text"></p>
+<ol>
+<li>发送方发送的数据报文 1 成功被接收方所接收，但 ACK 报文在网络传输过程中丢失了；</li>
+<li>如果后续发送方还有继续发送数据报文，并且能成功收到 ACK 的话，则同样也能够感知到自己发送的数据报文 1 被成功接收；</li>
+<li>例如收到了 ACK 3 则表示数据报文 3 之前的数据都成功的被接收了</li>
+</ol>
+<p>这种机制称为「<strong>累计应答</strong>」。</p>
+<h4 id="C-快速重传的缺点"><a href="#C-快速重传的缺点" class="headerlink" title="C. 快速重传的缺点"></a>C. 快速重传的缺点</h4><p>快速重传很好的解决了：如果数据报文在网络传输过程中丢失了，需要一直等待超过 RTO 才进行重传的缺点，接收方通过快速返回同一序号的 ACK 报文 3 次，让发送方感知到相应的数据报文丢失了；</p>
+<p><strong>但是同样也带来缺点：</strong></p>
+<h5 id="1-不必要的重传"><a href="#1-不必要的重传" class="headerlink" title="1. 不必要的重传"></a>1. 不必要的重传</h5><p>假设在一个网络中，由于路由器缓冲区的短暂拥塞导致部分数据包延迟到达接收端。如果接收端已经收到了后续的数据包并发送了三个重复的ACK给发送端，发送端可能会错误地认为中间的数据包丢失，并触发快速重传。然而，实际上被认为“丢失”的数据包随后到达了接收端。</p>
+<p> <img data-src="/../images/tcp/image8.png" alt="alt text"></p>
+<h5 id="2-无法明确重传哪些数据报文"><a href="#2-无法明确重传哪些数据报文" class="headerlink" title="2. 无法明确重传哪些数据报文"></a>2. 无法明确重传哪些数据报文</h5><p>假设发送方需要发送总共 5 个数据报文，数据报文 1、2 在网络中丢失了，数据报文 3、4、5 顺利到达，按照「快速重传」的约定，会在收到数据报文 3、4、5 的时候返回 ACK 1 给到发送方，发送方触发重传数据报文 1，接收方收到后返回 ACK 2，即丢失的数据报文 2 ，但是这个时候只有一个 ACK 2，无法触发「快速重传」机制；此时 <strong>只能等待</strong> 在超过 RTO 之后，发送方会重传没有收到 ACK 的数据报文 2。</p>
+<p>发送方可以选择在收到连续 3 个 ACK 1 之后，将数据报文 2、3、4、5 重新发送，但这样产生了很多重复的发送。</p>
+<h4 id="D-SACK"><a href="#D-SACK" class="headerlink" title="D. SACK"></a>D. SACK</h4><p><strong>Selective Acknowledgment</strong>，即选择性确认；针对「快速重传」无法明确需要重传哪些数据报文的情况，SACK 能够在返回 ACK 的时候通知发送方已经成功收到哪些数据报文段了。<br> <img data-src="/../images/tcp/image9.png" alt="alt text"></p>
+<p>SACK 搭配「快速重传」机制能够保证重传效率的同时，减少重复报文的传输。</p>
+<h2 id="6-滑动窗口"><a href="#6-滑动窗口" class="headerlink" title="6. 滑动窗口"></a>6. 滑动窗口</h2><p>滑动窗口机制是为了提升 TCP 发送和接收的效率，如果每一个数据报文都需要等待成功接收到 ACK 报文之后再进行发送的话，对于发送方来说，有较多空闲时间（在等待 ACK 报文）</p>
+<p> <img data-src="/../images/tcp/image10.png" alt="alt text"></p>
+<p>对于发送方来说，在发送数据报文 1 之后，需要等待 ACK 报文回来在进行发送；然后才发送数据报文 2；</p>
+<p>滑动窗口则是在发送方和接收方都维护一个「窗」，大小由双方协定「<strong>拥塞控制的关键</strong>」，如下所示：</p>
+<p> <img data-src="/../images/tcp/image11.png" alt="alt text"></p>
+<ol>
+<li>窗口大小为 4，发送方在发送数据报文的时候，不用等待 ACK 报文的返回就可以将后续「还未发送」的数据报文发送出去</li>
+<li>对于发送方来说，发送数据报文 1 之后，不用等待 ACK 2 的接收，就可以将数据报文 2、3、4 发送出去，提高了吞吐量；</li>
+<li>对于接收方来说，如果同时接收到数据报文 1、2、3、4，并不需要应答 ACK 2、3、4、5，而是只需要应答 ACK 5，发送方接收到 ACK 5 之后就知道前面序号的数据报文已经成功被接收；即「<strong>累计应答</strong>」</li>
+<li>发送方发现「窗口」内的报文都成功发送出去了，就会继续选中后续 4 个数据报文，整体看起来类似「滑动」，所以称为「滑动窗口」。</li>
+</ol>
+<p>滑动窗口结合了序号、ACK应答、重传等机制，保证报文可靠性~</p>
+<h2 id="7-拥塞控制"><a href="#7-拥塞控制" class="headerlink" title="7. 拥塞控制"></a>7. 拥塞控制</h2><p>TCP 还能根据传输的网络质量自行调节发送速率，避免在网络繁忙的时候大量传输报文，导致网络拥堵，容易造成超时，然后触发重试，导致网络更加拥；也会在网络不繁忙的时候，尽可能的加快发送速率。</p>
+<p>实现速率控制就是依赖调整「滑动窗口」的大小，窗口怎么调，什么时候调多大，TCP 引入了拥塞控制算法：</p>
+<ol>
+<li>慢启动</li>
+<li>拥塞避免</li>
+<li>快重传</li>
+<li>快恢复</li>
+</ol>
+<p>这里就不一一展开来讲，因为我也没记住 &gt;_&lt; hhh</p>
+<p>言而总之，总而言之，拥塞控制算法就是通过控制窗口的大小来控制 TCP 的传输速率，在没有出现超时的情况情况，就持续地调大窗口大小，「慢启动和拥塞避免算法就是在控制初期窗口的应该调多大」；当出现<strong>连续收到三个相同序号的 ACK 报文时</strong>，即发生了「快重传」，则说明网络有可能出现了拥堵，需要慢点了，需要将窗口大小调小，但是也不能调太小，所以「快恢复」算法就是来计算当出现「快重传」的时候，窗口大小应该调整到多大；</p>
+<h2 id="8-总结"><a href="#8-总结" class="headerlink" title="8. 总结"></a>8. 总结</h2><p>TCP 作为传输层协议，承接应用层数据，其「保证」将数据成功发送到接收方，主要是依靠以上序号、ACK应答、重传机制、滑动窗口、拥塞控制机制来实现对消息的「可靠」传输；当然 TCP 并没有这里列觉的那么简单，还有很多异常场景、小的场景可以拿出来讲，在后面，分多篇文章来写一写理解和总结~</p>
+<p>留下一个问题：UDP 同样作为传输层的协议，其是可靠的吗？为什么？有什么优缺点吗？</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>OneCastle
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://onecastle.cn/2024/12/26/%E5%AF%B9%20TCP%20%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="对 TCP 可靠传输的一些思考">https://onecastle.cn/2024/12/26/对 TCP 可靠传输的一些思考/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/TCP/" rel="tag"># TCP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/22/%E5%AF%B9%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" rel="prev" title="对多级缓存的一些思考">
+                  <i class="fa fa-angle-left"></i> 对多级缓存的一些思考
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/12/27/2024%20%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B%E5%9B%9E%E9%A1%BE/" rel="next" title="2024 心路历程回顾">
+                  2024 心路历程回顾 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">OneCastle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

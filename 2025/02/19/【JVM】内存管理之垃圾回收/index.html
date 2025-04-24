@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"onecastle.cn","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="相较于 C&#x2F;C++，Java 能够对「垃圾对象」进行自动清理而不需要手动释放，是如何实现的？底层工作原理是什么？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【JVM】内存管理之垃圾回收">
+<meta property="og:url" content="https://onecastle.cn/2025/02/19/%E3%80%90JVM%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/index.html">
+<meta property="og:site_name" content="OneCastle&#96;s blog">
+<meta property="og:description" content="相较于 C&#x2F;C++，Java 能够对「垃圾对象」进行自动清理而不需要手动释放，是如何实现的？底层工作原理是什么？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://onecastle.cn/images/jvm/memory/image7.png">
+<meta property="og:image" content="https://onecastle.cn/images/jvm/memory/image8.png">
+<meta property="article:published_time" content="2025-02-19T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-19T16:50:12.000Z">
+<meta property="article:author" content="OneCastle">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="内存管理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://onecastle.cn/images/jvm/memory/image7.png">
+
+
+<link rel="canonical" href="https://onecastle.cn/2025/02/19/%E3%80%90JVM%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://onecastle.cn/2025/02/19/%E3%80%90JVM%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/","path":"2025/02/19/【JVM】内存管理之垃圾回收/","title":"【JVM】内存管理之垃圾回收"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>【JVM】内存管理之垃圾回收 | OneCastle`s blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OneCastle`s blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书使人充实，思考使人深邃</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%87%AA%E5%8A%A8%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="nav-text">1. 自动垃圾收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E4%B8%BA%E5%9E%83%E5%9C%BE"><span class="nav-text">1.1 判断对象是否为垃圾</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AE%97%E6%B3%95"><span class="nav-text">A. 引用计数算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="nav-text">B. 可达性分析算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GC-Roots"><span class="nav-text">GC Roots</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="nav-text">1.2 垃圾收集算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="nav-text">A. 标记-清除算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="nav-text">B. 标记-复制算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95"><span class="nav-text">C. 标记-整理算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#D-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">D. 适用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JVM-%E7%9A%84%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%90%86%E5%BF%B5"><span class="nav-text">JVM 的分代收集理念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E7%94%9F%E4%BB%A3%E9%80%82%E7%94%A8%E7%AE%97%E6%B3%95"><span class="nav-text">新生代适用算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%80%81%E5%B9%B4%E4%BB%A3%E9%80%82%E7%94%A8%E7%AE%97%E6%B3%95"><span class="nav-text">老年代适用算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#E-JVM-GC-%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82"><span class="nav-text">E. JVM GC 的一些细节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-text">1.3 垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E5%89%8D%E8%A8%80"><span class="nav-text">A. 前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-Serial-%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-text">B. Serial 收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-ParNew-%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-text">C. ParNew 收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#D-Parallel-Scavenge-%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-text">D. Parallel Scavenge 收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#D-CMS-%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-text">D. CMS 收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#E-G1-%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-text">E. G1 收集器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E5%B0%8F%E7%BB%93"><span class="nav-text">1.4 小结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">OneCastle</p>
+  <div class="site-description" itemprop="description">记录成长的点滴，分享技术的思考</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OneCastle5280" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OneCastle5280" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://onecastle.cn/2025/02/19/%E3%80%90JVM%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="OneCastle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OneCastle`s blog">
+      <meta itemprop="description" content="记录成长的点滴，分享技术的思考">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="【JVM】内存管理之垃圾回收 | OneCastle`s blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【JVM】内存管理之垃圾回收
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-02-19 00:00:00 / 修改时间：16:50:12" itemprop="dateCreated datePublished" datetime="2025-02-19T00:00:00+00:00">2025-02-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>相较于 C&#x2F;C++，Java 能够对「垃圾对象」进行自动清理而不需要手动释放，是如何实现的？底层工作原理是什么？</p>
+<span id="more"></span>
+
+<h2 id="1-自动垃圾收集"><a href="#1-自动垃圾收集" class="headerlink" title="1. 自动垃圾收集"></a>1. 自动垃圾收集</h2><h3 id="1-1-判断对象是否为垃圾"><a href="#1-1-判断对象是否为垃圾" class="headerlink" title="1.1 判断对象是否为垃圾"></a>1.1 判断对象是否为垃圾</h3><p>首先，需要判断哪些对象是垃圾可回收，哪些是非垃圾还不可回收，主流的判断方法主要为： 1. 引用计数算法 2. 可达性分析算法</p>
+<h4 id="A-引用计数算法"><a href="#A-引用计数算法" class="headerlink" title="A. 引用计数算法"></a>A. 引用计数算法</h4><p>算法策略非常简单，每一个对象维护一个「引用计数器」，只要被引用，次数就 + 1，当引用次数为 0 时，就说明该对象已经沦为垃圾，可以被回收~</p>
+<p>这个算法的优点就是非常易懂，不过存在一个循环引用的问题；如下所示：<br> <img data-src="/../images/jvm/memory/image7.png" alt="alt text"></p>
+<p>  对于对象 a、b 来说，除了彼此之外没有额外的引用，当对象 a &#x2F; 对象 b 不再使用的时候，理论上对象 a&#x2F;b 都沦为垃圾，但实际上因为互相的引用，导致无法顺利的被判断为垃圾；</p>
+<h4 id="B-可达性分析算法"><a href="#B-可达性分析算法" class="headerlink" title="B. 可达性分析算法"></a>B. 可达性分析算法</h4><p>JVM 并没有使用「引用计数算法」，而是使用可达性分析算法；算法基本思想： 从一系列被称为<strong>GC Roots</strong>的根对象作为起始点，从这些节点根据引用关系开始向下搜索，只要能够根据引用关联起来的对象就是「可达对象」；反之，没有关联到的就是「不可达对象」，需要进行回收；<br> <img data-src="/../images/jvm/memory/image8.png" alt="alt text"><br>对于对象 a、b、c 来说，能够通过引用关系与 GC Roots 关联起来，为「可达对象」；<br>对于对象 e、f 来说，为「不可达对象」；</p>
+<h5 id="GC-Roots"><a href="#GC-Roots" class="headerlink" title="GC Roots"></a>GC Roots</h5><p>可以看到，关键是 GC Roots，在 Java 中 GC Roots 主要是以下对象组成：</p>
+<ul>
+<li>栈帧内本地方法表引用的对象：参数、局部变量、临时变量等~</li>
+<li>方法区内类变量、常量引用的对象</li>
+<li>被同步锁（synchronized 关键字）持有的对象</li>
+</ul>
+<h3 id="1-2-垃圾收集算法"><a href="#1-2-垃圾收集算法" class="headerlink" title="1.2 垃圾收集算法"></a>1.2 垃圾收集算法</h3><p> 主流的垃圾收集算法主要有以下几种：</p>
+<ol>
+<li>标记-清除算法</li>
+<li>标记-复制算法</li>
+<li>标记-整理算法</li>
+</ol>
+<p>不同算法的优缺点不一样，<strong>具体场景适用哪种算法要具体分析</strong></p>
+<h4 id="A-标记-清除算法"><a href="#A-标记-清除算法" class="headerlink" title="A. 标记-清除算法"></a>A. 标记-清除算法</h4><p>工作流程：</p>
+<ol>
+<li>首先标记需要回收的对象【标记阶段】</li>
+<li>统一回收垃圾对象【清理阶段】</li>
+</ol>
+<p>这个算法的优点是实现非常简单，但是有两个比较明显的缺点：</p>
+<ol>
+<li>标记阶段的效率「严重」受到需要被标记的对象数量所影响，导致回收效率不稳定</li>
+<li>回收阶段可能会产生比较多内存碎片，内存空间的使用率降低</li>
+</ol>
+<h4 id="B-标记-复制算法"><a href="#B-标记-复制算法" class="headerlink" title="B. 标记-复制算法"></a>B. 标记-复制算法</h4><p>工作流程：</p>
+<ol>
+<li>把可使用的空间，均分两份 a、b 两块区域，每次只使用其中一块，当这一块内存用完，则开始进行回收</li>
+<li>标记不需要回收的对象【标记阶段】</li>
+<li>每次回收的时候，将 a 区域中不需要回收的对象复制到 b 区域中【复制阶段】</li>
+</ol>
+<p>这个算法的优点是：不存在内存碎片的问题，每次复制的时候都可以按照顺序分配内存空间；<br>缺点则有以下：</p>
+<ol>
+<li>因为把内存空间均分成了两份，每次只能使用到其中一份进行分配，空间浪费严重</li>
+<li>如果每次回收的时候，存活的对象很多，每次复制的压力也很大</li>
+</ol>
+<p>所以，标记-复制算法比较适用于内存空间内都是存活时间短的对象</p>
+<h4 id="C-标记-整理算法"><a href="#C-标记-整理算法" class="headerlink" title="C. 标记-整理算法"></a>C. 标记-整理算法</h4><p> 工作流程：</p>
+<ol>
+<li>首先标记需要回收的对象【标记阶段】</li>
+<li>对仍存活的对象进行「移动」，按照内存顺序对「存活对象」进行移动【整理阶段】</li>
+</ol>
+<p>整理阶段因为对象的内存地址发生了变化，则需要对「存活对象」引用的更新；引用的更新势必要 STW（stop the world），对于用户程序来说就是产生了停顿，期间用户程序停止运行；</p>
+<p>这个算法的优点是：不存在内存碎片问题，也不存在空间浪费的情况；<br>缺点非常明显：整理阶段操作非常的重，回收效率「严重」受到存活对象的数量影响；</p>
+<h4 id="D-适用场景"><a href="#D-适用场景" class="headerlink" title="D. 适用场景"></a>D. 适用场景</h4><p>上面简单介绍了一下三种垃圾收集算法的优缺点，对于 JVM 来说，<strong>具体场景适用哪种算法要具体分析</strong></p>
+<h5 id="JVM-的分代收集理念"><a href="#JVM-的分代收集理念" class="headerlink" title="JVM 的分代收集理念"></a>JVM 的分代收集理念</h5><p>JVM 对「堆」空间划分新生代和老年代进行管理；</p>
+<p><strong>新生代</strong>：对象基本「朝生夕死」，在这个区域的对象存活时间短，不会长时间停留在内存</p>
+<ul>
+<li>常见于 Java 程序中的一些方法调用产生的临时对象，方法调用完即「死亡」</li>
+</ul>
+<p><strong>老年代</strong>：在这个区域的对象存活时间长，会长时间停留在内存</p>
+<ul>
+<li>常见于 Java 程序中一些全局对象，生命周期为整个 Java 程序的生命周期</li>
+</ul>
+<h5 id="新生代适用算法"><a href="#新生代适用算法" class="headerlink" title="新生代适用算法"></a>新生代适用算法</h5><p>新生代的对象朝生夕死，在这个区域的对象大部分都是需要被回收的对象，相较于「标记-清除算法」，更加适合适用「标记-复制算法」，因为每次只需要复制“一小部分”存活的对象；但是因为「标记-复制算法」存在空间利用率低的问题，JVM 采用了在新生代划分为两块区域：Eden 区 和 2 个 Survivor 区，HotSpot 虚拟机 Eden ： Survivor 大小比例默认为 8 ：1，也就是说新生代可用的内存空间为总空间的 90%；当新生代区域剩余空间不足以分配给到新对象时，就会触发一次 GC（新生代的 GC 称为 Young-GC），对当前所有对象进行标记，然后将「存活对象」全部复制到 Survivor 区域；如果剩余的 Survivor 区域不够存放这些「存活对象」，会怎么样？思考一下，我们下面解答~</p>
+<h5 id="老年代适用算法"><a href="#老年代适用算法" class="headerlink" title="老年代适用算法"></a>老年代适用算法</h5><p>老年代的对象大多存活时间久、且存在较多大对象（对于一些超过阈值的对象直接分配在老年代），在对这一块对象进行 GC 的时候，大部分的对象都是存活的，无法进行回收；</p>
+<ul>
+<li>「标记-清除算法」缺点是存在内存碎片</li>
+<li>「标记-复制算法」缺点是空间利用率低，明显不适合老年代的特性</li>
+<li>「标记-整理算法」缺点是需要重新对「存活对象」的引用进行重新调整，需要 STW；不会产生内存碎片</li>
+</ul>
+<p>除了「标记-复制算法」明显不适合老年代的特性，「标记-清除算法」和 「标记-整理算法」相对比较适合；实际上 不同的垃圾收集器在处理老年代时采用了不同的策略：</p>
+<ul>
+<li>对于 Serial 和 Parallel 收集器，在进行 Full GC 的时候，默认使用「标记-整理算法」对老年代进行垃圾收集</li>
+<li>对于 CMS 收集器，CMS 追求的是停顿时间短，使用「标记-清除算法」对老年代进行垃圾收集，对于内存碎片，会定期进行 Full GC 重新整理内存。</li>
+</ul>
+<h4 id="E-JVM-GC-的一些细节"><a href="#E-JVM-GC-的一些细节" class="headerlink" title="E. JVM GC 的一些细节"></a>E. JVM GC 的一些细节</h4><blockquote>
+<p>问：Young-GC 的时候，如果 Survivor 区无法存放「存活对象」会怎么样？</p>
+</blockquote>
+<ol>
+<li>每一个对象都会记录一个 GC 年龄（存储在对象头中），每次进行一次 Young-GC GC 年龄就 + 1，达到某个阈值之后（默认是 15，可以通过 JVM 参数进行调整），会进入到老年代，由更大的老年代进行存储</li>
+<li>如果剩余的「存活对象」的年龄还不够阈值（15 次），就会采用「<strong>空间分配担保机制</strong>」；</li>
+</ol>
+<p><strong>空间分配担保机制</strong></p>
+<blockquote>
+<p>JVM 在进行 Young-GC 之前，会先检查当前老年代的最大可用连续空间是不是大于新生代所有对象的总空间，如果大于，说明即使新生代对象全部存活并且都需要进入到老年代，也不会出现堆空间溢出的情况；<strong>即这次 Young-GC 是安全的</strong>；反过来，如果空间小于，这个时候会检查是否开启了<strong>空间分配担保机制</strong>（可以通过 JVM 参数控制开启），如果开启了，则会判断老年代最大可用连续空间是是不是大于<strong>历次晋升到老年代对象的平均大小</strong>，如果小于或者没有开启担保机制，这次 Young-GC 就会升级为 Full GC 对整个堆空间进行 GC。</p>
+</blockquote>
+<h3 id="1-3-垃圾收集器"><a href="#1-3-垃圾收集器" class="headerlink" title="1.3 垃圾收集器"></a>1.3 垃圾收集器</h3><h4 id="A-前言"><a href="#A-前言" class="headerlink" title="A. 前言"></a>A. 前言</h4><p> 垃圾收集算法作为方法论，垃圾收集器则是算法的实践者；正如各种算法之间存在各自的优劣，每一种垃圾收集器都存在各自的优势区间和短板，并不存在完美的垃圾收集器；<strong>需要根据具体的使用场景来选择正确的收集器</strong>。</p>
+<p>垃圾收集器需要考虑以下几个点：</p>
+<ol>
+<li>吞吐量：<code>用户线程工作时间 / (用户线程工作线程 + GC 线程工作时间)</code></li>
+<li>延迟：用户线程停顿时间</li>
+</ol>
+<p> 笔者主要是对经典的垃圾收集器有所了解：</p>
+<ol>
+<li>Serial 收集器</li>
+<li>ParNew 收集器</li>
+<li>Parallel Scavenge 收集器</li>
+<li>CMS 收集器</li>
+<li>G1 收集器</li>
+</ol>
+<h4 id="B-Serial-收集器"><a href="#B-Serial-收集器" class="headerlink" title="B. Serial 收集器"></a>B. Serial 收集器</h4><p>Serial 工作在新生代和老年代；</p>
+<ul>
+<li>新生代：采用「标记-复制」算法</li>
+<li>老年代：采用「标记-整理」算法</li>
+</ul>
+<p>Serial 收集器在进行垃圾收集的时候，只有单个 GC 线程在进行工作，收集过程中，用户线程处于停止状态。</p>
+<p>优点：实现简单、对一些<strong>内存小</strong>的 Java 应用来说运行高效，因为不存在线程上下文切换<br>缺点：单线程收集效率上限不高</p>
+<h4 id="C-ParNew-收集器"><a href="#C-ParNew-收集器" class="headerlink" title="C. ParNew 收集器"></a>C. ParNew 收集器</h4><p>ParNew 工作在老年代：采用「标记-复制」算法；</p>
+<p>Serial 收集器的「多线程」版本，区别在于进行垃圾收集的时候有多条 GC 线程在进行收集。</p>
+<p>优点：多线程进行 GC，收集效率上限高<br>缺点：对一些<strong>内存小</strong>的 Java 应用来说，运行效率不如 Serial 收集器，存在线程上下文切换</p>
+<h4 id="D-Parallel-Scavenge-收集器"><a href="#D-Parallel-Scavenge-收集器" class="headerlink" title="D. Parallel Scavenge 收集器"></a>D. Parallel Scavenge 收集器</h4><p>Parallel Scavenge 工作在老年代；采用「标记-复制」算法；</p>
+<blockquote>
+<p>吞吐量 &#x3D;  用户线程工作时间 &#x2F; （用户线程工作时间 + GC 线程工作时间）</p>
+</blockquote>
+<p>Parallel Scavenge 与 ParNew 一样是采用多条 GC 线程对垃圾进行收集，并且提供了两个参数用于精确控制吞吐量，分别是控制最大垃圾收集停顿时间的<code>-XX：MaxGCPauseMillis</code>参数以及直接设置吞吐量大小的<code>-XX：GCTimeRatio</code>参数。除此以外，Parallel Scavenge 收集器还有自适应调节策略，提供了 <code>-XX：+UseAdaptiveSizePolicy</code> 进行控制，开启之后，JVM 能够自行根据系统的运行情况对新生代的大小、Eden 与 Survivor 区的比例、晋升老年代对象大小等相关信息进行「动态调节」。</p>
+<p>优点：能够由开发者自行控制 GC 的停顿时间和应用的整体吞吐量<br>缺点：相当于 ParNew 的升级版</p>
+<h4 id="D-CMS-收集器"><a href="#D-CMS-收集器" class="headerlink" title="D. CMS 收集器"></a>D. CMS 收集器</h4><p>CMS （Concurrent Mark Sweep）工作在老年代；采用「标记-清除」算法；</p>
+<p>特点是：在进行垃圾回收的时候，能够与用户线程「并发」进行，提升了回收效率，缩短了 STW 的时间。</p>
+<p>主要工作流程有以下四个阶段：</p>
+<ol>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>重新标记</li>
+<li>并发清除</li>
+</ol>
+<p>CMS 相对比较复杂，在另外一篇文章中，详细展开聊聊这个收集器</p>
+<h4 id="E-G1-收集器"><a href="#E-G1-收集器" class="headerlink" title="E. G1 收集器"></a>E. G1 收集器</h4><p>G1 （Garbage First） 收集器作为 JDK 9 以上版本默认的垃圾收集器，其不再沿用传统的针对新生代进行 Young GC，针对老年代进行 Major GC，对整个 Java 堆空间进行 Full GC，而是将整个堆划分成一个一个区域（Region），Region 作为最小的回收单元，** G1 允许指定在 M 时间段内尽可能的只消耗 N 时间进行垃圾回收**，每一个 Region 都维护着各自的回收价值（即单位时间内能够回收到多少垃圾），在进行垃圾回收的时候，能够按照价值大小对各个 Region 进行回收。这就是 G1 建立起来的 <strong>可预测的时间停顿模型</strong>。</p>
+<p>G1 从逻辑上还存在新生代和老年代的划分，只不过新生代&#x2F;老年代在 G1 中已经是由一个一个 Region 组成的区域，在物理上不一定连续，不再是固定的了。</p>
+<h3 id="1-4-小结"><a href="#1-4-小结" class="headerlink" title="1.4 小结"></a>1.4 小结</h3><p>对 Java 的自动垃圾收集原理做了「并不深入」的介绍，从如何识别一个对象为「垃圾对象」，引出「引用技术」算法和「可达性分析」算法，到如何对「垃圾对象」进行回收，引出了「标记-清除」、「标记-复制」、「标记-整理」算法，介绍了一下各自的优缺点，最后是列举了一下传统垃圾收集器，梳理其主要特点。</p>
+<p>梳理下来，对 JVM 的垃圾回收工作机制有了更加清晰的认识，接下来就是深入细节去进行学习、梳理、总结~</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>OneCastle
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://onecastle.cn/2025/02/19/%E3%80%90JVM%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" title="【JVM】内存管理之垃圾回收">https://onecastle.cn/2025/02/19/【JVM】内存管理之垃圾回收/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+              <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag"># 内存管理</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/02/10/2025%20%E7%9A%84%E5%B0%8F%E7%9B%AE%E6%A0%87/" rel="prev" title="2025 的小目标">
+                  <i class="fa fa-angle-left"></i> 2025 的小目标
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/02/19/%E3%80%90JVM%E3%80%91CMS%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/" rel="next" title="【JVM】CMS 工作流程梳理.md">
+                  【JVM】CMS 工作流程梳理.md <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">OneCastle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

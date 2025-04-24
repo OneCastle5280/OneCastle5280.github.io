@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"onecastle.cn","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="分布式事务是处理跨多个数据库或服务的事务操作的一种方式，它确保了一组操作要么全部成功执行，要么全部不执行，从而保持数据的一致性；下面是我对分布式事务的一些思考～">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对分布式事务的一些思考">
+<meta property="og:url" content="https://onecastle.cn/2024/12/16/%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="OneCastle&#96;s blog">
+<meta property="og:description" content="分布式事务是处理跨多个数据库或服务的事务操作的一种方式，它确保了一组操作要么全部成功执行，要么全部不执行，从而保持数据的一致性；下面是我对分布式事务的一些思考～">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image1.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image2.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image3.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image4.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image5.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image6.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image7.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image8.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image9.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image10.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image11.png">
+<meta property="og:image" content="https://onecastle.cn/images/dtran/image12.png">
+<meta property="article:published_time" content="2024-12-16T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-19T13:18:40.000Z">
+<meta property="article:author" content="OneCastle">
+<meta property="article:tag" content="TCC">
+<meta property="article:tag" content="分布式事务">
+<meta property="article:tag" content="事务消息">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://onecastle.cn/images/dtran/image1.png">
+
+
+<link rel="canonical" href="https://onecastle.cn/2024/12/16/%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://onecastle.cn/2024/12/16/%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/","path":"2024/12/16/对分布式事务的一些思考/","title":"对分布式事务的一些思考"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>对分布式事务的一些思考 | OneCastle`s blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OneCastle`s blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书使人充实，思考使人深邃</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E6%B1%82"><span class="nav-text">要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="nav-text">1. 什么是分布式事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-TCC-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">2. TCC 是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-text">2.1 整体架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%8D%8F%E8%B0%83%E6%96%B9"><span class="nav-text">事务协调方</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%96%B9"><span class="nav-text">资源方</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-text">2.2 工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%BC%80%E5%90%AF"><span class="nav-text">2.2.1 分布式事务开启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4"><span class="nav-text">2.2.2 分布式事务提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%9B%9E%E6%BB%9A"><span class="nav-text">2.2.3 分布式事务回滚</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%BC%82%E5%B8%B8%E5%9C%BA%E6%99%AF"><span class="nav-text">2.3 异常场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-Try-%E9%98%B6%E6%AE%B5"><span class="nav-text">2.3.1 Try 阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E8%B5%84%E6%BA%90%E6%96%B9%E8%BF%94%E5%9B%9E%E6%88%90%E5%8A%9F%EF%BC%8C%E9%83%A8%E5%88%86%E8%B5%84%E6%BA%90%E6%96%B9%E8%BF%94%E5%9B%9E%E5%A4%B1%E8%B4%A5"><span class="nav-text">部分资源方返回成功，部分资源方返回失败</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-Confirm-%E9%98%B6%E6%AE%B5"><span class="nav-text">2.3.2 Confirm 阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Confirm-%E8%B0%83%E7%94%A8%E5%A4%B1%E8%B4%A5"><span class="nav-text">Confirm 调用失败</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-Cancel-%E9%98%B6%E6%AE%B5"><span class="nav-text">2.3.3 Cancel 阶段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9C%80%E5%90%8E"><span class="nav-text">3. 最后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">OneCastle</p>
+  <div class="site-description" itemprop="description">记录成长的点滴，分享技术的思考</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OneCastle5280" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OneCastle5280" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://onecastle.cn/2024/12/16/%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="OneCastle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OneCastle`s blog">
+      <meta itemprop="description" content="记录成长的点滴，分享技术的思考">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="对分布式事务的一些思考 | OneCastle`s blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          对分布式事务的一些思考
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-12-16 00:00:00" itemprop="dateCreated datePublished" datetime="2024-12-16T00:00:00+00:00">2024-12-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-12-19 13:18:40" itemprop="dateModified" datetime="2024-12-19T13:18:40+00:00">2024-12-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">分布式事务</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>分布式事务是处理跨多个数据库或服务的事务操作的一种方式，它确保了一组操作要么全部成功执行，要么全部不执行，从而保持数据的一致性；下面是我对分布式事务的一些思考～</p>
+<span id="more"></span>
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><blockquote>
+<p>阅读这篇文章之前，需要对以下知识点有所了解~</p>
+<ol>
+<li>BASE 理论</li>
+<li>事务的概念</li>
+<li>分布式架构</li>
+</ol>
+</blockquote>
+<h2 id="1-什么是分布式事务"><a href="#1-什么是分布式事务" class="headerlink" title="1. 什么是分布式事务"></a>1. 什么是分布式事务</h2><blockquote>
+<p>是指在分布式系统中，事务的参与者、支持该事务的服务器、资源管理器和事务管理器分别位于不同的分布式节点之上。一个分布式事务通常涉及多个操作，这些操作可能跨越多个不同的数据库系统或服务，并且需要保证所有操作要么全部成功执行，要么全部不执行（即保持事务的原子性）。</p>
+</blockquote>
+<p>例如：xx 电商系统的交易系统，承担用户下单功能；当用户对商品 A 进行购买的时候，假设商品 A 不允许超卖的场景，需要执行下面几个步骤：</p>
+<ol>
+<li>检查库存：当用户提交订单时，系统首先调用库存服务检查所需商品是否有足够的库存。</li>
+<li>锁定库存：如果库存充足，库存服务将临时锁定这些商品的数量，防止其他订单同时购买导致超卖。</li>
+<li>检查积分：当用户选择使用积分抵扣现金时，系统需要调用积分服务检查用户是否有足够的积分进行抵扣。</li>
+<li>锁定积分：如果积分充足，积分服务将临时锁定用户选择抵扣的积分数量，防止其他订单同时使用这份积分。</li>
+<li>创建订单：订单服务创建一个新的订单记录，并设置订单状态为“待支付”。</li>
+<li>发起支付：系统调用第三方支付网关交互以完成实际的支付过程。</li>
+<li>确认支付并减少库存：支付成功后，系统通知库存服务正式减少商品库存，通知积分服务正式减少可使用积分，并更新订单状态为“已支付”。</li>
+</ol>
+<p>涉及的服务有: </p>
+<ol>
+<li>库存服务：负责管理商品的库存。</li>
+<li>订单服务：负责处理用户的订单创建和对接第三方支付流程。</li>
+<li>积分服务：负责处理用户的积分抵扣逻辑。</li>
+</ol>
+<p>如果这些服务都是部署在同一台机器上，那就可以使用本地事务轻松控制一致性；但实际上述服务可能跑在不同的服务上，如下图所示：<br><img data-src="/../images/dtran/image1.png" alt="alt text"></p>
+<p>不同的服务部署在不同的节点上，节点之间通过 <code>RPC</code> 进行通讯；回到用户购买商品 A 这个流程，每个步骤都是由不同的服务执行的，用户想要购买成功，上述 5 个步骤都需要执行成功，如果任何一个步骤失败（例如库存不足、积分不足），那失败之前的步骤都需要进行回滚，例如锁定积分失败，那就需要将原本锁定成功的库存给释放掉，避免资源被长时间占用；</p>
+<p>即用户购买商品的整个行为要么成功、要么失败。</p>
+<h2 id="2-TCC-是什么"><a href="#2-TCC-是什么" class="headerlink" title="2. TCC 是什么"></a>2. TCC 是什么</h2><p>即 <code>Try-Confirm-Cancel</code>，分布式事务的其中一种实现方式，是基于补偿机制实现的最终一致性；体现了 <code>BASE</code> 理论的一种实现方式；</p>
+<h3 id="2-1-整体架构"><a href="#2-1-整体架构" class="headerlink" title="2.1 整体架构"></a>2.1 整体架构</h3><p><img data-src="/../images/dtran/image2.png" alt="alt text"></p>
+<h4 id="事务协调方"><a href="#事务协调方" class="headerlink" title="事务协调方"></a>事务协调方</h4><p>分布式事务的核心角色：负责管理和协调参与事务的各个服务或资源管理器；是分布式事务的发起方，需要确保所有参与者都能一致地提交或回滚事务。</p>
+<h4 id="资源方"><a href="#资源方" class="headerlink" title="资源方"></a>资源方</h4><p>分布式事务中负责管理本地资源（例如对于库存服务来说，库存就是本地资源）、执行资源锁定、核销或回滚操作。资源方都需要实现 <code>Try()</code>、<code>Confirm()</code>、<code>Cancel()</code> 三个接口, 下面简述一下每个接口需要承担的责任；</p>
+<blockquote>
+<ol>
+<li>Try(): 当分布式事务开启时，事务协调方会调用所有资源方的<code>Try()</code>进行「资源锁定」；资源方需要保证只要<code>Try()</code>调用成功，后续的<code>Confirm</code>、<code>Cancel()</code>能够对「被锁定的资源」进行核销或释放。</li>
+<li>Confirm(): 用于提交分布式事务，核销前面通过<code>Try()</code>锁定的资源。</li>
+<li>Cancel(): 用于回滚分布式事务，释放前面通过<code>Try()</code>锁定的资源。</li>
+</ol>
+</blockquote>
+<h3 id="2-2-工作流程"><a href="#2-2-工作流程" class="headerlink" title="2.2 工作流程"></a>2.2 工作流程</h3><p>下面描述一下正常的工作流程，即所有服务不出现异常的情况</p>
+<h4 id="2-2-1-分布式事务开启"><a href="#2-2-1-分布式事务开启" class="headerlink" title="2.2.1 分布式事务开启"></a>2.2.1 分布式事务开启</h4><p>分布式事务开启，事务协调方调用所有资源方的<code>Try()</code>接口，以上述用户购买商品作为示例：<br><img data-src="/../images/dtran/image3.png" alt="alt text"></p>
+<blockquote>
+<p>所有资源方都响应成功：</p>
+<ol>
+<li>库存服务（资源方）锁定库存成功，库存状态标记为「锁定中」；</li>
+<li>积分服务（资源方）锁定积分成功，积分状态标记为「锁定中」；</li>
+<li>订单服务（事务协调方）发现所有资源方都响应成功，接着便开始创建订单，然后向支付渠道发起支付请求，订单标记为「未支付」；等待用户完成真正的支付。<ul>
+<li>从发起支付到用户真正完成支付这个过程一般是异步的，订单服务需要等待支付的结果（成功&#x2F;失败）来决定后续是对资源方发起 <code>Confirm()</code> 进行资源核销还是发起 <code>Cancel()</code> 进行资源释放。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h4 id="2-2-2-分布式事务提交"><a href="#2-2-2-分布式事务提交" class="headerlink" title="2.2.2 分布式事务提交"></a>2.2.2 分布式事务提交</h4><p><img data-src="/../images/dtran/image4.png" alt="alt text"></p>
+<blockquote>
+<p>假设用户顺利完成支付，订单服务则标识订单为「已支付」，并且对资源方发起<code>Confirm()</code> 请求对资源进行核销；</p>
+<ol>
+<li>库存服务（资源方）正式扣减库存，库存状态标记为「已扣减」；</li>
+<li>积分服务（资源方）正式扣减积分，积分状态标记为「已扣减」；</li>
+</ol>
+</blockquote>
+<h4 id="2-2-3-分布式事务回滚"><a href="#2-2-3-分布式事务回滚" class="headerlink" title="2.2.3 分布式事务回滚"></a>2.2.3 分布式事务回滚</h4><p><img data-src="/../images/dtran/image5.png" alt="alt text"></p>
+<blockquote>
+<p>假设用户放弃支付：订单服务则标识订单为「放弃支付」，并且对资源方发起<code>Cancel()</code> 请求对资源进行释放：</p>
+<ol>
+<li>库存服务（资源方）释放锁定库存，库存状态标记为「已释放」；</li>
+<li>积分服务（资源方）释放锁定积分，积分状态标记为「已释放」；</li>
+</ol>
+<p>被释放出来的资源则可以继续被其他用户进行锁定-核销&#x2F;释放</p>
+</blockquote>
+<h3 id="2-3-异常场景"><a href="#2-3-异常场景" class="headerlink" title="2.3 异常场景"></a>2.3 异常场景</h3><p>上述都是各个服务都能够正常响应、正常处理业务逻辑的成功场景；一切都很美好，但实际上可能会存在各种各样的异常场景，例如：</p>
+<ol>
+<li>有可能 <code>Try()</code> 请求应答成功了，但是后续的 <code>Confirm()</code>&#x2F;<code>Cancel()</code> 无论怎么调也调用失败，资源一直处于锁定中。</li>
+<li>有可能作为事务协调方的订单服务挂了，原本对库存服务已经调用<code>Try()</code>进行资源锁定，重启之后因为丢失了上一次调用的结果，又重新调用了一次，一个订单锁定了两份资源</li>
+<li>….</li>
+</ol>
+<p>我们针对每个步骤可能出现的异常做一下分析：</p>
+<h4 id="2-3-1-Try-阶段"><a href="#2-3-1-Try-阶段" class="headerlink" title="2.3.1 Try 阶段"></a>2.3.1 Try 阶段</h4><h5 id="部分资源方返回成功，部分资源方返回失败"><a href="#部分资源方返回成功，部分资源方返回失败" class="headerlink" title="部分资源方返回成功，部分资源方返回失败"></a>部分资源方返回成功，部分资源方返回失败</h5><p>情况1：<br><img data-src="/../images/dtran/image6.png" alt="alt text"><br>资源方明确返回资源不充足，此时事务无法开启，需要通知<code>Try()</code>返回成功的资源方进行资源释放，即调用 <code>Cancel()</code>.</p>
+<p>情况2：<br><img data-src="/../images/dtran/image7.png" alt="alt text"><br>超时导致的失败，则此次<code>Try()</code>调用有可能成功到达了资源方，也有可能因为网络问题最终没有到达资源方；但是对于事务协调方来说，就是调用 <code>Try()</code> 失败了；需要对所有资源方调用 <code>Cancel()</code> 进行资源释放。</p>
+<p>情况3：<br><img data-src="/../images/dtran/image8.png" alt="alt text"><br><code>Try()</code> 最终因为网络原因没有到达积分服务，此时接收到 <code>Cancel()</code> 请求，对于积分服务来说，没有任何资源可以支持回滚。</p>
+<blockquote>
+<p>资源方的<code>Cancel()</code> 接口需要能够支持空回滚。</p>
+</blockquote>
+<p>情况4：<br><img data-src="/../images/dtran/image9.png" alt="alt text"></p>
+<ol>
+<li>刚开始调用<code>Try()</code>超时了，事务协调方调用<code>Cancel()</code>进行资源释放。</li>
+<li>在收到 <code>Cancel()</code> 之后，前面在网络中迷失的<code>Try()</code>请求又到达了积分服务；如果积分服务执行 <code>Try()</code> 成功，就会把资源给锁定了，并且对于事务协调方来说，分布式事务已经执行完成了，不会再有后续的 <code>Confirm()</code>&#x2F;<code>Cancel()</code> 来对资源核销或者释放了；这个是因为网络原因导致的 <strong>乱序问题</strong>。</li>
+</ol>
+<blockquote>
+<p>资源方需要对每一次的<code>Cancel()</code>做好记录，当先执行的<code>Cancel()</code> 后执行的 <code>Try()</code> 的时候，能够识别不至于造成资源被锁定无法释放。</p>
+</blockquote>
+<h4 id="2-3-2-Confirm-阶段"><a href="#2-3-2-Confirm-阶段" class="headerlink" title="2.3.2 Confirm 阶段"></a>2.3.2 Confirm 阶段</h4><p>作为事务协调方（订单服务），在进入<code>Confirm</code> 阶段之后，一定要确保通知所有资源方执行 <code>Confirm()</code> 进行事务的提交；</p>
+<h5 id="Confirm-调用失败"><a href="#Confirm-调用失败" class="headerlink" title="Confirm 调用失败"></a>Confirm 调用失败</h5><p>同 <code>Try</code> 阶段，因为存在网络&#x2F;资源方服务状态这些不可控因素，无法确保 <code>Confirm()</code> 调用一定是成功的。<br><img data-src="/../images/dtran/image10.png" alt="alt text"><br>对于事务协调方来说，调用结果是失败的，积分服务是否成功无法感知，但是事务协调方不可能一直等待某个资源方的 <code>Confirm()</code> 响应成功。</p>
+<p>此时，可以通过引入消息队列组件, 利用消息队列能够确保消息最低能够被消费一次的特性，让资源方自行监听消息，收到<code>Confirm</code>的消息，自行调用 <code>Confirm()</code> 逻辑， 完成<code>Confirm</code>阶段。如下图所示：<br><img data-src="/../images/dtran/image11.png" alt="alt text"><br>这里同样有一个问题：订单服务（事务协调方）和消息队列 Broker同样是部署在不同的节点上，同样存在不确定性，如何确保消息一定发送出来呢？例如下列场景：</p>
+<blockquote>
+<ol>
+<li>Try 阶段完成，库存锁定成功、用户积分锁定成功、对应的订单创建成功，并且订单状态为「未支付」。</li>
+<li>用户完成支付，此时事务要进入<code>Confirm</code> 阶段，开始调用资源方的 <code>Confirm()</code> 接口进行事务提交。</li>
+<li>大部分情况下，调用都很顺利；此时事务顺利完成。</li>
+<li>如果资源方的<code>Confirm()</code>接口调用失败，则往消息队列投递消息将其转化成异步消息实现<strong>最终一致</strong>，成功投递之后则更新订单状态为「已支付」，后续等待资源方消费消息完成资源核销即可。</li>
+<li>调用 <code>Confirm()</code> 接口失败之后，转化成投递异步消息，假设这个时候消息队列挂了，消息发不出去了，没办法通知资源方了，并且如果订单服务需要一直等待这个发送成功，则订单状态一直无法更新为「已支付」。</li>
+</ol>
+</blockquote>
+<p>针对上述第五步的情况，可以通过引入<code>本地消息表</code> 来解决，具体怎么做呢？</p>
+<p><img data-src="/../images/dtran/image12.png" alt="alt text"></p>
+<blockquote>
+<ol>
+<li>在调用资源方 <code>Confirm()</code> 接口出现异常的时候，借助消息队列最少能消费一次的特性，发送「补偿」消息，延后通知资源方进行核销, 实现最终一致性；并且此时订单状态更新为「已支付」。</li>
+<li>如果发送「补偿」消息失败，则生成一条状态为「待发送」的消息记录到数据库，标识事务还有一个「补偿」消息没有完成发送；并且将存储「补偿」消息的动作和更新订单状态为「已支付」放到<strong>同一个本地事务</strong>里，要么一起成功、要么就一起失败；</li>
+<li>然后另起一个定时任务来扫描「本地消息表」里「待发送」的消息记录，然后去做补偿发送消息。</li>
+</ol>
+</blockquote>
+<h4 id="2-3-3-Cancel-阶段"><a href="#2-3-3-Cancel-阶段" class="headerlink" title="2.3.3 Cancel 阶段"></a>2.3.3 Cancel 阶段</h4><p>其实<code>Cancel()</code>阶段和<code>Confirm()</code>阶段可能产生的异常类似，事务协调方都需要保证<code>Cancel()</code>通知到位；</p>
+<h2 id="3-最后"><a href="#3-最后" class="headerlink" title="3. 最后"></a>3. 最后</h2><p>对于分布式架构的服务，整体成功率受到网络稳定性、各个节点服务自身的稳定性所影响，可能存在相同的请求重复请求多次、相同消息进行多次投递，这个要求各个资源方的 <code>Try-Confirm-Cancel</code> 接口需要做好幂等性；并且针对可能出现的请求乱序到达场景，需要做判断处理；其实上面只是列举到了一些常见的异常场景，还有可能存在更多更极端的情况，不能死记硬背，要理解每一种方式解决问题的本质是什么，可以用哪种方法来优化处理；</p>
+<p>多多思考，多多学习</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>OneCastle
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://onecastle.cn/2024/12/16/%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="对分布式事务的一些思考">https://onecastle.cn/2024/12/16/对分布式事务的一些思考/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/TCC/" rel="tag"># TCC</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag"># 分布式事务</a>
+              <a href="/tags/%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" rel="tag"># 事务消息</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/12/IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B8%8E%20Reactor%20%E6%A8%A1%E5%BC%8F/" rel="prev" title="IO 多路复用与 Reactor 模式">
+                  <i class="fa fa-angle-left"></i> IO 多路复用与 Reactor 模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/12/22/%E5%AF%B9%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" rel="next" title="对多级缓存的一些思考">
+                  对多级缓存的一些思考 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">OneCastle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"onecastle.cn","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="周志明的《深入理解 Java 虚拟机》作为 Java 必读经典，很惭愧直到工作两年多以后才第一次拜读，不得不说，写的确实好！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读《深入理解 Java 虚拟机》的一些思考">
+<meta property="og:url" content="https://onecastle.cn/2025/01/12/%E8%AF%BB%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="OneCastle&#96;s blog">
+<meta property="og:description" content="周志明的《深入理解 Java 虚拟机》作为 Java 必读经典，很惭愧直到工作两年多以后才第一次拜读，不得不说，写的确实好！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://onecastle.cn/images/jvm/image1.png">
+<meta property="article:published_time" content="2025-01-12T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-26T15:55:27.000Z">
+<meta property="article:author" content="OneCastle">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="深入理解 Java 虚拟机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://onecastle.cn/images/jvm/image1.png">
+
+
+<link rel="canonical" href="https://onecastle.cn/2025/01/12/%E8%AF%BB%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://onecastle.cn/2025/01/12/%E8%AF%BB%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/","path":"2025/01/12/读《深入理解 Java 虚拟机》的一些思考/","title":"读《深入理解 Java 虚拟机》的一些思考"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>读《深入理解 Java 虚拟机》的一些思考 | OneCastle`s blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OneCastle`s blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书使人充实，思考使人深邃</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%BB%E8%BF%99%E6%9C%AC%E4%B9%A6"><span class="nav-text">1. 为什么读这本书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-JVM-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">2. JVM 是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E4%BA%86%E8%A7%A3-JVM"><span class="nav-text">3. 为什么要学习了解 JVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-JVM-%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-text">4. JVM 重要知识点</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">OneCastle</p>
+  <div class="site-description" itemprop="description">记录成长的点滴，分享技术的思考</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OneCastle5280" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OneCastle5280" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://onecastle.cn/2025/01/12/%E8%AF%BB%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="OneCastle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OneCastle`s blog">
+      <meta itemprop="description" content="记录成长的点滴，分享技术的思考">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="读《深入理解 Java 虚拟机》的一些思考 | OneCastle`s blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          读《深入理解 Java 虚拟机》的一些思考
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-12 00:00:00" itemprop="dateCreated datePublished" datetime="2025-01-12T00:00:00+00:00">2025-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-26 15:55:27" itemprop="dateModified" datetime="2025-02-26T15:55:27+00:00">2025-02-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">深入理解 Java 虚拟机</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>周志明的《<a target="_blank" rel="noopener" href="https://book.douban.com/subject/34907497/">深入理解 Java 虚拟机</a>》作为 Java 必读经典，很惭愧直到工作两年多以后才第一次拜读，不得不说，写的确实好！</p>
+<span id="more"></span>
+
+<h3 id="1-为什么读这本书"><a href="#1-为什么读这本书" class="headerlink" title="1. 为什么读这本书"></a>1. 为什么读这本书</h3><p>首先想先讲讲为什么读这本书，我22 年毕业，大学期间对 Java 的学习程度只能说是会一点皮毛，对 Java 很多底层运行逻辑并不算太熟悉，大学毕业为了找工作，也会在网上看一些博客讲解 JVM 相关的知识，不过这些博客整体知识点还是很零散，不够系统，对底层工作原理其实还是有很多不了解的；在有一定工作经验之后，想要对 JVM 的知识有一个更加系统的认识和更深的理解，于是了解到这本 Java 必读经典~</p>
+<h3 id="2-JVM-是什么"><a href="#2-JVM-是什么" class="headerlink" title="2. JVM 是什么"></a>2. JVM 是什么</h3><p>JVM，即 <code>Java Virtual Machine</code> ，Java 虚拟机，Java 是运行在 JVM 上的，JVM 才是运行在操作系统之上，大体层次如下：</p>
+<p><img data-src="/../images/jvm/image1.png" alt="alt text"></p>
+<p>相比较 C&#x2F;C++，C&#x2F;C++ 在编译之后是转化成「特定平台的本地机器码」，由操作系统来加载并执行；</p>
+<p>C&#x2F;C++ 在不同平台生成的机器码「不完全」相同，相较于 Java 而言，C&#x2F;C++ 跨平台的能力较低，因为 Java 是运行在 JVM 上，Java 代码在真正执行之前，会先编译成「与平台无关的字节码」，字节码是 JVM 识别的语言，然后再由 JVM 将字节码转义成「相应平台的本地机器码」，由 JVM 来抹平不同平台机器码不一样的差异性，使得 Java 的跨平台性较强（一次编译，多处运行）；</p>
+<p>Java 开发者也可以更加关注逻辑部分的开发，底层运行的差异性已经由「不同版本」的 JVM「抹平」了。</p>
+<p>所以，一句话总结 JVM 就是 Java 代码运行的「容器」，是一层中间抽象层，JVM 是真正对接操作系统的“软件”。</p>
+<h3 id="3-为什么要学习了解-JVM"><a href="#3-为什么要学习了解-JVM" class="headerlink" title="3. 为什么要学习了解 JVM"></a>3. 为什么要学习了解 JVM</h3><p>JVM 作为 Java 代码运行的「容器」，为了能够帮助 Java 程序能够更加高效的运行，引入了内存管理、垃圾回收、类加载机制等高级特性，如果对这些特性没有任何程度的理解的话，也很难写出高效代码，对底层原理没有了解，不知所以然，很容易写出来有问题的代码~</p>
+<ul>
+<li><p>在了解 JVM 工作原理之后，当服务运行出现了 GC 频繁、FullGC 低效回收垃圾等问题时，利用 JVM 提供的各种排查工具，分析内存情况，分析可能出现问题的代码；</p>
+</li>
+<li><p>了解 JVM 工作原理，能够根据 JVM 提供出来的参数，根据业务属性来对 JVM 进行「调整」（JVM 调优），让 JVM 运行的更加“健康”；</p>
+</li>
+<li><p>了解 JVM 的类加载机制，就能够更好的理解 Java 反射 API 、动态代理、动态字节码生成等功能的底层原理；</p>
+</li>
+</ul>
+<h3 id="4-JVM-重要知识点"><a href="#4-JVM-重要知识点" class="headerlink" title="4. JVM 重要知识点"></a>4. JVM 重要知识点</h3><p>&#x2F;&#x2F; TODO</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>OneCastle
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://onecastle.cn/2025/01/12/%E8%AF%BB%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="读《深入理解 Java 虚拟机》的一些思考">https://onecastle.cn/2025/01/12/读《深入理解 Java 虚拟机》的一些思考/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+              <a href="/tags/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag"># 深入理解 Java 虚拟机</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/05/TCP%20%E7%9A%84%E3%80%8C%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5%E3%80%8D/" rel="prev" title="TCP 的「三握四挥」">
+                  <i class="fa fa-angle-left"></i> TCP 的「三握四挥」
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/01/17/%E3%80%90JVM%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86/" rel="next" title="【JVM】 内存管理之区域划分">
+                  【JVM】 内存管理之区域划分 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">OneCastle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

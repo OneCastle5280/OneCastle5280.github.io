@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"onecastle.cn","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="TCP 是「有状态」的传输协议，相比较于 UDP， TCP 在真正的数据传输之前，需要通讯双方进行「三次握手」建立连接之后才能进行数据传输；数据传输完成，需要经过「四次挥手」连接才完成释放；有没有思考过为什么 TCP 要建立连接？为什么“握手”是三次、而“挥手”而是四次？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP 的「三握四挥」">
+<meta property="og:url" content="https://onecastle.cn/2025/01/05/TCP%20%E7%9A%84%E3%80%8C%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5%E3%80%8D/index.html">
+<meta property="og:site_name" content="OneCastle&#96;s blog">
+<meta property="og:description" content="TCP 是「有状态」的传输协议，相比较于 UDP， TCP 在真正的数据传输之前，需要通讯双方进行「三次握手」建立连接之后才能进行数据传输；数据传输完成，需要经过「四次挥手」连接才完成释放；有没有思考过为什么 TCP 要建立连接？为什么“握手”是三次、而“挥手”而是四次？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image1.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image2.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image3.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image4.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image5.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image7.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image8.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image6.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image9.png">
+<meta property="og:image" content="https://onecastle.cn/images/tcp34/image10.png">
+<meta property="article:published_time" content="2025-01-05T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-01-09T14:19:23.000Z">
+<meta property="article:author" content="OneCastle">
+<meta property="article:tag" content="TCP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://onecastle.cn/images/tcp34/image1.png">
+
+
+<link rel="canonical" href="https://onecastle.cn/2025/01/05/TCP%20%E7%9A%84%E3%80%8C%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5%E3%80%8D/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://onecastle.cn/2025/01/05/TCP%20%E7%9A%84%E3%80%8C%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5%E3%80%8D/","path":"2025/01/05/TCP 的「三握四挥」/","title":"TCP 的「三握四挥」"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>TCP 的「三握四挥」 | OneCastle`s blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">OneCastle`s blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书使人充实，思考使人深邃</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5"><span class="nav-text">1. 为什么需要建立连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">2. 建立连接的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%89%E6%AC%A1%E3%80%8C%E6%8F%A1%E6%89%8B%E3%80%8D%EF%BC%9F"><span class="nav-text">2.1 为什么是三次「握手」？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83%E5%8F%AF%E7%94%A8"><span class="nav-text">A. 网络环境可用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-%E7%A1%AE%E8%AE%A4%E3%80%8C%E8%B5%B7%E5%A7%8B%E5%BA%8F%E5%8F%B7%E3%80%8D%E3%80%81%E3%80%8C%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F%E3%80%8D"><span class="nav-text">B. 确认「起始序号」、「窗口大小」</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E3%80%8C%E6%8F%A1%E6%89%8B%E3%80%8D%E8%BF%87%E7%A8%8B%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8"><span class="nav-text">2.2 「握手」过程出现异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%BC%82%E5%B8%B8"><span class="nav-text">A. 第一次握手异常</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97"><span class="nav-text">半连接队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97"><span class="nav-text">全连接队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SYN-%E6%94%BB%E5%87%BB"><span class="nav-text">SYN 攻击</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%BC%82%E5%B8%B8"><span class="nav-text">B. 第二次握手异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-%E7%AC%AC%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%BC%82%E5%B8%B8"><span class="nav-text">C. 第三次握手异常</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0"><span class="nav-text">服务端超时重传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE"><span class="nav-text">客户端发送数据</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%87%8A%E6%94%BE%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">3. 释放连接的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%9B%E6%AC%A1%E3%80%8C%E6%8C%A5%E6%89%8B%E3%80%8D%EF%BC%9F"><span class="nav-text">3.1 为什么是四次「挥手」？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E3%80%8C%E6%8C%A5%E6%89%8B%E3%80%8D%E8%BF%87%E7%A8%8B%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8"><span class="nav-text">3.2 「挥手」过程出现异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8C%A5%E6%89%8B%E5%BC%82%E5%B8%B8"><span class="nav-text">A. 第一次挥手异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%8C%A5%E6%89%8B%E5%BC%82%E5%B8%B8"><span class="nav-text">B. 第二次挥手异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-%E7%AC%AC%E4%B8%89%E6%AC%A1%E6%8C%A5%E6%89%8B%E5%BC%82%E5%B8%B8"><span class="nav-text">C. 第三次挥手异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#D-%E7%AC%AC%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E5%BC%82%E5%B8%B8"><span class="nav-text">D. 第四次挥手异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#E-%E5%BC%82%E5%B8%B8%E5%B0%8F%E7%BB%93"><span class="nav-text">E. 异常小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%AD%89%E5%BE%85-2MSL"><span class="nav-text">3.3 为什么要等待 2MSL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E9%81%BF%E5%85%8D%E5%8E%86%E5%8F%B2%E6%8A%A5%E6%96%87%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%96%B0%E9%93%BE%E6%8E%A5%E4%B8%AD"><span class="nav-text">A. 避免历史报文出现在新链接中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-%E3%80%8C%E5%B0%BD%E9%87%8F%E3%80%8D%E8%AE%A9%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B9%9F%E6%AD%A3%E5%B8%B8%E5%85%B3%E9%97%AD"><span class="nav-text">B. 「尽量」让服务端也正常关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-1-MSL-%E5%8F%AF%E4%BB%A5%E5%90%97%EF%BC%9F"><span class="nav-text">C.  1 MSL 可以吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#D-3%E3%80%814%E3%80%815-MSL%E5%8F%AF%E4%BB%A5%E5%90%97%EF%BC%9F"><span class="nav-text">D. 3、4、5 MSL可以吗？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9C%80%E5%90%8E"><span class="nav-text">4. 最后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">OneCastle</p>
+  <div class="site-description" itemprop="description">记录成长的点滴，分享技术的思考</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OneCastle5280" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OneCastle5280" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://onecastle.cn/2025/01/05/TCP%20%E7%9A%84%E3%80%8C%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5%E3%80%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="OneCastle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OneCastle`s blog">
+      <meta itemprop="description" content="记录成长的点滴，分享技术的思考">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="TCP 的「三握四挥」 | OneCastle`s blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TCP 的「三握四挥」
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-05 00:00:00" itemprop="dateCreated datePublished" datetime="2025-01-05T00:00:00+00:00">2025-01-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-01-09 14:19:23" itemprop="dateModified" datetime="2025-01-09T14:19:23+00:00">2025-01-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>TCP 是「有状态」的传输协议，相比较于 UDP， TCP 在真正的数据传输之前，需要通讯双方进行「三次握手」建立连接之后才能进行数据传输；数据传输完成，需要经过「四次挥手」连接才完成释放；有没有思考过为什么 TCP 要建立连接？为什么“握手”是三次、而“挥手”而是四次？</p>
+<span id="more"></span>
+
+<h2 id="1-为什么需要建立连接"><a href="#1-为什么需要建立连接" class="headerlink" title="1. 为什么需要建立连接"></a>1. 为什么需要建立连接</h2><p>无论是 TCP&#x2F;IP 四层分层模型，还是 OSI 七层分层模型，TCP 都是处于「传输层」的协议，「网络层」的 IP 是不可靠的，其并不能保证数据包一定能够成功被接收方所接收；数据包在网络传输过程中，有可能丢失；在 <a href="https://onecastle.cn/2024/12/26/%E5%AF%B9%20TCP%20%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/#more">TCP 是如何实现可靠传输的</a> 这篇文章中，我们知道TCP 通过引入序号机制、ACK 应答机制、滑动窗口和拥塞控制能够做到在错综复杂的网络中实现「可靠」传输；通过「建立连接」的过程，能够明确以下几种场景：</p>
+<ol>
+<li><strong>明确通信双方所在的网络环境是可以实现通信的</strong>，并不存在通信双方网络不通等情况；</li>
+<li><strong>明确通信双方的「起始序号」</strong>，TCP 通过序号机制来保证不重复接收数据、不丢失数据、有序地接收数据交付给到「应用层」；</li>
+<li><strong>明确通信双方初始「窗口」大小</strong>，避免传输一开始就大量的传输数据，超出接收方的处理速度，这些超出的数据报文会被丢弃，造成资源浪费；</li>
+</ol>
+<p>可以看到，建立连接的过程，本质上还是在确认实现「可靠」传输的基本要素：起始序号、滑动窗口大小</p>
+<h2 id="2-建立连接的过程"><a href="#2-建立连接的过程" class="headerlink" title="2. 建立连接的过程"></a>2. 建立连接的过程</h2><p><img data-src="/../images/tcp34/image1.png" alt="img.png"></p>
+<ol>
+<li>【第一次握手】客户端「随机生成」起始序号 X，确认窗口大小为 A，发送 SYN 控制报文给服务端，客户端进入 <code>SYNC_SENT</code> 阶段，等待服务端返回 ACK 报文；</li>
+<li>【第二次握手】服务端成功收到 SYN 控制报文以后，ACK 序号为 X+1，同时「随机生成」起始序号为 Y，确认窗口大小为 B，发送 ACK 控制报文给到客户端，服务端进入<code>SYNC_RCVD</code> 阶段，等待客户端返回 ACK 报文；</li>
+<li>【第三次握手】客户端成功收到 ACK 控制报文以后，发送 ACK 控制报文，ACK 序号为 Y+1， 对于客户端来说连接已成功建立，进入 <code>ESTABLISHED</code> 阶段，已经可以开始数据传输了; </li>
+<li>服务端成功收到 ACK 控制报文以后，对于服务端来说连接也已经成功建立，进入 <code>ESTABLISHED</code> 阶段，可以开始数据传输了。</li>
+</ol>
+<p>其中，起始序号是基于时钟生成的「时间值」+ 「TCP 四元组」经过 Hash 算法计算生成的，每一个时刻的起始序号都不一样~</p>
+<h3 id="2-1-为什么是三次「握手」？"><a href="#2-1-为什么是三次「握手」？" class="headerlink" title="2.1 为什么是三次「握手」？"></a>2.1 为什么是三次「握手」？</h3><p>首先，为什么建立连接的过程是三次，不是两次或者四次、五次？</p>
+<p>我们上面提到建立连接的过程，实际上是确认通信双方的「起始序号」、「窗口大小」、「网络环境可用」</p>
+<h4 id="A-网络环境可用"><a href="#A-网络环境可用" class="headerlink" title="A. 网络环境可用"></a>A. 网络环境可用</h4><p>对于通信双方来说，最低三次「握手」才能够确认双方都能够接收到消息：</p>
+<ol>
+<li>对于客户端来说，发出去的 SYN 控制报文，只有成功接收到服务端的 ACK 控制报文，才能确认本身能够成功发送报文、能够成功接收报文，即「接发」能力正常；</li>
+<li>对于服务端来说，只有收到来自客户端的 ACK 报文，才能确认本身能够成功发送报文、能够成功接收报文，即「接发」能力正常；</li>
+</ol>
+<p>能确认双方「接发」能力正常的最低发送次数为三次，两次只能确认一方的「接发」能力正常；当然四次、五次也可以，只是「没有必要」。</p>
+<h4 id="B-确认「起始序号」、「窗口大小」"><a href="#B-确认「起始序号」、「窗口大小」" class="headerlink" title="B. 确认「起始序号」、「窗口大小」"></a>B. 确认「起始序号」、「窗口大小」</h4><p>起始序号和窗口大小本质上是一样的，属于数据传输的起始数据；<br>无论是对于客户端来说、还是对服务端来说，都只有接收到了来自服务端的 ACK 控制报文，才能确认自己发送的「起始序号」成功被对方感知。</p>
+<h3 id="2-2-「握手」过程出现异常"><a href="#2-2-「握手」过程出现异常" class="headerlink" title="2.2 「握手」过程出现异常"></a>2.2 「握手」过程出现异常</h3><h4 id="A-第一次握手异常"><a href="#A-第一次握手异常" class="headerlink" title="A. 第一次握手异常"></a>A. 第一次握手异常</h4><p>我们知道 TCP 有「超时重传」机制，在客户端发送完 SYN 控制报文想要建立连接时，如果因为「网络原因」，在规定的时间内没有收到相应的 ACK 报文，会触发重传机制，重新发送 SYN 控制报文；这种情况下，发送了两个 SYN 控制报文；假设为 SYN 1 、SYN 2，可能会有以下几种情况：</p>
+<ol>
+<li><p>只有 SYN 1 或者 SYN 2 到达服务端<br>如果只有 SYN 1&#x2F; SYN 2 成功抵达服务端，则服务端只会处理这个最新的 SYN 报文，正常进行三次握手建立连接</p>
+</li>
+<li><p>SYN 1 和 SYN 2 都到达服务端<br>服务端会为每个 SYN 报文创建一个新的连接记录<strong>半连接队列</strong>，如果两个 SYN 报文都到达了服务端，因为这两个 SYN 来自同一源 IP 地址和端口，且目标相同的 IP 地址和端口，所以它们实际上是试图建立同一个连接；服务端能够根据<strong>半连接队列</strong>识别到两个 SYN 是重复的，会从中选择一个 SYN 报文进行处理。</p>
+</li>
+<li><p>SYN 1 最终也到达服务端<br>如果最初的 SYN 1在网络中滞留了一段时间后终于到达服务端，而此时服务端已经通过SYN 2与客户端建立了连接，服务端能够根据<strong>全连接队列</strong>识别到这是一个重复的SYN，并将其视为无效，并且返回一个RST 报文给客户端，指示该 SYN 不再有效。</p>
+</li>
+</ol>
+<p>上面提到了<strong>半连接队列</strong>和<strong>全连接队列</strong>，这两个是什么东西？</p>
+<h5 id="半连接队列"><a href="#半连接队列" class="headerlink" title="半连接队列"></a>半连接队列</h5><ul>
+<li>当客户端发起第一次握手请求时（即 SYN 报文），服务端会将此次握手的相关信息存储到一个队列中，这个队列就是「<strong>半连接队列</strong>」</li>
+<li>相关信息中就包含了 TCP 四元组： 目的 IP 地址、源 IP 地址、目的端口、源端口</li>
+</ul>
+<h5 id="全连接队列"><a href="#全连接队列" class="headerlink" title="全连接队列"></a>全连接队列</h5><ul>
+<li>当服务端收到来自客户端的第三次握手（即 ACK 报文），服务端会将此次握手的相关信息存储到一个队列中，这个队列就是「<strong>全连接队列</strong>」</li>
+</ul>
+<h5 id="SYN-攻击"><a href="#SYN-攻击" class="headerlink" title="SYN 攻击"></a>SYN 攻击</h5><p>这两个队列是维护在服务端中，并且队列都存在最大数量上限，服务端不可能支撑无限多的 TCP 连接，从而引申出 <strong>SYN 攻击</strong>：攻击方只发 SYN 报文，不回应 ACK，对于服务端来说，收到 SYN 报文之后，会将其加入到半连接队列中，并且会返回携带  SYN 的 ACK 报文给客户端，服务端无法分辨是否为攻击，只能傻傻等待；攻击方只要大量的发送 SYN 报文，服务端的半连接队列很容易就被堆满，对于正常的 SYN 报文，服务端半连接队列已经无法容纳了~</p>
+<p>那怎么来处理这种攻击呢？留给你思考思考hhh</p>
+<h4 id="B-第二次握手异常"><a href="#B-第二次握手异常" class="headerlink" title="B. 第二次握手异常"></a>B. 第二次握手异常</h4><p>对于成功到达服务端的 SYN 报文，服务端会将其记录在半连接队列中，随后返回携带 SYN 的 ACK 报文给到客户端，如果这个报文在网络中丢失了：</p>
+<p>对于客户端来说，因为没有收到 ACK 报文，在超过 RTO 时间之后，会触发「超时重传」，重发 SYN 报文，如下图：<br><img data-src="/../images/tcp34/image2.png" alt="img.png"></p>
+<p>对于服务端来说，因为没有收到来自客户端的 ACK 报文，在超过 RTO 时间之后，同样会触发「超时重传」，在重传超过「一定次数」之后，服务端会认为握手失败，放弃此次连接请求；如下图：<br><img data-src="/../images/tcp34/image3.png" alt="img.png"></p>
+<h4 id="C-第三次握手异常"><a href="#C-第三次握手异常" class="headerlink" title="C. 第三次握手异常"></a>C. 第三次握手异常</h4><p>客户端在回复完 ACK 报文之后，就进入 <code>ESTABLISHED</code> 阶段了，认为已经成功建立起连接，开始发送数据了，假如回复的 ACK 报文丢失在网络中，会造成服务端并不知道自己的第二次握手是否成功抵达；超过「RTO」时间还是没有收到 ACK 报文就会「超时重传」。</p>
+<h5 id="服务端超时重传"><a href="#服务端超时重传" class="headerlink" title="服务端超时重传"></a>服务端超时重传</h5><p>服务端在超过 RTO 时间之后还是没有收到 ACK 包，就会触发「超时重传」。</p>
+<h5 id="客户端发送数据"><a href="#客户端发送数据" class="headerlink" title="客户端发送数据"></a>客户端发送数据</h5><p>客户端发送第三次握手的 ACK 报文之后，就会进入 <code>ESTABLISHED</code> 阶段，开始发送数据，如果后续的数据报文能够成功被服务端接收，那服务端就不会继续依赖第三次握手的 ACK 报文，自动切换状态到 <code>ESTABLISHED</code> 阶段</p>
+<p><img data-src="/../images/tcp34/image4.png" alt="img.png"></p>
+<h2 id="3-释放连接的过程"><a href="#3-释放连接的过程" class="headerlink" title="3. 释放连接的过程"></a>3. 释放连接的过程</h2><p>上面梳理完了建立连接过程中的「三握」，接下来对释放连接的「四挥」进行梳理；</p>
+<p>释放连接是可以由通讯双方任意一方发起，即可以是客户端，也可以是服务端发起，下面我以客户端主动发起释放为例子进行梳理：<br><img data-src="/../images/tcp34/image5.png" alt="img.png"></p>
+<ol>
+<li>【第一次挥手】客户端主动发起释放，发送 FIN 报文，从 <code>ESTABLISHED</code> 阶段进入 <code>FIN_WAIT_1</code> 阶段，等待 ACK 报文；此时客户端仅接收数据，不再发送数据；</li>
+<li>【第二次挥手】服务端接收到来自客户端的 FIN 报文之后，回复 ACK 报文，从 <code>ESTABLISHED</code> 阶段进入 <code>CLOSE_WAIT</code> 阶段，此时服务端仍可以继续发送和接收数据；</li>
+<li>【第三次挥手】服务端发送 FIN 报文，从 <code>CLOSE_WAIT</code> 阶段进入 <code>LAST_ACK</code> 阶段，等待 ACK 报文；此时服务端仅接收数据，不再发送数据；</li>
+<li>【第四次挥手】客户端接收到来自服务端的 FIN 报文之后，回复 ACK 报文，从<code>FIN_WAIT_2</code> 阶段进入<code>TIME_WAIT</code> 阶段，此时客户端已经不再接收和发送数据；等待 <strong>2MSL</strong> 之后则进入 <code>CLOSE</code> 阶段；服务端接收到 ACK 报文后进入 <code>CLOSE</code> 阶段。</li>
+</ol>
+<h3 id="3-1-为什么是四次「挥手」？"><a href="#3-1-为什么是四次「挥手」？" class="headerlink" title="3.1 为什么是四次「挥手」？"></a>3.1 为什么是四次「挥手」？</h3><p>释放连接可以由任意一方发起，因为 TCP 是全双工通信，客户端可以发送数据，服务端也可以发送数据；客户端发送 FIN 报文，仅仅意味着服务端知道客户端不再继续发送数据了，不意味着服务端不可以继续发送数据了；所以通信双方必定存在通知对方不再发送数据的信号（即 FIN 报文），以及确保对方已经明确收到 FIN 报文的 ACK 报文，即最少 4 个控制报文。（对应四次挥手）</p>
+<h3 id="3-2-「挥手」过程出现异常"><a href="#3-2-「挥手」过程出现异常" class="headerlink" title="3.2 「挥手」过程出现异常"></a>3.2 「挥手」过程出现异常</h3><p>相应的，网络环境从不保证每一次报文都能顺利到达目的地，每一次「挥手」都有可能无法送达</p>
+<h4 id="A-第一次挥手异常"><a href="#A-第一次挥手异常" class="headerlink" title="A. 第一次挥手异常"></a>A. 第一次挥手异常</h4><p>对于客户端来说，超过 RTO 时间之后，还是没有收到 ACK 报文，则会触发「超时重传」，重传超过一定次数之后，会直接进入 <code>CLOSE</code> 阶段，相当于实在无法通知服务端要释放连接了；</p>
+<p>对于服务端来说，并没有收到来自客户端的 FIN 报文，认为还是正常的连接，有可能继续进行发送数据：此时客户端收到来自服务端的数据报文，识别到连接已经断开，会回复 RST 控制报文，通知服务端释放资源。</p>
+<p><img data-src="/../images/tcp34/image7.png" alt="img.png"></p>
+<h4 id="B-第二次挥手异常"><a href="#B-第二次挥手异常" class="headerlink" title="B. 第二次挥手异常"></a>B. 第二次挥手异常</h4><p>即客户端收不到来自服务端的 ACK 报文，超过 RTO 时间之后还是收不到 ACK 报文，客户端会触发「超时重传」；重传超过一定次数之后，客户端还是收不到 ACK 报文，会直接进入 <code>CLOSE</code> 阶段；跟第一次挥手异常类似。</p>
+<p><img data-src="/../images/tcp34/image8.png" alt="img.png"></p>
+<h4 id="C-第三次挥手异常"><a href="#C-第三次挥手异常" class="headerlink" title="C. 第三次挥手异常"></a>C. 第三次挥手异常</h4><p>即服务端的 FIN 报文无法成功送达客户端，客户端无法响应 ACK 报文，超过 RTO 时间之后还是收不到 ACK 报文，服务端会触发「超时重传」，如果重传一直失败：</p>
+<p>对于客户端来说，在收到 ACK 报文之后，就进入 <code>FIN_WAIT_2</code> 阶段，等待服务端的 FIN 报文，如果超时「一定时间」还是没有收到来自服务端的 FIN 报文，客户端就不再等待了，直接进入 <code>CLOSE</code> 阶段，主动释放连接；</p>
+<p>对于服务端来说：在重试超过「一定次数」之后，还是没能收到 ACK，因为已经是第三次握手，也会进入 <code>CLOSE</code> 阶段，释放连接；</p>
+<p><img data-src="/../images/tcp34/image6.png" alt="img.png"></p>
+<h4 id="D-第四次挥手异常"><a href="#D-第四次挥手异常" class="headerlink" title="D. 第四次挥手异常"></a>D. 第四次挥手异常</h4><p>客户端在成功收到来自服务端的 FIN 报文时，则从 <code>FIN_WAIT_2</code> 阶段进入到 <code>TIME_WAIT</code> 阶段，在等待 <strong>2MSL</strong> 之后就会进入 <code>CLOSE</code> 阶段；假设第四次挥手失败，对于服务端来说，没有收到 ACK 报文，会触发「超时重传」机制；重传一定次数之后，客户端还是收不到 ACK 报文，就会直接进入<code>CLOSE</code> 阶段；</p>
+<p><img data-src="/../images/tcp34/image9.png" alt="img.png"></p>
+<h4 id="E-异常小结"><a href="#E-异常小结" class="headerlink" title="E. 异常小结"></a>E. 异常小结</h4><p>可以看到四次挥手，发送 FIN 报文端如果没有收到相应的 ACK 报文，都会触发重传机制，「尽可能」让自己的 FIN 报文抵达，如果经过重试之后还是无法到达，也不会「死等」，会进入到 <code>CLOSE</code> 阶段，因为每一个 TCP 连接都是需要服务端&#x2F;客户端消耗内核资源的（CPU、内存等）</p>
+<h3 id="3-3-为什么要等待-2MSL"><a href="#3-3-为什么要等待-2MSL" class="headerlink" title="3.3 为什么要等待 2MSL"></a>3.3 为什么要等待 2MSL</h3><p>我们可以看到，客户端在成功接收到第三次挥手之后会进入 <code>TIME_WAIT</code> 阶段，在等待<strong>2MSL</strong>之后才会真正的进入<code>CLOSE</code> 阶段，为什么是 2MSL 呢？ 1MSL 可以吗？</p>
+<p>MSL，即 <code>Maximum Segment Lifetime</code> ，最大报文生存时间，它是指报文在网络上存在的最长时间，超过这个时间报文将被丢弃。</p>
+<h4 id="A-避免历史报文出现在新链接中"><a href="#A-避免历史报文出现在新链接中" class="headerlink" title="A. 避免历史报文出现在新链接中"></a>A. 避免历史报文出现在新链接中</h4><p>如果不等待 <strong>2MSL</strong> 才进入 <code>CLOSE</code> 阶段，有可能因为网络原因在网络中滞留的报文延迟到达了客户端，而此时又刚好存在使用相同「TCP 四元组」建立起的连接，就会接收到这个「历史报文」，造成错乱。</p>
+<p><img data-src="/../images/tcp34/image10.png" alt="img.png"></p>
+<h4 id="B-「尽量」让服务端也正常关闭"><a href="#B-「尽量」让服务端也正常关闭" class="headerlink" title="B. 「尽量」让服务端也正常关闭"></a>B. 「尽量」让服务端也正常关闭</h4><p>如果第四次挥手在网络中丢失，在超过 RTO 之后，服务端会「超时重传」，如果不等待 <strong>2MSL</strong> 就进入 <code>CLOSE</code> 阶段，那即使客户端收到重传的「第三次挥手」，也无法正常进行第四次挥手，服务端没有办法走「正常」的关闭流程。</p>
+<h4 id="C-1-MSL-可以吗？"><a href="#C-1-MSL-可以吗？" class="headerlink" title="C.  1 MSL 可以吗？"></a>C.  1 MSL 可以吗？</h4><p>实际上，重要的是客户端在进行第四次挥手之后，不要立即进入 <code>CLOSE</code> 阶段，给服务端一次机会；等待 1 MSL 理论上已经能够覆盖绝大部分因网络超时导致的异常，2 MSL 则是为了能够更加保险；</p>
+<h4 id="D-3、4、5-MSL可以吗？"><a href="#D-3、4、5-MSL可以吗？" class="headerlink" title="D. 3、4、5 MSL可以吗？"></a>D. 3、4、5 MSL可以吗？</h4><p>等待时间太长也存在弊端，处于 <code>TIME_WAIT</code> 阶段的客户端，此时无法接受&#x2F;发送数据，但是内核的资源仍然占用着，也无法发起新的 TCP 连接，CPU、内存、端口都被占用着；如果短时间存在大量连接进入到 <code> TIME_WAIT</code> 阶段，上述影响则会更加明显，所以合理的等待时间也是非常重要的~</p>
+<h2 id="4-最后"><a href="#4-最后" class="headerlink" title="4. 最后"></a>4. 最后</h2><p>写这篇文章，主要还是想要对 TCP 建立连接、释放连接的过程有一个清晰的认识，文中那么多阶段，我想在过一段时间之后肯定会忘记，重要的是梳理这个过程时产生的一些思考~ 继续加油</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>OneCastle
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://onecastle.cn/2025/01/05/TCP%20%E7%9A%84%E3%80%8C%E4%B8%89%E6%8F%A1%E5%9B%9B%E6%8C%A5%E3%80%8D/" title="TCP 的「三握四挥」">https://onecastle.cn/2025/01/05/TCP 的「三握四挥」/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/TCP/" rel="tag"># TCP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/05/%E3%80%90JVM%E3%80%91%E5%B9%B6%E5%8F%91%E6%94%AF%E6%8C%81/" rel="prev" title="【JVM】 并发支持">
+                  <i class="fa fa-angle-left"></i> 【JVM】 并发支持
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/01/12/%E8%AF%BB%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" rel="next" title="读《深入理解 Java 虚拟机》的一些思考">
+                  读《深入理解 Java 虚拟机》的一些思考 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">OneCastle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
